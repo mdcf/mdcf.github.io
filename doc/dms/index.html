@@ -10,8 +10,8 @@
     
     <title>MDCF Device Modeling 1.0 documentation</title>
     
-    <link rel="stylesheet" href="static/default.css" type="text/css" />
-    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -22,9 +22,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="static/jquery.js"></script>
-    <script type="text/javascript" src="static/underscore.js"></script>
-    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="None" href="index.html#document-index" /> 
   </head>
@@ -110,24 +110,26 @@ various parts of DMS; some of the well-formedness are enforced by the Scala
 compiler, while some additional ones are enforced by the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a>, and some
 are (to be) done after the extraction process.</p>
 <div class="figure">
-<a class="reference internal image-reference" href="images/dml-ast.png"><img alt="images/dml-ast.png" src="images/dml-ast.png" style="width: 479.6px; height: 60.0px;" /></a>
+<a class="reference internal image-reference" href="_images/dml-ast.png"><img alt="_images/dml-ast.png" src="_images/dml-ast.png" style="width: 479.6px; height: 60.0px;" /></a>
 <p class="caption">DML AST UML Class Diagram</p>
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="images/API.png"><img alt="images/API.png" src="images/API.png" style="width: 149.1px; height: 131.8px;" /></a>
+<a class="reference internal image-reference" href="_images/API.png"><img alt="_images/API.png" src="_images/API.png" style="width: 149.1px; height: 139.0px;" /></a>
 <p class="caption">DML AST Constructor, Symbol Table, Visitor, XML de/serialization API UML Class Diagram</p>
 </div>
 <div class="section" id="nullity-and-immutability">
 <h5>Nullity and Immutability<a class="headerlink" href="#nullity-and-immutability" title="Permalink to this headline">¶</a></h5>
-<p>All method parameters in all the API are non-null by
+<p>All method parameters in all the DML API are non-null by
 default; these are declared in the respective package infos
 (<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/package-info.java">ast</a>,
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/package-info.java">serialization</a>,
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/package-info.java">symbol</a>). In addition, all objects
-are designed to be immutable (object state changes may occur but not
-observable through the API).</p>
-<p>Each AST node class stores its children in <tt class="docutils literal"><span class="pre">public</span></tt> <tt class="docutils literal"><span class="pre">final</span></tt>
-fields. In addition, each node class inherits from the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/package-info.java">symbol</a>).
+In addition, all DML methods return non-null values.</p>
+<p>All DML objects are immutable (object state changes may occur but not
+observable through the API). Each AST node class stores its children in
+<tt class="docutils literal"><span class="pre">public</span></tt> <tt class="docutils literal"><span class="pre">final</span></tt> fields, which are non-null;
+fields whose type is <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html">String</a> store immutable <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html">String</a> values.
+In addition, each node class inherits from the
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AstNode.java">dml.ast.AstNode</a>, which provides a
 <tt class="docutils literal"><span class="pre">children</span></tt> method that returns an array of the node&#8217;s children;
 the returned array can be mutated but it does not affect the AST node.</p>
