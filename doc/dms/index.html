@@ -10,8 +10,8 @@
     
     <title>MDCF Device Modeling 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -22,9 +22,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="None" href="index.html#document-index" /> 
   </head>
@@ -42,7 +42,7 @@
           <div class="body">
             
   <div class="section" id="welcome-to-mdcf-device-modeling-s-documentation">
-<h1>Welcome to MDCF Device Modeling&#8217;s documentation<a class="headerlink" href="#welcome-to-mdcf-device-modeling-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Welcome to MDCF Device Modeling&#8217;s documentation<a class="headerlink" href="#welcome-to-mdcf-device-modeling-s-documentation" title="Permalink to this headline">��</a></h1>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -56,10 +56,10 @@
 </tbody>
 </table>
 <div class="section" id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">��</a></h2>
 <div class="toctree-wrapper compound">
 <span id="document-language/language"></span><div class="section" id="language-specification-representation-and-api">
-<h3>Language Specification, Representation, and API<a class="headerlink" href="#language-specification-representation-and-api" title="Permalink to this headline">¶</a></h3>
+<h3>Language Specification, Representation, and API<a class="headerlink" href="#language-specification-representation-and-api" title="Permalink to this headline">��</a></h3>
 <p>This section describes how device models can be specified in the Domain Specific
 Language (DML) encoded in Scala (Device Modeling in Scala &#8211; DMS).
 Note that because there are multiple ways to
@@ -91,7 +91,7 @@ The design intentions behind angle bracket&#8217;d rules are explained as
 the production rules using the angle brackets are discussed.</li>
 </ul>
 <div class="section" id="representation-and-api">
-<h4>Representation and API<a class="headerlink" href="#representation-and-api" title="Permalink to this headline">¶</a></h4>
+<h4>Representation and API<a class="headerlink" href="#representation-and-api" title="Permalink to this headline">��</a></h4>
 <p>In addition, for the grammar productions, we describe DML implementation classes
 and API; when referring to such classes, we use
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">dml</a> as a shorthand for the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">edu.ksu.cis.santos.mdcf.dml</a> package.
@@ -110,15 +110,15 @@ various parts of DMS; some of the well-formedness are enforced by the Scala
 compiler, while some additional ones are enforced by the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a>, and some
 are (to be) done after the extraction process.</p>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/dml-ast.png"><img alt="_images/dml-ast.png" src="_images/dml-ast.png" style="width: 479.6px; height: 60.0px;" /></a>
+<a class="reference internal image-reference" href="images/dml-ast.png"><img alt="images/dml-ast.png" src="images/dml-ast.png" style="width: 479.6px; height: 60.0px;" /></a>
 <p class="caption">DML AST UML Class Diagram</p>
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/API.png"><img alt="_images/API.png" src="_images/API.png" style="width: 149.1px; height: 131.8px;" /></a>
+<a class="reference internal image-reference" href="images/API.png"><img alt="images/API.png" src="images/API.png" style="width: 149.1px; height: 131.8px;" /></a>
 <p class="caption">DML AST Constructor, Symbol Table, Visitor, XML de/serialization API UML Class Diagram</p>
 </div>
 <div class="section" id="nullity-and-immutability">
-<h5>Nullity and Immutability<a class="headerlink" href="#nullity-and-immutability" title="Permalink to this headline">¶</a></h5>
+<h5>Nullity and Immutability<a class="headerlink" href="#nullity-and-immutability" title="Permalink to this headline">��</a></h5>
 <p>All method parameters in all the API are non-null by
 default; these are declared in the respective package infos
 (<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/package-info.java">ast</a>,
@@ -133,14 +133,14 @@ fields. In addition, each node class inherits from the
 the returned array can be mutated but it does not affect the AST node.</p>
 </div>
 <div class="section" id="ast-string-representation">
-<h5>AST String Representation<a class="headerlink" href="#ast-string-representation" title="Permalink to this headline">¶</a></h5>
+<h5>AST String Representation<a class="headerlink" href="#ast-string-representation" title="Permalink to this headline">��</a></h5>
 <p>Calling the <tt class="docutils literal"><span class="pre">toString</span></tt> method on an AST node object produces a valid Java and
 Scala code (under the appropriate import context) as a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> that builds
 structurally equivalent AST object.</p>
 </div>
 </div>
 <div class="section" id="model">
-<h4>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h4>
+<h4>Model<a class="headerlink" href="#model" title="Permalink to this headline">��</a></h4>
 <pre>
 <strong id="grammar-token-model">model      </strong> ::=  <a class="reference internal" href="index.html#grammar-token-package"><tt class="xref docutils literal"><span class="pre">package</span></tt></a> <a class="reference internal" href="index.html#grammar-token-imports"><tt class="xref docutils literal"><span class="pre">imports</span></tt></a> <a class="reference internal" href="index.html#grammar-token-declaration"><tt class="xref docutils literal"><span class="pre">declaration</span></tt></a>*
 <strong id="grammar-token-package">package    </strong> ::=  &quot;package&quot; ( ID &quot;.&quot; )* ID
@@ -171,7 +171,7 @@ places, including inside class declarations and expression blocks among others.<
 <p>One can alternatively choose to not import any package elements and always use
 the fully qualified name of package elements.</p>
 <div class="section" id="ast-classes-and-construction">
-<h5>AST Classes and Construction<a class="headerlink" href="#ast-classes-and-construction" title="Permalink to this headline">¶</a></h5>
+<h5>AST Classes and Construction<a class="headerlink" href="#ast-classes-and-construction" title="Permalink to this headline">��</a></h5>
 <p>A model is represented using the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Model.java">Model</a> AST class which
 has a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html">Iterable</a>
 of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Declaration.java">Declarations</a>, which can be either
@@ -312,7 +312,7 @@ code, compiles it (at runtime), and invokes it to produce a structurally
 equivalent model <tt class="docutils literal"><span class="pre">m2</span></tt> with respect to <tt class="docutils literal"><span class="pre">m</span></tt> as shown in at Line 21.</p>
 </div>
 <div class="section" id="ast-extraction">
-<h5>AST Extraction<a class="headerlink" href="#ast-extraction" title="Permalink to this headline">¶</a></h5>
+<h5>AST Extraction<a class="headerlink" href="#ast-extraction" title="Permalink to this headline">��</a></h5>
 <p>Instead of constructing AST manually by hand, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> provides
 <tt class="docutils literal"><span class="pre">extractModel</span></tt> methods that extract DML AST from DMS models.
 More specifically, given an array of package <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> names, they returns
@@ -351,14 +351,14 @@ the extraction process. By default, the <a class="reference external" href="http
 and error streams, respectively).</p>
 </div>
 <div class="section" id="model-well-formedness">
-<h5>Model Well-Formedness<a class="headerlink" href="#model-well-formedness" title="Permalink to this headline">¶</a></h5>
+<h5>Model Well-Formedness<a class="headerlink" href="#model-well-formedness" title="Permalink to this headline">��</a></h5>
 <p>A set of models are well-formed if the all user-defined
 <a class="reference external" href="#grammar-token-basicType">basic types</a>,
 <a class="reference external" href="#grammar-token-feature">features</a>, and
 <a class="reference external" href="#grammar-token-basicType">requirements</a> are well-formed.</p>
 </div>
 <div class="section" id="symboltable">
-<h5>SymbolTable<a class="headerlink" href="#symboltable" title="Permalink to this headline">¶</a></h5>
+<h5>SymbolTable<a class="headerlink" href="#symboltable" title="Permalink to this headline">��</a></h5>
 <p>Given a set of models, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.java">dml.symbol.SymbolTable</a> <tt class="docutils literal"><span class="pre">of</span></tt> method creates an instance of
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.java">dml.symbol.SymbolTable</a> that provides various methods to retrieve DML entities
 such as <a class="reference external" href="#grammar-token-basicType">basic types</a>,
@@ -397,7 +397,7 @@ construction of <a class="reference external" href="https://github.com/mdcf/devi
 <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">online</a>.</p>
 </div>
 <div class="section" id="ast-and-symbol-table-de-serialization">
-<h5>AST and Symbol Table De/serialization<a class="headerlink" href="#ast-and-symbol-table-de-serialization" title="Permalink to this headline">¶</a></h5>
+<h5>AST and Symbol Table De/serialization<a class="headerlink" href="#ast-and-symbol-table-de-serialization" title="Permalink to this headline">��</a></h5>
 <p>The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.java">dml.serialization.XStreamer</a> API provides AST and symbol table serialization to XML
 and deserialization back from XML using <a class="reference external" href="http://xstream.codehaus.org">XStream</a> with custom converters that
 makes the produced XML representation easier to read as well as its size.
@@ -470,7 +470,7 @@ is, however, currently not supported (there seems to be a deserialization bug in
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.java">dml.serialization.XStreamer</a> <tt class="docutils literal"><span class="pre">xstream</span></tt> static method.</p>
 </div>
 <div class="section" id="ast-traversal-visitor">
-<h5>AST Traversal/Visitor<a class="headerlink" href="#ast-traversal-visitor" title="Permalink to this headline">¶</a></h5>
+<h5>AST Traversal/Visitor<a class="headerlink" href="#ast-traversal-visitor" title="Permalink to this headline">��</a></h5>
 <p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExModelVisitor.java">example</a> to show how one can traverse
 DML AST using the provided visitor API.</p>
 <div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -541,7 +541,7 @@ DML AST using the provided visitor API.</p>
 </div>
 </div>
 <div class="section" id="basic-type">
-<h4>Basic Type<a class="headerlink" href="#basic-type" title="Permalink to this headline">¶</a></h4>
+<h4>Basic Type<a class="headerlink" href="#basic-type" title="Permalink to this headline">��</a></h4>
 <pre>
 <strong id="grammar-token-basicType">basicType          </strong> ::=  <a class="reference internal" href="index.html#grammar-token-basicTypeTrait"><tt class="xref docutils literal"><span class="pre">basicTypeTrait</span></tt></a>
                          | <a class="reference internal" href="index.html#grammar-token-basicTypeClass"><tt class="xref docutils literal"><span class="pre">basicTypeClass</span></tt></a> <a class="reference internal" href="index.html#grammar-token-basicTypeObject"><tt class="xref docutils literal"><span class="pre">basicTypeObject</span></tt></a>
@@ -559,7 +559,7 @@ DML AST using the provided visitor API.</p>
 </pre>
 </div>
 <div class="section" id="feature-and-requirement">
-<h4>Feature and Requirement<a class="headerlink" href="#feature-and-requirement" title="Permalink to this headline">¶</a></h4>
+<h4>Feature and Requirement<a class="headerlink" href="#feature-and-requirement" title="Permalink to this headline">��</a></h4>
 <pre>
 <strong id="grammar-token-feature">feature          </strong> ::=  [ featureModifier ] ( &quot;trait&quot; | &quot;class&quot; ) ID_feature
                        &quot;extends&quot; ( &quot;Feature&quot; | <a class="reference internal" href="index.html#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> )
@@ -579,7 +579,7 @@ DML AST using the provided visitor API.</p>
 </pre>
 </div>
 <div class="section" id="type-and-initialization">
-<h4>Type and Initialization<a class="headerlink" href="#type-and-initialization" title="Permalink to this headline">¶</a></h4>
+<h4>Type and Initialization<a class="headerlink" href="#type-and-initialization" title="Permalink to this headline">��</a></h4>
 <pre>
 <strong id="grammar-token-type">type          </strong> ::=  &quot;Any&quot;
                     | &quot;Boolean&quot;
@@ -609,7 +609,7 @@ DML AST using the provided visitor API.</p>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">��</a></h1>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
 <li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
