@@ -38,10 +38,13 @@
   <h3><a href="index.html#document-index">Table Of Contents</a></h3>
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-language/language">Language Specification and Implementation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#specification-form">Specification Form</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#representation-and-api">Representation and API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#nullity-and-immutability">Nullity and Immutability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#string-representation">String Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#specification-form">Specification Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#representation-and-api">Representation and API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#nullity-and-immutability">Nullity and Immutability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#string-representation">String Representation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#model">Model</a><ul>
@@ -82,16 +85,16 @@
           <div class="body">
             
   <div class="section" id="welcome-to-mdcf-device-modeling-s-documentation">
-<h1>Welcome to MDCF Device Modeling&#8217;s documentation<a class="headerlink" href="#welcome-to-mdcf-device-modeling-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Welcome to <a class="reference external" href="http://mdcf.santos.cis.ksu.edu">MDCF</a> Device Modeling&#8217;s documentation<a class="headerlink" href="#welcome-to-mdcf-device-modeling-s-documentation" title="Permalink to this headline">¶</a></h1>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">author:</th><td class="field-body">Robby</td>
+<tr class="field-odd field"><th class="field-name">author:</th><td class="field-body"><a class="reference external" href="http://people.cis.ksu.edu/~robby">Robby</a></td>
 </tr>
 <tr class="field-even field"><th class="field-name">contact:</th><td class="field-body"><a class="reference external" href="mailto:robby&#37;&#52;&#48;k-state&#46;edu">robby<span>&#64;</span>k-state<span>&#46;</span>edu</a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">organization:</th><td class="field-body">SAnToS Laboratory, Kansas State University</td>
+<tr class="field-odd field"><th class="field-name">organization:</th><td class="field-body"><a class="reference external" href="http://santoslab.org">SAnToS Laboratory</a>, <a class="reference external" href="http://k-state.edu">Kansas State University</a></td>
 </tr>
 </tbody>
 </table>
@@ -100,16 +103,18 @@
 <div class="toctree-wrapper compound">
 <span id="document-language/language"></span><div class="section" id="language-specification-and-implementation">
 <h3>Language Specification and Implementation<a class="headerlink" href="#language-specification-and-implementation" title="Permalink to this headline">¶</a></h3>
-<p>This section describes how device models can be specified in the Domain Specific
+<p>This section describes how device models can be specified in the Device Modeling
 Language (DML) encoded in Scala (Device Modeling in Scala &#8211; DMS).
 Note that because there are multiple ways to
 express the device models in Scala, the specification described here should not
 be treated as prescriptive. Instead, the specification is provided as a
 guideline for people that are not familiar with Scala (but familiar with Java)
-in order for the model to be accepted by the DML Scala Model Extractor; some
+in order for the model to be accepted by the DMS Model Extractor; some
 possible variations are described on how one can express a model differently.</p>
+<div class="section" id="overview">
+<h4>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="specification-form">
-<h4>Specification Form<a class="headerlink" href="#specification-form" title="Permalink to this headline">¶</a></h4>
+<h5>Specification Form<a class="headerlink" href="#specification-form" title="Permalink to this headline">¶</a></h5>
 <p>We will specify the context free grammar of the subset of Scala that is part of
 DMS using Extended Backus-Naur Form (EBNF). Specifically:</p>
 <ul class="simple">
@@ -134,7 +139,7 @@ the production rules using the angle brackets are discussed.</li>
 </ul>
 </div>
 <div class="section" id="representation-and-api">
-<h4>Representation and API<a class="headerlink" href="#representation-and-api" title="Permalink to this headline">¶</a></h4>
+<h5>Representation and API<a class="headerlink" href="#representation-and-api" title="Permalink to this headline">¶</a></h5>
 <p>In addition, for the grammar productions, we describe DML implementation classes
 and API; when referring to such classes, we use
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">dml</a> as a shorthand for the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">edu.ksu.cis.santos.mdcf.dml</a> package.
@@ -142,9 +147,9 @@ Similarly, we use <a class="reference external" href="https://github.com/mdcf/de
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/">edu.ksu.cis.santos.mdcf.dms</a> package.
 The DML Abstract Syntax Tree (AST) Java classes are defined in the
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast">dml.ast</a> package with associated AST constructor methods
-in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Ast.java">dml.ast.Ast</a>, symbol table API in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.java">dml.symbol.SymbolTable</a>,
-visitor API in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.java">dml.ast.IVisitor</a> and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AbstractVisitor.java">dml.ast.AbstractVisitor</a>,
-and XML de/serialization API in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.java">dml.serialization.XStreamer</a>.
+in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a>, symbol table API in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a>,
+visitor API in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.html">dml.ast.IVisitor</a> and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AbstractVisitor.java">dml.ast.AbstractVisitor</a>,
+and XML de/serialization API in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a>.
 The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a>
 <a class="reference external" href="http://en.wikibooks.org/wiki/Scala/Objects">Scala object</a>
 provides methods to extract DML AST from DMS models.</p>
@@ -161,7 +166,7 @@ are (to be) done after the extraction process.</p>
 <p class="caption">DML AST Constructor, Symbol Table, Visitor, XML de/serialization API UML Class Diagram</p>
 </div>
 <div class="section" id="nullity-and-immutability">
-<h5>Nullity and Immutability<a class="headerlink" href="#nullity-and-immutability" title="Permalink to this headline">¶</a></h5>
+<h6>Nullity and Immutability<a class="headerlink" href="#nullity-and-immutability" title="Permalink to this headline">¶</a></h6>
 <p>All method parameters in all the DML API are non-null by
 default; these are declared in the respective package infos
 (<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/package-info.java">ast</a>,
@@ -174,14 +179,16 @@ observable through the API). Each AST node class stores its children in
 fields whose type is <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html">String</a> store immutable <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html">String</a> values.
 In addition, each node class inherits from the
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AstNode.java">dml.ast.AstNode</a>, which provides a
-<tt class="docutils literal"><span class="pre">children</span></tt> method that returns an array of the node&#8217;s children;
-the returned array can be mutated but it does not affect the AST node.</p>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/AstNode.html#children()">children</a> method that returns an array of
+the node&#8217;s children; the returned array can be mutated but it does not affect
+the AST node.</p>
 </div>
 <div class="section" id="string-representation">
-<h5>String Representation<a class="headerlink" href="#string-representation" title="Permalink to this headline">¶</a></h5>
-<p>Calling the <tt class="docutils literal"><span class="pre">toString</span></tt> method on an AST object or a <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.java">dml.symbol.SymbolTable</a> object
+<h6>String Representation<a class="headerlink" href="#string-representation" title="Permalink to this headline">¶</a></h6>
+<p>Calling the <tt class="docutils literal"><span class="pre">toString</span></tt> method on an AST object or a <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> object
 produces a valid Java and Scala code (under the appropriate import context) as a
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> that builds a structurally and behaviorally equivalent object.</p>
+</div>
 </div>
 </div>
 <div class="section" id="model">
@@ -222,7 +229,8 @@ has an <a class="reference external" href="http://docs.oracle.com/javase/7/docs/
 of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Declaration.java">Declarations</a>, which can be either
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/BasicType.java">BasicType</a>, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Feature.java">Feature</a>, or
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Requirement.java">Requirement</a>.</p>
-<p>One can construct a model by calling the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Ast.java">dml.ast.Ast</a> <tt class="docutils literal"><span class="pre">model</span></tt>
+<p>One can construct a model by calling the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html#model(java.lang.Iterable)">model</a>
 static method as illustrated in the following <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModel.java">example</a>:</p>
 <div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -250,7 +258,8 @@ static method as illustrated in the following <a class="reference external" href
 </pre></div>
 </td></tr></table></div>
 <p>The above example creates a model with an empty list of declarations, and then
-prints out the model and the model&#8217;s declarations. The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Ast.java">dml.ast.Ast</a> <tt class="docutils literal"><span class="pre">list</span></tt>
+prints out the model and the model&#8217;s declarations. The <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html#list(java.lang.Iterable)">list</a>
 methods are helper methods that when given either a variable or an
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Iterable.html">Iterable</a> number of objects, they create an
 (immutable) list containing the provided objects.</p>
@@ -259,13 +268,13 @@ methods are helper methods that when given either a variable or an
 <tt class="docutils literal"><span class="pre">list()</span></tt> without a parameter type supplied for its element type returns
 <tt class="docutils literal"><span class="pre">List&lt;Object&gt;</span></tt>, which is incompatible with <tt class="docutils literal"><span class="pre">model</span></tt>&#8216;s parameter that expects
 a list of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Declaration.java">Declarations</a>. To address this issue,
-one can use <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Ast.java">dml.ast.Ast</a>. <tt class="docutils literal"><span class="pre">Weak</span></tt> API that have the same set of AST construction
-methods, but with weaker compile-time parameter types that are checked at
-runtime;
+one can use <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> API that have the same set
+of AST construction methods, but with weaker compile-time parameter types that
+are checked at runtime;
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html">IllegalArgumentException</a>
 will be thrown if the runtime types are not what expected.
-Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModel.java">example</a> that illustrates the
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Ast.java">dml.ast.Ast</a>. <tt class="docutils literal"><span class="pre">Weak</span></tt> API:</p>
+Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModel.java">example</a> that illustrates the use of
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> API:</p>
 <div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -292,9 +301,9 @@ Below is an <a class="reference external" href="https://github.com/mdcf/devicemo
 </pre></div>
 </td></tr></table></div>
 <p>Below is a similar <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala">example</a> written in Scala;
-thanks to Scala&#8217;s type inference, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Ast.java">dml.ast.Ast</a> API work
+thanks to Scala&#8217;s type inference, <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> API work
 without a problem as can be seen at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala#L13">Line 13</a>
-(of course <tt class="docutils literal"><span class="pre">Weak</span></tt> would work as well):</p>
+(of course <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> would work as well):</p>
 <div class="highlight-scala"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -404,15 +413,16 @@ and error streams, respectively).</p>
 </div>
 <div class="section" id="symboltable">
 <h5>SymbolTable<a class="headerlink" href="#symboltable" title="Permalink to this headline">¶</a></h5>
-<p>Given a set of models, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.java">dml.symbol.SymbolTable</a> <tt class="docutils literal"><span class="pre">of</span></tt> method creates an instance of
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.java">dml.symbol.SymbolTable</a> that provides various methods to retrieve DML entities
-such as <a class="reference external" href="#grammar-token-basicType">basic types</a>,
+<p>Given a set of models, the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#of(edu.ksu.cis.santos.mdcf.dml.ast.Model...)">of</a>
+method creates an instance of <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> that provides various methods to
+retrieve DML entities such as <a class="reference external" href="#grammar-token-basicType">basic types</a>,
 <a class="reference external" href="#grammar-token-feature">features</a>,
 <a class="reference external" href="#grammar-token-attribute">attributes</a>, and
 <a class="reference external" href="#grammar-token-invariant">invariants</a>
 in the models or by their fully-qualified name.</p>
 <p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelSymbolTable.java">example</a> to illustate the
-construction of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.java">dml.symbol.SymbolTable</a> and its <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation:</p>
+construction of <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> and its <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation:</p>
 <div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -444,12 +454,15 @@ to see what queries are available through the API.</p>
 </div>
 <div class="section" id="ast-and-symbol-table-de-serialization">
 <h5>AST and Symbol Table De/serialization<a class="headerlink" href="#ast-and-symbol-table-de-serialization" title="Permalink to this headline">¶</a></h5>
-<p>The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.java">dml.serialization.XStreamer</a> API provides AST and symbol table serialization to XML
+<p>The <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a> API provides AST and symbol table serialization to XML
 and deserialization back from XML using <a class="reference external" href="http://xstream.codehaus.org">XStream</a> with custom converters that
 makes the produced XML representation easier to read as well as its size.
-More specifically, it provides <tt class="docutils literal"><span class="pre">toXml</span></tt> and <tt class="docutils literal"><span class="pre">fromXml</span></tt> static methods for
+More specifically, it provides
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#toXml(java.lang.Object)">toXml</a> and
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#fromXml(java.io.InputStream)">fromXml</a>
+static methods for
 converting to/from <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>, <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html">Writer</a>/<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a>, or <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html">OutputStream</a>/<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a>.</p>
-<p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelXml.java">example</a> that uses the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.java">dml.serialization.XStreamer</a> API:</p>
+<p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelXml.java">example</a> that uses the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a> API:</p>
 <div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -507,13 +520,17 @@ converting to/from <a class="reference external" href="http://docs.oracle.com/ja
 <span class="o">}</span>
 </pre></div>
 </td></tr></table></div>
-<p>The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.java">dml.serialization.XStreamer</a> API also provides serialization to JSON provided by its
-<tt class="docutils literal"><span class="pre">toJson</span></tt> methods that use <a class="reference external" href="http://xstream.codehaus.org">XStream</a> along with <a class="reference external" href="http://jettison.codehaus.org">Jettison</a>.
-Deserialization from Json using <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.java">dml.serialization.XStreamer</a> <tt class="docutils literal"><span class="pre">fromJson</span></tt> static methods
-is, however, currently not supported (there seems to be a deserialization bug in
-<a class="reference external" href="http://xstream.codehaus.org">XStream</a> with <a class="reference external" href="http://jettison.codehaus.org">Jettison</a> that warrants further investigations).</p>
+<p>The <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a> API also provides serialization to JSON provided by its
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#toJson(java.lang.Object)">toJson</a>
+methods that use <a class="reference external" href="http://xstream.codehaus.org">XStream</a> along with <a class="reference external" href="http://jettison.codehaus.org">Jettison</a>.
+Deserialization from Json using <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#fromJson(java.io.InputStream)">fromJson</a>
+static methods  is, however, currently not supported (there seems to be a
+deserialization bug in <a class="reference external" href="http://xstream.codehaus.org">XStream</a> with <a class="reference external" href="http://jettison.codehaus.org">Jettison</a> that warrants further
+investigations).</p>
 <p>In addition, a custom <a class="reference external" href="http://xstream.codehaus.org">XStream</a> instance can be retrieved by calling the
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.java">dml.serialization.XStreamer</a> <tt class="docutils literal"><span class="pre">xstream</span></tt> static method.</p>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#xstream(boolean)">xstream</a>
+static method.</p>
 </div>
 <div class="section" id="ast-traversal-visitor">
 <h5>AST Traversal/Visitor<a class="headerlink" href="#ast-traversal-visitor" title="Permalink to this headline">¶</a></h5>
