@@ -50,10 +50,10 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#model">Model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="index.html#ast-classes-and-construction">AST Classes and Construction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="index.html#ast-extraction">AST Extraction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#model-well-formedness">Model Well-Formedness</a></li>
 <li class="toctree-l3"><a class="reference internal" href="index.html#symboltable">SymbolTable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="index.html#ast-and-symbol-table-de-serialization">AST and Symbol Table De/serialization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="index.html#ast-traversal-visitor">AST Traversal/Visitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#model-well-formedness">Model Well-Formedness</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#basic-type">Basic Type</a></li>
@@ -404,13 +404,6 @@ the extraction process. By default, the <a class="reference external" href="http
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> is used, and warning and errors are printed to the console (output
 and error streams, respectively).</p>
 </div>
-<div class="section" id="model-well-formedness">
-<h5>Model Well-Formedness<a class="headerlink" href="#model-well-formedness" title="Permalink to this headline">¶</a></h5>
-<p>A set of models are well-formed if all user-defined
-<a class="reference external" href="#grammar-token-basicType">basic types</a>,
-<a class="reference external" href="#grammar-token-feature">features</a>, and
-<a class="reference external" href="#grammar-token-basicType">requirements</a> are well-formed.</p>
-</div>
 <div class="section" id="symboltable">
 <h5>SymbolTable<a class="headerlink" href="#symboltable" title="Permalink to this headline">¶</a></h5>
 <p>Given a set of models, the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a>
@@ -601,6 +594,13 @@ DML AST using the provided visitor API.</p>
 <span class="o">}</span>
 </pre></div>
 </td></tr></table></div>
+</div>
+<div class="section" id="model-well-formedness">
+<h5>Model Well-Formedness<a class="headerlink" href="#model-well-formedness" title="Permalink to this headline">¶</a></h5>
+<p>A set of models are well-formed if all user-defined
+<a class="reference external" href="#grammar-token-basicType">basic types</a>,
+<a class="reference external" href="#grammar-token-feature">features</a>, and
+<a class="reference external" href="#grammar-token-basicType">requirements</a> are well-formed.</p>
 </div>
 </div>
 <div class="section" id="basic-type">
