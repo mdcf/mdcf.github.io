@@ -1,7 +1,5 @@
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +8,7 @@
     
     <title>MDCF Device Modeling 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sireum.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -26,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="None" href="index.html#document-index" /> 
+    <link rel="top" title="None" href="index.html#document-index" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="related">
@@ -34,7 +32,49 @@
       <ul>
         <li><a href="index.html#document-index">MDCF Device Modeling 1.0 documentation</a> &raquo;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html#document-index">Table Of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-language/language">Language Specification and Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#specification-form">Specification Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#representation-and-api">Representation and API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nullity-and-immutability">Nullity and Immutability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#string-representation">String Representation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#model">Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ast-classes-and-construction">AST Classes and Construction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ast-extraction">AST Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#model-well-formedness">Model Well-Formedness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#symboltable">SymbolTable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ast-and-symbol-table-de-serialization">AST and Symbol Table De/serialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ast-traversal-visitor">AST Traversal/Visitor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#basic-type">Basic Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#feature-and-requirement">Feature and Requirement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#type-and-initialization">Type and Initialization</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -58,8 +98,8 @@
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<span id="document-language/language"></span><div class="section" id="language-specification-representation-and-api">
-<h3>Language Specification, Representation, and API<a class="headerlink" href="#language-specification-representation-and-api" title="Permalink to this headline">¶</a></h3>
+<span id="document-language/language"></span><div class="section" id="language-specification-and-implementation">
+<h3>Language Specification and Implementation<a class="headerlink" href="#language-specification-and-implementation" title="Permalink to this headline">¶</a></h3>
 <p>This section describes how device models can be specified in the Domain Specific
 Language (DML) encoded in Scala (Device Modeling in Scala &#8211; DMS).
 Note that because there are multiple ways to
@@ -68,8 +108,10 @@ be treated as prescriptive. Instead, the specification is provided as a
 guideline for people that are not familiar with Scala (but familiar with Java)
 in order for the model to be accepted by the DML Scala Model Extractor; some
 possible variations are described on how one can express a model differently.</p>
+<div class="section" id="specification-form">
+<h4>Specification Form<a class="headerlink" href="#specification-form" title="Permalink to this headline">¶</a></h4>
 <p>We will specify the context free grammar of the subset of Scala that is part of
-DML using the Extended Backus-Naur Format (EBNF). Specifically:</p>
+DMS using Extended Backus-Naur Form (EBNF). Specifically:</p>
 <ul class="simple">
 <li>Double quotes (<tt class="docutils literal"><span class="pre">&quot;</span></tt> ... <tt class="docutils literal"><span class="pre">&quot;</span></tt>)  delimit tokens</li>
 <li>Midbar (<tt class="docutils literal"><span class="pre">|</span></tt>) separates production alternatives</li>
@@ -90,6 +132,7 @@ its type is <a class="reference external" href="http://docs.oracle.com/javase/7/
 The design intentions behind angle bracket&#8217;d rules are explained as
 the production rules using the angle brackets are discussed.</li>
 </ul>
+</div>
 <div class="section" id="representation-and-api">
 <h4>Representation and API<a class="headerlink" href="#representation-and-api" title="Permalink to this headline">¶</a></h4>
 <p>In addition, for the grammar productions, we describe DML implementation classes
@@ -134,11 +177,11 @@ In addition, each node class inherits from the
 <tt class="docutils literal"><span class="pre">children</span></tt> method that returns an array of the node&#8217;s children;
 the returned array can be mutated but it does not affect the AST node.</p>
 </div>
-<div class="section" id="ast-string-representation">
-<h5>AST String Representation<a class="headerlink" href="#ast-string-representation" title="Permalink to this headline">¶</a></h5>
-<p>Calling the <tt class="docutils literal"><span class="pre">toString</span></tt> method on an AST node object produces a valid Java and
-Scala code (under the appropriate import context) as a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> that builds
-structurally equivalent AST object.</p>
+<div class="section" id="string-representation">
+<h5>String Representation<a class="headerlink" href="#string-representation" title="Permalink to this headline">¶</a></h5>
+<p>Calling the <tt class="docutils literal"><span class="pre">toString</span></tt> method on an AST object or a <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.java">dml.symbol.SymbolTable</a> object
+produces a valid Java and Scala code (under the appropriate import context) as a
+<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> that builds a structurally and behaviorally equivalent object.</p>
 </div>
 </div>
 <div class="section" id="model">
@@ -221,7 +264,7 @@ methods, but with weaker compile-time parameter types that are checked at
 runtime;
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html">IllegalArgumentException</a>
 will be thrown if the runtime types are not what expected.
-Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModel.java">example</a> that illustrate the
+Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModel.java">example</a> that illustrates the
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Ast.java">dml.ast.Ast</a>. <tt class="docutils literal"><span class="pre">Weak</span></tt> API:</p>
 <div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -301,7 +344,7 @@ without a problem as can be seen at <a class="reference external" href="https://
 <span class="o">}</span>
 </pre></div>
 </td></tr></table></div>
-<p>We mentioned previously in the <a class="reference internal" href="#ast-string-representation">AST String Representation</a> Section that
+<p>We mentioned previously in the <a class="reference internal" href="#string-representation">String Representation</a> Section that
 the AST <tt class="docutils literal"><span class="pre">toString</span></tt> method produces a code that construct structurally
 equivalent AST. This is illustrated at
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala#L17-21">Lines 17-21</a> where
@@ -322,7 +365,7 @@ the DML AST model that is represented in the packages and their sub-packages.</p
 <p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelExtractor.java">example</a> illustrating the use of
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> API to extract DMS models from the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/">dms.example</a> package and
 its sub-packages:</p>
-<div class="highlight-scala"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -332,15 +375,15 @@ its sub-packages:</p>
  8
  9
 10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
-<span class="k">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.ast.</span><span class="o">*;</span>
-<span class="k">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="n">ksu</span><span class="o">.</span><span class="n">cis</span><span class="o">.</span><span class="n">santos</span><span class="o">.</span><span class="n">mdcf</span><span class="o">.</span><span class="n">dms</span><span class="o">.</span><span class="nc">ModelExtractor</span><span class="o">.*;</span>
+11</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.ast.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dms</span><span class="o">.</span><span class="na">ModelExtractor</span><span class="o">.*;</span>
 
-<span class="n">public</span> <span class="k">class</span> <span class="nc">ExModelExtractor</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExModelExtractor</span> <span class="o">{</span>
   <span class="nd">@Test</span>
-  <span class="n">public</span> <span class="n">void</span> <span class="n">construct</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nc">Model</span> <span class="n">m</span> <span class="k">=</span> <span class="n">extractModel</span><span class="o">(</span><span class="k">new</span> <span class="nc">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">&quot;edu.ksu.cis.santos.mdcf.dms.example&quot;</span> <span class="o">}</span>  <span class="o">);</span>
-    <span class="nc">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span> <span class="c1">//                     output: model(list(basicType(...)))</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">construct</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Model</span> <span class="n">m</span> <span class="o">=</span> <span class="n">extractModel</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">&quot;edu.ksu.cis.santos.mdcf.dms.example&quot;</span> <span class="o">}</span>  <span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span> <span class="c1">//                     output: model(list(basicType(...)))</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
@@ -370,7 +413,7 @@ such as <a class="reference external" href="#grammar-token-basicType">basic type
 in the models or by their fully-qualified name.</p>
 <p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelSymbolTable.java">example</a> to illustate the
 construction of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.java">dml.symbol.SymbolTable</a> and its <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation:</p>
-<div class="highlight-scala"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -381,16 +424,16 @@ construction of <a class="reference external" href="https://github.com/mdcf/devi
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
-<span class="k">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.symbol.SymbolTable</span><span class="o">;</span>
-<span class="k">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="n">ksu</span><span class="o">.</span><span class="n">cis</span><span class="o">.</span><span class="n">santos</span><span class="o">.</span><span class="n">mdcf</span><span class="o">.</span><span class="n">dms</span><span class="o">.</span><span class="nc">ModelExtractor</span><span class="o">.*;</span>
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.symbol.SymbolTable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dms</span><span class="o">.</span><span class="na">ModelExtractor</span><span class="o">.*;</span>
 
-<span class="n">public</span> <span class="k">class</span> <span class="nc">ExModelSymbolTable</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExModelSymbolTable</span> <span class="o">{</span>
   <span class="nd">@Test</span>
-  <span class="n">public</span> <span class="n">void</span> <span class="n">construct</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nc">SymbolTable</span> <span class="n">st</span> <span class="k">=</span> <span class="nc">SymbolTable</span>
-        <span class="o">.</span><span class="n">of</span><span class="o">(</span><span class="n">extractModel</span><span class="o">(</span><span class="k">new</span> <span class="nc">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">&quot;edu.ksu.cis.santos.mdcf.dms.example&quot;</span> <span class="o">}));</span>
-    <span class="nc">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">st</span><span class="o">);</span> <span class="c1">//  output: SymbolTable.of(model(list(basicType(...))))</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">construct</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">SymbolTable</span> <span class="n">st</span> <span class="o">=</span> <span class="n">SymbolTable</span>
+        <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">extractModel</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">&quot;edu.ksu.cis.santos.mdcf.dms.example&quot;</span> <span class="o">}));</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">st</span><span class="o">);</span> <span class="c1">//  output: SymbolTable.of(model(list(basicType(...))))</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
@@ -624,47 +667,6 @@ DML AST using the provided visitor API.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html#document-index">Table Of Contents</a></h3>
-  <ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html#document-language/language">Language Specification, Representation, and API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#representation-and-api">Representation and API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#nullity-and-immutability">Nullity and Immutability</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#ast-string-representation">AST String Representation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#model">Model</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#ast-classes-and-construction">AST Classes and Construction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#ast-extraction">AST Extraction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#model-well-formedness">Model Well-Formedness</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#symboltable">SymbolTable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#ast-and-symbol-table-de-serialization">AST and Symbol Table De/serialization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#ast-traversal-visitor">AST Traversal/Visitor</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#basic-type">Basic Type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#feature-and-requirement">Feature and Requirement</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#type-and-initialization">Type and Initialization</a></li>
-</ul>
-</li>
-</ul>
-
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -674,8 +676,8 @@ DML AST using the provided visitor API.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2013, Robby.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2013, Robby, Kansas State University.
+    
     </div>
   </body>
 </html>
