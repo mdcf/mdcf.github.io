@@ -37,7 +37,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html#document-index">Table Of Contents</a></h3>
   <ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html#document-setup">Setting up Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-setup">Setting Up Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-language/language">Language Specification and Implementation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="index.html#overview">Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="index.html#specification-form">Specification Form</a></li>
@@ -118,7 +118,7 @@ of the previously mentioned institutions.</p>
 </div>
 <div class="toctree-wrapper compound">
 <span id="document-setup"></span><div class="section" id="setting-up-development-environment">
-<h2>Setting up Development Environment<a class="headerlink" href="#setting-up-development-environment" title="Permalink to this headline">¶</a></h2>
+<h2>Setting Up Development Environment<a class="headerlink" href="#setting-up-development-environment" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Download and install Sireum by following the instructions at:
 <a class="reference external" href="http://www.sireum.org/download">http://www.sireum.org/download</a>.</p>
@@ -147,7 +147,8 @@ This should import some projects into your workspace such as <a class="reference
 and <a class="reference external" href="https://github.com/mdcf/devicemodel/tree/master/mdcf-dms-test">mdcf-dms-test</a>.
 There should not be any compile error. If errors persist, try cleaning all
 projects. If it still fails, exit Eclipse and relaunch Sireum DE as follows:</p>
-<p>sireum launch sireumdev &#8211;args -clean</p>
+<div class="highlight-python"><pre>sireum launch sireumdev --args -clean</pre>
+</div>
 <p>(Please contact the project owners if still unsuccessful.)</p>
 </li>
 <li><p class="first">Run the JUnit test in <tt class="docutils literal"><span class="pre">mdcf-dms-test</span></tt> by right clicking the project and
@@ -289,6 +290,18 @@ different packages; note that Scala allows import declarations to appear in many
 places, including inside class declarations and expression blocks among others.</p>
 <p>One can alternatively choose to not import any package elements and always use
 the fully qualified name of package elements.</p>
+<p>Some examples of Scala model files can be found at:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala">BasicType</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala">Schema</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala">Class</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/NoninPulseOx.scala">NoninPulseOx</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/NellcorPulseOx.scala">NellcorPulseOx</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/MultiMonitor.scala">MultiMonitor</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala">App</a></li>
+</ul>
+<p>We will use portions of the above examples to illustrate various DMS elements
+in the subsequent sections.</p>
 <div class="section" id="ast-classes-and-construction">
 <h4>AST Classes and Construction<a class="headerlink" href="#ast-classes-and-construction" title="Permalink to this headline">¶</a></h4>
 <p>A model is represented using the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Model.java">dml.ast.Model</a> AST class which
@@ -435,9 +448,10 @@ structurally equivalent model <tt class="docutils literal"><span class="pre">m2<
 <div class="section" id="ast-extraction">
 <h4>AST Extraction<a class="headerlink" href="#ast-extraction" title="Permalink to this headline">¶</a></h4>
 <p>Instead of constructing AST manually by hand, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> provides
-<tt class="docutils literal"><span class="pre">extractModel</span></tt> methods that extract DML AST from DMS models.
-More specifically, given an array of package <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> names, they return
-the DML AST model that is represented in the packages and their sub-packages.</p>
+<tt class="docutils literal"><span class="pre">extractModel</span></tt> methods that extract DML AST from <em>compiled</em> DMS model Java
+class files (see the <a class="reference internal" href="index.html#extractor-note"><em>note below</em></a>).
+Given an array of package <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> names, they return the DML AST model that is
+represented in the packages and their sub-packages.</p>
 <p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelExtractor.java">example</a> illustrating the use of
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> API to extract DMS models from the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/">dms.example</a> package and
 its sub-packages:</p>
@@ -470,12 +484,25 @@ a model using a specific <a class="reference external" href="http://docs.oracle.
 the extraction process. By default, the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassLoader.html">ClassLoader</a> that loads the
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> is used, and warning and errors are printed to the console (output
 and error streams, respectively).</p>
-<div class="admonition note">
+<div class="admonition note" id="extractor-note">
 <p class="first admonition-title">Note</p>
-<p class="last">When extracting a model, make sure that the Java classpath is setup
+<p>The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> extracts models from Java bytecode compiled from DMS
+model source files. Thus, one need to compile the Scala source files
+first by using the Scala compiler. After compilation, the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> does not require access to the source code.</p>
+<p>When extracting a model, make sure that the Java classpath is setup
 properly so the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> can find the package elements. Otherwise,
 it would return a model with empty declarations. The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> will
 give a warning when such situation occurs.</p>
+<p class="last">The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> is implemented using a combination of
+<a class="reference external" href="http://docs.scala-lang.org/overviews/reflection/overview.html">Scala Runtime Reflection</a>,
+<a class="reference external" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/reflect/ClassPath.html">Guava ClassPath</a>,
+and
+<a class="reference external" href="http://docs.oracle.com/javase/tutorial/reflect/">Java Reflection</a>,
+including
+<a class="reference external" href="http://docs.oracle.com/javase/tutorial/reflect/">Java dynamic Proxy</a>.
+Interested reader is referred to the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> code and
+Sireum&#8217;s <a class="reference external" href="https://sireum.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/src/main/scala/org/sireum/util/Reflection.scala">Reflection</a> code.</p>
 </div>
 </div>
 <div class="section" id="symboltable">
