@@ -51,6 +51,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Basic Type</a><ul>
+<li><a class="reference internal" href="#implementation-classes-and-construction">Implementation Classes and Construction</a></li>
 <li><a class="reference internal" href="#well-formedness">Well-Formedness</a></li>
 </ul>
 </li>
@@ -105,6 +106,25 @@
 <strong id="grammar-token-basicAsStringMethod">basicAsStringMethod</strong> ::=  &quot;override&quot; &quot;def&quot; &quot;asString&quot; &quot;=&quot; &lt;scalaExp : java.lang.String&gt;
 <strong id="grammar-token-basicToStringMethod">basicToStringMethod</strong> ::=  &quot;override&quot; &quot;def&quot; &quot;toString&quot; &quot;=&quot; &lt;scalaExp : java.lang.String&gt;
 </pre>
+<p>Basic types are primitive types for device attributes in models.
+DML (DMS) provides one built-in basic type and that is <tt class="docutils literal"><span class="pre">Boolean</span></tt> (<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L69">dms.Boolean</a>),
+which represents true and false values. Note that it has the same simple name to
+Scala <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Boolean">scala.Boolean</a> that are imported by default in
+a Scala code; thus, they should not be confused. Using
+<tt class="docutils literal"><span class="pre">import</span> <span class="pre">edu.ksu.cis.santos.mdcf.dms._</span></tt> as recommended in the
+<a class="reference internal" href="model.html#sec-model"><em>Model</em></a> Section made all references to <tt class="docutils literal"><span class="pre">Boolean</span></tt> refer to
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L69">dms.Boolean</a> instead of <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Boolean">scala.Boolean</a>.</p>
+<p>Basic types can be organized in a sub-type (<tt class="docutils literal"><span class="pre">&lt;:</span></tt>) hierarchy such as
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType#L111">dms.example.Nat</a> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType#L56">dms.example.Int</a> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType#L52">dms.example.IntegralType</a> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType#L33">dms.example.Number</a>
+<tt class="docutils literal"><span class="pre">&lt;:</span></tt> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L42">dms.BasicType</a>.
+In general, basic types can be organized to form a sub-type hierarchy lattice
+instead of just a tree rooted at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L42">dms.BasicType</a>.
+That is, user-defined basic types can inherit from one or more basic types.</p>
+<p>Basic type declarations allow one to declare additional types.
+All basic types inherit from <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L42">dms.BasicType</a>.</p>
+<div class="section" id="implementation-classes-and-construction">
+<h2>Implementation Classes and Construction<a class="headerlink" href="#implementation-classes-and-construction" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="well-formedness">
 <h2>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h2>
 </div>
