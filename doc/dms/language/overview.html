@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Overview &mdash; MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sireum.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0-SNAPSHOT',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation" href="../index.html" />
+    <link rel="up" title="Language Specification and Implementation" href="language.html" />
+    <link rel="next" title="Model" href="model.html" />
+    <link rel="prev" title="Language Specification and Implementation" href="language.html" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="model.html" title="Model"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="language.html" title="Language Specification and Implementation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li>
+          <li><a href="language.html" accesskey="U">Language Specification and Implementation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Overview</a><ul>
+<li><a class="reference internal" href="#specification-form">Specification Form</a></li>
+<li><a class="reference internal" href="#representation-and-api">Representation and API</a><ul>
+<li><a class="reference internal" href="#nullity-and-immutability">Nullity and Immutability</a></li>
+<li><a class="reference internal" href="#string-representation">String Representation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="language.html"
+                        title="previous chapter">Language Specification and Implementation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="model.html"
+                        title="next chapter">Model</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/language/overview.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="specification-form">
+<h2>Specification Form<a class="headerlink" href="#specification-form" title="Permalink to this headline">¶</a></h2>
+<p>We will specify the context free grammar of the subset of Scala that is part of
+DMS using Extended Backus-Naur Form (EBNF). Specifically:</p>
+<ul class="simple">
+<li>Double quotes (<tt class="docutils literal"><span class="pre">&quot;</span></tt> ... <tt class="docutils literal"><span class="pre">&quot;</span></tt>)  delimit tokens</li>
+<li>Midbar (<tt class="docutils literal"><span class="pre">|</span></tt>) separates production alternatives</li>
+<li>Parenthesis <tt class="docutils literal"><span class="pre">(</span></tt> ... <tt class="docutils literal"><span class="pre">)</span></tt> groups rules</li>
+<li>Star character (<tt class="docutils literal"><span class="pre">*</span></tt>) denotes zero or more repetition of rules</li>
+<li>Plus character (<tt class="docutils literal"><span class="pre">+</span></tt>) denotes one or more repetition of rules</li>
+<li>Square brackets (<tt class="docutils literal"><span class="pre">[</span></tt> ... <tt class="docutils literal"><span class="pre">]</span></tt>) delimit optional rules</li>
+<li><tt class="docutils literal"><span class="pre">ID</span></tt> denotes Java-like identifiers; a hint that starts with an underscore
+(<tt class="docutils literal"><span class="pre">_</span></tt>) may be given to qualify what the identifier should refer to.
+For example, <tt class="docutils literal"><span class="pre">ID_basic</span></tt> indicates that it is an identifier of a basic type.</li>
+<li>Angle brackets (<tt class="docutils literal"><span class="pre">&lt;</span></tt> ... <tt class="docutils literal"><span class="pre">&gt;</span></tt>) denotes Scala entities whose specifications
+are not formally specified in the grammar. For example,
+<tt class="docutils literal"><span class="pre">&lt;scalaExp</span> <span class="pre">:</span> <span class="pre">java.lang.String(S)&gt;</span></tt> denotes a Scala expression whose type
+resolves to some <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> constant <tt class="docutils literal"><span class="pre">S</span></tt> such as <tt class="docutils literal"><span class="pre">&quot;abc&quot;</span></tt>, which
+is equivalent to <tt class="docutils literal"><span class="pre">&quot;a&quot;</span> <span class="pre">+</span> <span class="pre">&quot;bc&quot;</span></tt> because the Scala compiler optimizes such
+static expression to a constant at compile time, hence, it not only knows that
+its type is <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>, but also that its value is <tt class="docutils literal"><span class="pre">&quot;abc&quot;</span></tt> at  runtime.
+The design intentions behind angle bracket&#8217;d rules are explained as
+the production rules using the angle brackets are discussed.</li>
+</ul>
+</div>
+<div class="section" id="representation-and-api">
+<h2>Representation and API<a class="headerlink" href="#representation-and-api" title="Permalink to this headline">¶</a></h2>
+<p>In addition, for the grammar productions, we describe DML implementation classes
+and API; when referring to such classes, we use
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">dml</a> as a shorthand for the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">edu.ksu.cis.santos.mdcf.dml</a> package.
+Similarly, we use <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/">dms</a> as a shorthand for the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/">edu.ksu.cis.santos.mdcf.dms</a> package.
+The DML Abstract Syntax Tree (AST) Java classes are defined in the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast">dml.ast</a> package with associated AST constructor methods
+in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a>, symbol table API in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a>,
+visitor API in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.java">dml.ast.IVisitor</a> and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AbstractVisitor.java">dml.ast.AbstractVisitor</a>,
+and XML de/serialization API in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a>.
+The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a>
+<a class="reference external" href="http://en.wikibooks.org/wiki/Scala/Objects">Scala object</a>
+provides methods to extract DML AST from DMS models.</p>
+<p>Furthermore, we also describe AST well-formedness throughout the discussion of
+various parts of DMS; some of the well-formedness are enforced by the Scala
+compiler, while some additional ones are enforced by the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a>, and some
+are (to be) done after the extraction process.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/dml-ast.png"><img alt="../_images/dml-ast.png" src="../_images/dml-ast.png" style="width: 479.6px; height: 60.0px;" /></a>
+<p class="caption">DML AST UML Class Diagram</p>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="../_images/API.png"><img alt="../_images/API.png" src="../_images/API.png" style="width: 149.1px; height: 139.0px;" /></a>
+<p class="caption">DML AST Construction, Symbol Table, XML de/serialization, and Visitor API UML Class Diagram</p>
+</div>
+<div class="section" id="nullity-and-immutability">
+<h3>Nullity and Immutability<a class="headerlink" href="#nullity-and-immutability" title="Permalink to this headline">¶</a></h3>
+<p>All method parameters in all the DML API are non-null by
+default; these are declared in the respective package infos
+(<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/package-info.java">dml.ast</a>,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/serialization/package-info.java">dml.serialization</a>,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/symbol/package-info.java">dml.symbol</a>).
+In addition, all DML methods return non-null values.</p>
+<p>All DML objects are immutable (object state changes may occur but not
+observable through the API). Each AST node class stores its children in
+<tt class="docutils literal"><span class="pre">public</span></tt> <tt class="docutils literal"><span class="pre">final</span></tt> fields, which are non-null;
+fields whose type is <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html">List</a> store immutable <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html">List</a> values.
+In addition, each node class inherits from the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AstNode.java">dml.ast.AstNode</a>, which provides a
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/AstNode.html#children()">children</a> method that returns an array of
+the node&#8217;s children; the returned array can be mutated but it does not affect
+the AST node.</p>
+</div>
+<div class="section" id="string-representation">
+<span id="id1"></span><h3>String Representation<a class="headerlink" href="#string-representation" title="Permalink to this headline">¶</a></h3>
+<p>Calling the <tt class="docutils literal"><span class="pre">toString</span></tt> method on an AST object or a <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> object
+produces a valid Java and Scala code (under the appropriate import context) as a
+<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> that builds a structurally and behaviorally equivalent object.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="model.html" title="Model"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="language.html" title="Language Specification and Implementation"
+             >previous</a> |</li>
+        <li><a href="../index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li>
+          <li><a href="language.html" >Language Specification and Implementation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Robby, Kansas State University.
+    
+    </div>
+  </body>
+</html>

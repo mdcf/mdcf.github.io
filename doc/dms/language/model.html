@@ -1,0 +1,625 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Model &mdash; MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sireum.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0-SNAPSHOT',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation" href="../index.html" />
+    <link rel="up" title="Language Specification and Implementation" href="language.html" />
+    <link rel="next" title="Basic Type" href="basictype.html" />
+    <link rel="prev" title="Overview" href="overview.html" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="basictype.html" title="Basic Type"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li>
+          <li><a href="language.html" accesskey="U">Language Specification and Implementation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Model</a><ul>
+<li><a class="reference internal" href="#classes-and-construction">Classes and Construction</a></li>
+<li><a class="reference internal" href="#extraction">Extraction</a></li>
+<li><a class="reference internal" href="#symboltable">SymbolTable</a></li>
+<li><a class="reference internal" href="#de-serialization">De/serialization</a></li>
+<li><a class="reference internal" href="#traversal-visitor">Traversal/Visitor</a></li>
+<li><a class="reference internal" href="#well-formedness">Well-Formedness</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="basictype.html"
+                        title="next chapter">Basic Type</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/language/model.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="model">
+<h1>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h1>
+<pre>
+<strong id="grammar-token-model">model      </strong> ::=  <a class="reference internal" href="#grammar-token-package"><tt class="xref docutils literal"><span class="pre">package</span></tt></a> <a class="reference internal" href="#grammar-token-imports"><tt class="xref docutils literal"><span class="pre">imports</span></tt></a> <a class="reference internal" href="#grammar-token-declaration"><tt class="xref docutils literal"><span class="pre">declaration</span></tt></a>*
+<strong id="grammar-token-package">package    </strong> ::=  &quot;package&quot; ( ID &quot;.&quot; )* ID
+<strong id="grammar-token-imports">imports    </strong> ::=  <a class="reference internal" href="#grammar-token-importdms"><tt class="xref docutils literal"><span class="pre">importdms</span></tt></a> <a class="reference internal" href="#grammar-token-import"><tt class="xref docutils literal"><span class="pre">import</span></tt></a>*
+<strong id="grammar-token-importdms">importdms  </strong> ::=  &quot;import&quot; &quot;edu&quot; &quot;.&quot; &quot;ksu&quot; &quot;.&quot; &quot;cis&quot; &quot;.&quot; &quot;santos&quot; &quot;.&quot; &quot;mdcf&quot; &quot;.&quot; &quot;dms&quot; &quot;.&quot; &quot;_&quot;
+<strong id="grammar-token-import">import     </strong> ::=  &quot;import&quot; ( ID &quot;.&quot; )* ID [ &quot;.&quot; &quot;_&quot; ]
+<strong id="grammar-token-declaration">declaration</strong> ::=  <a class="reference internal" href="basictype.html#grammar-token-basicType"><tt class="xref docutils literal"><span class="pre">basicType</span></tt></a> | <a class="reference internal" href="feature.html#grammar-token-feature"><tt class="xref docutils literal"><span class="pre">feature</span></tt></a> | <a class="reference internal" href="feature.html#grammar-token-requirement"><tt class="xref docutils literal"><span class="pre">requirement</span></tt></a>
+</pre>
+<p>A model may be specified in multiple Scala source files.
+For each file, a model starts with a <a class="reference external" href="#grammar-token-package">package</a>
+declaration, followed by <a class="reference external" href="#grammar-token-import">import</a> declarations and
+declarations of <a class="reference external" href="#grammar-token-basicType">basic types</a>,
+<a class="reference external" href="#grammar-token-feature">features</a>, and
+<a class="reference external" href="#grammar-token-requirement">requirements</a>.
+That is, it is assumed that models are
+specified in a package other than the Scala or Java &#8220;default&#8221; package.
+The grammar recommends importing all elements (specified using <tt class="docutils literal"><span class="pre">_</span></tt> instead of
+<tt class="docutils literal"><span class="pre">*</span></tt>  like in Java) defined in the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/">dms</a>
+<a class="reference external" href="http://www.scala-lang.org/node/119">Scala package</a> and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala">dms.package</a>
+<a class="reference external" href="http://www.artima.com/scalazine/articles/package_objects.html">package object</a>,
+which defines DML primordial types, <a class="reference external" href="http://www.scala-lang.org/node/130">implicit conversions</a>,
+and a <a class="reference external" href="http://docs.scala-lang.org/overviews/macros/overview.html">macro</a>,
+which will be described in the appropriate subsequent sections below.</p>
+<p>In addition, it recommends importing <a class="reference external" href="#grammar-token-basicType">basic types</a>
+or <a class="reference external" href="#grammar-token-feature">features</a> defined in
+different packages; note that Scala allows import declarations to appear in many
+places, including inside class declarations and expression blocks among others.</p>
+<p>One can alternatively choose to not import any package elements and always use
+the fully qualified name of package elements.</p>
+<p>Some examples of Scala model files can be found at:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala">BasicType</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala">Schema</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala">Class</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/NoninPulseOx.scala">NoninPulseOx</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/NellcorPulseOx.scala">NellcorPulseOx</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/MultiMonitor.scala">MultiMonitor</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala">App</a></li>
+</ul>
+<p>We will use portions of the above examples to illustrate various DMS elements
+in the subsequent sections.</p>
+<div class="section" id="classes-and-construction">
+<h2>Classes and Construction<a class="headerlink" href="#classes-and-construction" title="Permalink to this headline">¶</a></h2>
+<p>A model is represented using the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Model.java">dml.ast.Model</a> AST class which
+has an <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Iterable.html">Iterable</a>
+of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Declaration.java">dml.ast.Declarations</a>, which can be either
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/BasicType.java">dml.ast.BasicType</a>, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Feature.java">dml.ast.Feature</a>, or
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Requirement.java">dml.ast.Requirement</a>.</p>
+<p>One can construct a model by calling the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html#model(java.lang.Iterable)">model</a>
+static method as illustrated in the following <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModel.java">example</a>:</p>
+<div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.ast.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dml</span><span class="o">.</span><span class="na">ast</span><span class="o">.</span><span class="na">Ast</span><span class="o">.*;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExModel</span> <span class="o">{</span>
+  <span class="nd">@Test</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">construct</span><span class="o">()</span> <span class="o">{</span>
+<span class="hll">    <span class="n">Model</span> <span class="n">m</span> <span class="o">=</span> <span class="n">model</span><span class="o">(</span><span class="n">Ast</span><span class="o">.&lt;</span><span class="n">Declaration</span><span class="o">&gt;</span><span class="n">list</span><span class="o">());</span> <span class="c1">//  create a model with empty declarations</span>
+</span>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span> <span class="c1">//                     output: model(list())</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">declarations</span><span class="o">);</span> <span class="c1">//        output: []</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>The above example creates a model with an empty list of declarations, and then
+prints out the model and the model&#8217;s declarations. The <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html#list(java.lang.Iterable)">list</a>
+methods are helper methods that when given either a variable or an
+<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Iterable.html">Iterable</a> number of objects, they create an
+(immutable) list containing the provided objects.</p>
+<p>Notice that at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModel.java#L8">Line 8</a>, we need to use
+<tt class="docutils literal"><span class="pre">Ast.&lt;Declaration&gt;</span> <span class="pre">list()</span></tt> instead of just <tt class="docutils literal"><span class="pre">list()</span></tt>. That is because
+<tt class="docutils literal"><span class="pre">list()</span></tt> without a parameter type supplied for its element type returns
+<tt class="docutils literal"><span class="pre">List&lt;Object&gt;</span></tt>, which is incompatible with <tt class="docutils literal"><span class="pre">model</span></tt>&#8216;s parameter that expects
+a list of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Declaration.java">dml.ast.Declaration</a>. To address this issue,
+one can use <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> API that have the same set
+of AST construction methods, but with weaker compile-time parameter types that
+are checked at runtime;
+<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html">IllegalArgumentException</a>
+will be thrown if the runtime types are not what expected.
+Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelWeak.java">example</a> that illustrates the use of
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> API:</p>
+<div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.ast.*</span><span class="o">;</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dml</span><span class="o">.</span><span class="na">ast</span><span class="o">.</span><span class="na">Ast</span><span class="o">.</span><span class="na">Weak</span><span class="o">.*;</span>
+</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExModelWeak</span> <span class="o">{</span>
+  <span class="nd">@Test</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">construct</span><span class="o">()</span> <span class="o">{</span>
+<span class="hll">    <span class="n">Model</span> <span class="n">m</span> <span class="o">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">());</span> <span class="c1">//             create a model with empty declarations</span>
+</span>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span> <span class="c1">//               output: model(list())</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">declarations</span><span class="o">);</span> <span class="c1">//  output: []</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Below is a similar <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala">example</a> written in Scala;
+thanks to Scala&#8217;s type inference, <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> API work
+without a problem as can be seen at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala#L13">Line 13</a>
+(of course <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> would work as well):</p>
+<div class="highlight-scala"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">import</span> <span class="nn">org.junit.runner.RunWith</span>
+<span class="k">import</span> <span class="nn">org.scalatest.junit.JUnitRunner</span>
+<span class="k">import</span> <span class="nn">org.scalatest.FunSuite</span>
+
+<span class="k">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.ast._</span>
+<span class="k">import</span> <span class="nn">Ast._</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">JUnitRunner</span><span class="o">])</span>
+<span class="k">class</span> <span class="nc">ExsModel</span> <span class="k">extends</span> <span class="nc">FunSuite</span> <span class="o">{</span>
+
+  <span class="n">test</span><span class="o">(</span><span class="s">&quot;Empty model construction&quot;</span><span class="o">)</span> <span class="o">{</span>
+
+<span class="hll">    <span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">())</span>    <span class="c1">// create a model with empty declarations</span>
+</span>    <span class="n">println</span><span class="o">(</span><span class="n">m</span><span class="o">)</span> <span class="c1">//               output: model(list())</span>
+    <span class="n">println</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="n">declarations</span><span class="o">)</span>  <span class="c1">// output: []</span>
+
+<span class="hll">    <span class="k">val</span> <span class="n">m2</span> <span class="k">=</span> <span class="n">org</span><span class="o">.</span><span class="n">sireum</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="nc">Reflection</span><span class="o">.</span><span class="n">eval</span><span class="o">[</span><span class="kt">Model</span><span class="o">](</span><span class="n">s</span><span class="s">&quot;&quot;&quot; </span>
+</span><span class="hll"><span class="s">      import edu.ksu.cis.santos.mdcf.dml.ast.Ast._</span>
+</span><span class="hll"><span class="s">      ${m.toString}</span>
+</span><span class="hll"><span class="s">    &quot;&quot;&quot;</span><span class="o">)</span>
+</span><span class="hll">    <span class="n">println</span><span class="o">(</span><span class="n">m2</span><span class="o">)</span> <span class="c1">//              output: model(list())</span>
+</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>We mentioned previously in the <a class="reference internal" href="overview.html#string-representation"><em>String Representation</em></a> Section that
+the AST <tt class="docutils literal"><span class="pre">toString</span></tt> method produces a code that construct structurally
+equivalent AST. This is illustrated at
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala#L17-21">Lines 17-21</a> where
+<tt class="docutils literal"><span class="pre">m</span></tt>&#8216;s <tt class="docutils literal"><span class="pre">toString</span></tt> is used to construct a Scala code
+as <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> at Line 19 (<tt class="docutils literal"><span class="pre">s&quot;</span></tt> ... <tt class="docutils literal"><span class="pre">&quot;</span></tt> is a
+<a class="reference external" href="http://docs.scala-lang.org//overviews/core/string-interpolation.html">Scala string interpolator</a>)
+along with the import declaration at Line 18;
+<a class="reference external" href="https://sireum.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/src/main/scala/org/sireum/util/Reflection.scala">Reflection</a>&#8216;s <tt class="docutils literal"><span class="pre">eval</span></tt> method takes the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>
+code, compiles it (at runtime), and then invokes the compiled code to produce a
+structurally equivalent model <tt class="docutils literal"><span class="pre">m2</span></tt> with respect to <tt class="docutils literal"><span class="pre">m</span></tt> as shown in at Line 21.</p>
+</div>
+<div class="section" id="extraction">
+<h2>Extraction<a class="headerlink" href="#extraction" title="Permalink to this headline">¶</a></h2>
+<p>Instead of constructing AST manually by hand, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> provides
+<tt class="docutils literal"><span class="pre">extractModel</span></tt> methods that extract DML AST from <em>compiled</em> DMS model Java
+class files (see the <a class="reference internal" href="#extractor-note"><em>note below</em></a>).
+Given an array of package <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> names, they return the DML AST model that is
+represented in the packages and their sub-packages.</p>
+<p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelExtractor.java">example</a> illustrating the use of
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> API to extract DMS models from the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/">dms.example</a> package and
+its sub-packages:</p>
+<div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.ast.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dms</span><span class="o">.</span><span class="na">ModelExtractor</span><span class="o">.*;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExModelExtractor</span> <span class="o">{</span>
+  <span class="nd">@Test</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">construct</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Model</span> <span class="n">m</span> <span class="o">=</span> <span class="n">extractModel</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">&quot;edu.ksu.cis.santos.mdcf.dms.example&quot;</span> <span class="o">}</span>  <span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span> <span class="c1">//                     output: model(list(basicType(...)))</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Variants of the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> <tt class="docutils literal"><span class="pre">extractModel</span></tt> methods are provided to extract
+a model using a specific <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassLoader.html">ClassLoader</a> and
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> <tt class="docutils literal"><span class="pre">Reporter</span></tt> for custimizing warning and error notifications during
+the extraction process. By default, the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassLoader.html">ClassLoader</a> that loads the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> is used, and warning and errors are printed to the console (output
+and error streams, respectively).</p>
+<div class="admonition note" id="extractor-note">
+<p class="first admonition-title">Note</p>
+<p>The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> extracts models from Java bytecode compiled from DMS
+model source files. Thus, one need to compile the Scala source files
+first by using the Scala compiler. After compilation, the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> does not require access to the source code.</p>
+<p>When extracting a model, make sure that the Java classpath is setup
+properly so the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> can find the package elements. Otherwise,
+it would return a model with empty declarations. The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> will
+give a warning when such situation occurs.</p>
+<p class="last">The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> is implemented using a combination of
+<a class="reference external" href="http://docs.scala-lang.org/overviews/reflection/overview.html">Scala Runtime Reflection</a>,
+<a class="reference external" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/reflect/ClassPath.html">Guava ClassPath</a>,
+and
+<a class="reference external" href="http://docs.oracle.com/javase/tutorial/reflect/">Java Reflection</a>,
+including
+<a class="reference external" href="http://docs.oracle.com/javase/tutorial/reflect/">Java dynamic Proxy</a>.
+Interested reader is referred to the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> code and
+Sireum&#8217;s <a class="reference external" href="https://sireum.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/src/main/scala/org/sireum/util/Reflection.scala">Reflection</a> code.</p>
+</div>
+</div>
+<div class="section" id="symboltable">
+<h2>SymbolTable<a class="headerlink" href="#symboltable" title="Permalink to this headline">¶</a></h2>
+<p>Given a set of models, the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#of(edu.ksu.cis.santos.mdcf.dml.ast.Model...)">of</a>
+method creates an instance of <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> that provides various methods to
+retrieve DML entities such as <a class="reference external" href="#grammar-token-basicType">basic types</a>,
+<a class="reference external" href="#grammar-token-feature">features</a>,
+<a class="reference external" href="#grammar-token-attribute">attributes</a>, and
+<a class="reference external" href="#grammar-token-invariant">invariants</a>
+in the models or by their fully-qualified name.</p>
+<p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelSymbolTable.java">example</a> to illustate the
+construction of <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> and its <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation:</p>
+<div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.symbol.SymbolTable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dms</span><span class="o">.</span><span class="na">ModelExtractor</span><span class="o">.*;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExModelSymbolTable</span> <span class="o">{</span>
+  <span class="nd">@Test</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">construct</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">SymbolTable</span> <span class="n">st</span> <span class="o">=</span> <span class="n">SymbolTable</span>
+        <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">extractModel</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">&quot;edu.ksu.cis.santos.mdcf.dms.example&quot;</span> <span class="o">}));</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">st</span><span class="o">);</span> <span class="c1">//  output: SymbolTable.of(model(list(basicType(...))))</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>The reader is referred to the SymbolTable
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">Javadoc</a>
+to see what queries are available through the API.</p>
+</div>
+<div class="section" id="de-serialization">
+<h2>De/serialization<a class="headerlink" href="#de-serialization" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a> API provides AST and symbol table serialization to XML
+and deserialization back from XML using <a class="reference external" href="http://xstream.codehaus.org">XStream</a> with custom converters that
+makes the produced XML representation easier to read as well as its size.
+More specifically, it provides
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#toXml(java.lang.Object)">toXml</a> and
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#fromXml(java.io.InputStream)">fromXml</a>
+static methods for
+converting to/from <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>, <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html">Writer</a>/<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a>, or <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html">OutputStream</a>/<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a>.</p>
+<p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelXml.java">example</a> that uses the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a> API:</p>
+<div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.ast.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.symbol.SymbolTable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dml</span><span class="o">.</span><span class="na">ast</span><span class="o">.</span><span class="na">Ast</span><span class="o">.</span><span class="na">Weak</span><span class="o">.*;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dml</span><span class="o">.</span><span class="na">serialization</span><span class="o">.</span><span class="na">XStreamer</span><span class="o">.*;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dms</span><span class="o">.</span><span class="na">ModelExtractor</span><span class="o">.</span><span class="na">extractModel</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExModelXml</span> <span class="o">{</span>
+  <span class="nd">@Test</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">de_serialization</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Model</span> <span class="n">m</span> <span class="o">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">());</span> <span class="c1">// create a model with empty declarations</span>
+    <span class="n">String</span> <span class="n">mXml</span> <span class="o">=</span> <span class="n">toXml</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">mXml</span><span class="o">);</span> <span class="c1">//            output: &lt;model&gt;</span>
+    <span class="c1">//                                                &lt;declarations class=&quot;ilist&quot;&gt;&lt;/declarations&gt;</span>
+    <span class="c1">//                                              &lt;/model&gt;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">fromXml</span><span class="o">(</span><span class="n">mXml</span><span class="o">));</span> <span class="c1">//   output: model(list())</span>
+    
+    <span class="n">SymbolTable</span> <span class="n">st</span> <span class="o">=</span> <span class="n">SymbolTable</span>
+        <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">extractModel</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">&quot;edu.ksu.cis.santos.mdcf.dms.example&quot;</span> <span class="o">}));</span>
+    <span class="n">String</span> <span class="n">stXml</span> <span class="o">=</span> <span class="n">toXml</span><span class="o">(</span><span class="n">st</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stXml</span><span class="o">);</span> <span class="c1">//           output: &lt;symbolTable&gt;</span>
+    <span class="c1">//                                                &lt;models class=&quot;ilist&quot;&gt;</span>
+    <span class="c1">//                                                  &lt;model&gt;</span>
+    <span class="c1">//                                                    &lt;declarations class=&quot;ilist&quot;&gt;</span>
+    <span class="c1">//                                                      &lt;basicType ...</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">fromXml</span><span class="o">(</span><span class="n">stXml</span><span class="o">));</span> <span class="c1">//  output: SymbolTable.of(model(list(basicType(...))))</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>The <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a> API also provides serialization to JSON provided by its
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#toJson(java.lang.Object)">toJson</a>
+methods that use <a class="reference external" href="http://xstream.codehaus.org">XStream</a> along with <a class="reference external" href="http://jettison.codehaus.org">Jettison</a>.
+Deserialization from Json using <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#fromJson(java.io.InputStream)">fromJson</a>
+static methods  is, however, currently not supported (there seems to be a
+deserialization bug in <a class="reference external" href="http://xstream.codehaus.org">XStream</a> with <a class="reference external" href="http://jettison.codehaus.org">Jettison</a> that warrants further
+investigations).</p>
+<p>In addition, a custom <a class="reference external" href="http://xstream.codehaus.org">XStream</a> instance can be retrieved by calling the
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html#xstream(boolean)">xstream</a>
+static method.</p>
+</div>
+<div class="section" id="traversal-visitor">
+<h2>Traversal/Visitor<a class="headerlink" href="#traversal-visitor" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.java">dml.ast.IVisitor</a> interface and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AbstractVisitor.java">dml.ast.AbstractVisitor</a> class realize the visitor pattern for
+(top-down, left-to-right) traversal of DML AST.
+Each visit method for different AST node type in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.java">dml.ast.IVisitor</a>
+returns a boolean value that, if true, indicates the visitor should continue
+visiting the node&#8217;s children; otherwise, the traversal is short-circuited by
+skipping the node&#8217;s children (and hence, the node&#8217;s decendants).</p>
+<p>The visit methods for abstract AST node types (i.e.,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Declaration.java">dml.ast.Declaration</a>,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Initialization.java">dml.ast.Initialization</a>,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Member.java">dml.ast.Member</a>, and
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Type.java">dml.ast.Type</a>) will be visited first before any of its
+subtypes visit methods are called.
+For example,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.java">dml.ast.IVisitor</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.html#visitDeclaration(edu.ksu.cis.santos.mdcf.dml.ast.Declaration)">visitDeclaration</a> will be called before <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.html#visitBasicType(edu.ksu.cis.santos.mdcf.dml.ast.BasicType)">visitBasicType</a>.
+In such case, the AST traversal continues visiting the node&#8217;s children
+when <strong>both</strong> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.html#visitDeclaration(edu.ksu.cis.santos.mdcf.dml.ast.Declaration)">visitDeclaration</a> and <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.html#visitBasicType(edu.ksu.cis.santos.mdcf.dml.ast.BasicType)">visitBasicType</a> return true.</p>
+<p>The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AbstractVisitor.java">dml.ast.AbstractVisitor</a> class provides a basic implementation of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.java">dml.ast.IVisitor</a> where calls
+to all visit methods of non-abstract AST node types
+are routed to call (and return the return value of) <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AbstractVisitor.java">dml.ast.AbstractVisitor</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/AbstractVisitor.html#defaultCase(edu.ksu.cis.santos.mdcf.dml.ast.AstNode)">defaultCase</a>,
+which can be conveniently overriden in a sub-class.</p>
+<p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java">example</a> to illustrate how one can
+traverse DML AST using the provided visitor API.</p>
+<div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dml.ast.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">ksu</span><span class="o">.</span><span class="na">cis</span><span class="o">.</span><span class="na">santos</span><span class="o">.</span><span class="na">mdcf</span><span class="o">.</span><span class="na">dml</span><span class="o">.</span><span class="na">ast</span><span class="o">.</span><span class="na">Ast</span><span class="o">.</span><span class="na">Weak</span><span class="o">.*;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExModelVisitor</span> <span class="o">{</span>
+  <span class="nd">@Test</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Model</span> <span class="n">m</span> <span class="o">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">(</span><span class="n">basicType</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">,</span> <span class="n">list</span><span class="o">())));</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">);</span> <span class="c1">//                           output: model(list(basicType(&quot;foo&quot;, list())))</span>
+
+    <span class="k">new</span> <span class="nf">AbstractVisitor</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">visitBasicType</span><span class="o">(</span><span class="n">BasicType</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+<span class="hll">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Reached &quot;</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="na">name</span><span class="o">);</span> <span class="c1">//  output: Reached foo</span>
+</span>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}.</span><span class="na">visit</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+
+    <span class="k">new</span> <span class="nf">AbstractVisitor</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">visitModel</span><span class="o">(</span><span class="n">Model</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+<span class="hll">        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span>      <span class="o">}</span>
+
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">visitBasicType</span><span class="o">(</span><span class="n">BasicType</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+<span class="hll">        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">&quot;Reached &quot;</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="na">name</span><span class="o">);</span> <span class="c1">//  unreachable</span>
+</span>      <span class="o">}</span>
+    <span class="o">}.</span><span class="na">visit</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+    
+    <span class="k">new</span> <span class="nf">AbstractVisitor</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">defaultCase</span><span class="o">(</span><span class="n">AstNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+<span class="hll">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">node</span><span class="o">);</span> <span class="c1">//                    output: model(list(basicType(&quot;foo&quot;, list())))</span>
+</span><span class="hll">        <span class="c1">//                                                      basicType(&quot;foo&quot;, list())</span>
+</span>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}.</span><span class="na">visit</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>The example creates a model with one basic type (explained
+<a class="reference external" href="#grammar-token-basicType">below</a>). The first visitor at
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L12-18">Lines 12-18</a> prints out
+the name of any basic type it encounters at
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L15">Line 15</a>, which in this case prints
+out <tt class="docutils literal"><span class="pre">Reached</span> <span class="pre">foo</span></tt>.
+The second visitor at
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L20-30">Lines 20-30</a> throws an exception
+at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L28">Line 28</a> whenever it encounters
+a basic type; however, because its
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L22-24">visitModel</a> method returns false, the
+visitor skips all model&#8217;s children, hence skipping visiting the basic type
+declaration (more precisely, all declarations).
+The third visitor at
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L32-39">Lines 32-39</a> prints out AST node in
+its <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L34-38">defaultCase</a> method; hence, it
+prints out the model and the basic type.</p>
+</div>
+<div class="section" id="well-formedness">
+<h2>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h2>
+<p>A set of models is well-formed if all user-defined
+<a class="reference external" href="#grammar-token-basicType">basic types</a>,
+<a class="reference external" href="#grammar-token-feature">features</a>, and
+<a class="reference external" href="#grammar-token-requirement">requirements</a> are well-formed.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="basictype.html" title="Basic Type"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             >previous</a> |</li>
+        <li><a href="../index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li>
+          <li><a href="language.html" >Language Specification and Implementation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Robby, Kansas State University.
+    
+    </div>
+  </body>
+</html>

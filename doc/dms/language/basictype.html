@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Basic Type &mdash; MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sireum.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0-SNAPSHOT',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation" href="../index.html" />
+    <link rel="up" title="Language Specification and Implementation" href="language.html" />
+    <link rel="next" title="Feature and Requirement" href="feature.html" />
+    <link rel="prev" title="Model" href="model.html" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="feature.html" title="Feature and Requirement"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="model.html" title="Model"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li>
+          <li><a href="language.html" accesskey="U">Language Specification and Implementation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Basic Type</a><ul>
+<li><a class="reference internal" href="#well-formedness">Well-Formedness</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="model.html"
+                        title="previous chapter">Model</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="feature.html"
+                        title="next chapter">Feature and Requirement</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/language/basictype.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="basic-type">
+<h1>Basic Type<a class="headerlink" href="#basic-type" title="Permalink to this headline">¶</a></h1>
+<pre>
+<strong id="grammar-token-basicType">basicType          </strong> ::=  <a class="reference internal" href="#grammar-token-basicTypeTrait"><tt class="xref docutils literal"><span class="pre">basicTypeTrait</span></tt></a> | <a class="reference internal" href="#grammar-token-basicTypeClass"><tt class="xref docutils literal"><span class="pre">basicTypeClass</span></tt></a> <a class="reference internal" href="#grammar-token-basicTypeObject"><tt class="xref docutils literal"><span class="pre">basicTypeObject</span></tt></a>
+<strong id="grammar-token-basicTypeTrait">basicTypeTrait     </strong> ::=  &quot;trait&quot; ID_basic
+                         &quot;extends&quot; ( &quot;BasicType&quot; | ID_basic ( &quot;with&quot; ID_basic )* )
+                         [ <a class="reference internal" href="#grammar-token-basicTypeBody"><tt class="xref docutils literal"><span class="pre">basicTypeBody</span></tt></a> ]
+<strong id="grammar-token-basicTypeClass">basicTypeClass     </strong> ::=  [ &quot;final&quot; ] &quot;class&quot; ID_basic &quot;(&quot; &quot;val&quot; &quot;value&quot; &quot;:&quot; &lt;basicInternalType&gt; &quot;)&quot;
+                         &quot;extends&quot; ( &quot;BasicType&quot; | ID_basic ( &quot;with&quot; ID_basic )* )
+                         [ <a class="reference internal" href="#grammar-token-basicTypeBody"><tt class="xref docutils literal"><span class="pre">basicTypeBody</span></tt></a> ]
+<strong id="grammar-token-basicTypeObject">basicTypeObject    </strong> ::=  &quot;object&quot; ID_basic &quot;{&quot; <a class="reference internal" href="#grammar-token-basicTypeApply"><tt class="xref docutils literal"><span class="pre">basicTypeApply</span></tt></a> &quot;}&quot;
+<strong id="grammar-token-basicTypeApply">basicTypeApply     </strong> ::=  &quot;implicit&quot; &quot;def&quot; &quot;apply&quot; &quot;(&quot; ID_apply &quot;:&quot; &lt;basicInternalType&gt; &quot;)&quot; &quot;=&quot;
+                         &quot;new&quot; ID_basic &quot;(&quot; ID_apply &quot;)&quot;
+<strong id="grammar-token-basicTypeBody">basicTypeBody      </strong> ::=  &quot;{&quot; [ <a class="reference internal" href="#grammar-token-basicAsStringMethod"><tt class="xref docutils literal"><span class="pre">basicAsStringMethod</span></tt></a> ] [ <a class="reference internal" href="#grammar-token-basicToStringMethod"><tt class="xref docutils literal"><span class="pre">basicToStringMethod</span></tt></a> ] &lt;basicOpMethod&gt;* &quot;}&quot;
+<strong id="grammar-token-basicAsStringMethod">basicAsStringMethod</strong> ::=  &quot;override&quot; &quot;def&quot; &quot;asString&quot; &quot;=&quot; &lt;scalaExp : java.lang.String&gt;
+<strong id="grammar-token-basicToStringMethod">basicToStringMethod</strong> ::=  &quot;override&quot; &quot;def&quot; &quot;toString&quot; &quot;=&quot; &lt;scalaExp : java.lang.String&gt;
+</pre>
+<div class="section" id="well-formedness">
+<h2>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="feature.html" title="Feature and Requirement"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="model.html" title="Model"
+             >previous</a> |</li>
+        <li><a href="../index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li>
+          <li><a href="language.html" >Language Specification and Implementation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Robby, Kansas State University.
+    
+    </div>
+  </body>
+</html>

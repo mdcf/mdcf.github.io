@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Setting Up Development Environment &mdash; MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</title>
+    
+    <link rel="stylesheet" href="_static/sireum.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0-SNAPSHOT',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation" href="index.html" />
+    <link rel="next" title="Language Specification and Implementation" href="language/language.html" />
+    <link rel="prev" title="Welcome to MDCF DML’s documentation" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="language/language.html" title="Language Specification and Implementation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to MDCF DML’s documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to MDCF DML&#8217;s documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="language/language.html"
+                        title="next chapter">Language Specification and Implementation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/setup.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="setting-up-development-environment">
+<h1>Setting Up Development Environment<a class="headerlink" href="#setting-up-development-environment" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">Download and install Sireum by following the instructions at:
+<a class="reference external" href="http://www.sireum.org/download">http://www.sireum.org/download</a>.</p>
+</li>
+<li><p class="first">Download the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/dms.psf">DML in Scala (DMS) project set file</a>.
+If you are a MDCF team member at GitHub with SSH key installed, you can use the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/dms.psf">project set file with write access</a> instead.</p>
+</li>
+<li><p class="first">Launch <a class="reference external" href="http://www.sireum.org/features">Sireum Development Environment (DE)</a>
+(add <tt class="docutils literal"><span class="pre">-h</span></tt> for help):</p>
+<div class="highlight-python"><pre>sireum launch sireumdev</pre>
+</div>
+<p>Pick a directory for your workspace when asked. Moreover, agree when asked to run Scala diagnostics;
+enable JDT Weaving for Scala IDE and then quit DE; relaunch Sireum DE.</p>
+</li>
+<li><p class="first">Add <tt class="docutils literal"><span class="pre">SIREUM_HOME/apps/platform/java</span></tt> in Eclipe&#8217;s
+<a class="reference external" href="http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Freference%2Fpreferences%2Fjava%2Fdebug%2Fref-installed_jres.htm">Java Installed JREs preference page</a>,
+and make it the default. In addition, set Eclipse&#8217;s <a class="reference external" href="http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Freference%2Fpreferences%2Fjava%2Fref-preferences-compiler.htm">Java Compiler compliance level</a> to 1.7.
+(If Eclipse shows you a dialog box indicating that &#8220;Subversive Native Library Not Available&#8221;,
+it means that you do not have native SVN installed; click Ok to close the
+dialog box. You can correct this issue by setting SVN Interface Client to
+&#8220;SVNKit&#8221; in the  Eclipse&#8217;s Team-&gt;SVN preference page.)</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://wiki.eclipse.org/PSF">Import the project set file</a> downloaded in Step 2.
+This should import some projects into your workspace such as <a class="reference external" href="https://www.assembla.com/code/sireum-core/git-3/nodes/master/sireum-lib">sireum-lib</a>
+and <a class="reference external" href="https://github.com/mdcf/devicemodel/tree/master/mdcf-dms-test">mdcf-dms-test</a>.
+There should not be any compile error. If errors persist, try cleaning all
+projects. If it still fails, exit Eclipse and relaunch Sireum DE as follows:</p>
+<div class="highlight-python"><pre>sireum launch sireumdev --args -clean</pre>
+</div>
+<p>(Please contact the project owners if still unsuccessful.)</p>
+</li>
+<li><p class="first">Run the JUnit test in <tt class="docutils literal"><span class="pre">mdcf-dms-test</span></tt> by right clicking the project and
+select &#8220;Run As&#8221; and then &#8220;JUnit Test&#8221;; all tests should pass.</p>
+</li>
+<li><p class="first">If you plan to commit code to the repository, import the following in the
+respective Eclipse preference pages:</p>
+<ul class="simple">
+<li>In <a class="reference external" href="http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Freference%2Fpreferences%2Fjava%2Fcodestyle%2Fref-preferences-cleanup.htm">Java -&gt; Code Style -&gt; Clean Up preference page</a>:
+<a class="reference external" href="https://www.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/codestyle/java-clean-up.xml">sireum-util/codestyle/java-clean-up.xml</a></li>
+<li>In <a class="reference external" href="http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Freference%2Fpreferences%2Fjava%2Fcodestyle%2Fref-preferences-formatter.htm">Java -&gt; Code Style -&gt; Formatter preference page</a>:
+<a class="reference external" href="https://www.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/codestyle/java-formatter.xml">sireum-util/codestyle/java-formatter.xml</a></li>
+<li>In <a class="reference external" href="http://scala-ide.org/docs/current-user-doc/features/typingviewing/formatting/index.html">Scala -&gt; Formatter preference page</a>:
+<a class="reference external" href="https://www.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/codestyle/scala-formatterPreferences.properties">sireum-util/codestyle/scala-formatterPreferences.properties</a></li>
+</ul>
+<p>Make sure to run Java source clean up before committing Java code.
+Similarly, make sure to run Scala formatter before committing Scala code.</p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="language/language.html" title="Language Specification and Implementation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to MDCF DML’s documentation"
+             >previous</a> |</li>
+        <li><a href="index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Robby, Kansas State University.
+    
+    </div>
+  </body>
+</html>

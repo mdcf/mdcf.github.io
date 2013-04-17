@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Language Specification and Implementation &mdash; MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sireum.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0-SNAPSHOT',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation" href="../index.html" />
+    <link rel="next" title="Overview" href="overview.html" />
+    <link rel="prev" title="Setting Up Development Environment" href="../setup.html" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../setup.html" title="Setting Up Development Environment"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../setup.html"
+                        title="previous chapter">Setting Up Development Environment</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="next chapter">Overview</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/language/language.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="language-specification-and-implementation">
+<h1>Language Specification and Implementation<a class="headerlink" href="#language-specification-and-implementation" title="Permalink to this headline">¶</a></h1>
+<p>This section describes how device models can be specified in the Device Modeling
+Language (DML) encoded in Scala (Device Modeling in Scala &#8211; DMS).
+Note that because there are multiple ways to
+express the device models in Scala, the specification described here should not
+be treated as prescriptive. Instead, the specification is provided as a
+guideline for people that are not familiar with Scala (but familiar with Java)
+in order for the model to be accepted by the DMS Model Extractor; some
+possible variations are described on how one can express a model differently.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#specification-form">Specification Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#representation-and-api">Representation and API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#nullity-and-immutability">Nullity and Immutability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#string-representation">String Representation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="model.html#classes-and-construction">Classes and Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#extraction">Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#symboltable">SymbolTable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#de-serialization">De/serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#traversal-visitor">Traversal/Visitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#well-formedness">Well-Formedness</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basictype.html">Basic Type</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basictype.html#well-formedness">Well-Formedness</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="feature.html">Feature and Requirement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="type.html">Type and Initialization</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../setup.html" title="Setting Up Development Environment"
+             >previous</a> |</li>
+        <li><a href="../index.html">MDCF Device Modeling Language (DML) 1.0-SNAPSHOT documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Robby, Kansas State University.
+    
+    </div>
+  </body>
+</html>
