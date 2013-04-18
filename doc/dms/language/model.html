@@ -276,6 +276,11 @@ along with the import declaration at line 18;
 <a class="reference external" href="https://sireum.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/src/main/scala/org/sireum/util/Reflection.scala">Reflection</a>&#8216;s <tt class="docutils literal"><span class="pre">eval</span></tt> method takes the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>
 code, compiles it (at runtime), and then invokes the compiled code to produce a
 structurally equivalent model <tt class="docutils literal"><span class="pre">m2</span></tt> with respect to <tt class="docutils literal"><span class="pre">m</span></tt> as shown in at line 21.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">AST construction methods are named the same as the AST class names
+that they build but with the first letter lowercased.</p>
+</div>
 </div>
 <div class="section" id="extraction">
 <h2>Extraction<a class="headerlink" href="#extraction" title="Permalink to this headline">¶</a></h2>
@@ -378,8 +383,8 @@ construction of <a class="reference external" href="http://mdcf.github.io/doc/dm
 </pre></div>
 </td></tr></table></div>
 <p>The reader is referred to the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> Javadoc
-to see what queries are available through the API.
-We will illustrate some of the API in the relevant subsequent sections.</p>
+to see what queries are available through the API;
+we will mention some of the API in the relevant subsequent sections.</p>
 </div>
 <div class="section" id="de-serialization">
 <h2>De/serialization<a class="headerlink" href="#de-serialization" title="Permalink to this headline">¶</a></h2>
