@@ -106,20 +106,19 @@
 <p>A model may be specified in multiple Scala source files.
 For each file, a model starts with a <a class="reference external" href="#grammar-token-package">package</a>
 declaration, followed by <a class="reference external" href="#grammar-token-import">import</a> declarations and
-declarations of <a class="reference external" href="#grammar-token-basicType">basic types</a>,
-<a class="reference external" href="#grammar-token-feature">features</a>, and
-<a class="reference external" href="#grammar-token-requirement">requirements</a>.
+declarations of <a class="reference internal" href="basictype.html#sec-basictype"><em>basic types</em></a>,
+<a class="reference internal" href="feature.html#sec-feature-requirement"><em>features, and requirements</em></a>.
 That is, it is assumed that models are
 specified in a package other than the Scala or Java &#8220;default&#8221; package.
 The grammar recommends importing all elements (specified using <tt class="docutils literal"><span class="pre">_</span></tt> instead of
 <tt class="docutils literal"><span class="pre">*</span></tt>  like in Java) defined in the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/">dms</a>
 <a class="reference external" href="http://www.scala-lang.org/node/119">Scala package</a> and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala">dms.package</a>
 <a class="reference external" href="http://www.artima.com/scalazine/articles/package_objects.html">package object</a>,
-which defines DML primordial types, <a class="reference external" href="http://www.scala-lang.org/node/130">implicit conversions</a>,
-and a <a class="reference external" href="http://docs.scala-lang.org/overviews/macros/overview.html">macro</a>,
-which will be described in the appropriate subsequent sections below.</p>
-<p>In addition, it recommends importing <a class="reference external" href="#grammar-token-basicType">basic types</a>
-or <a class="reference external" href="#grammar-token-feature">features</a> defined in
+which defines DML primordial types, <a class="reference external" href="http://www.scala-lang.org/node/130">implicit</a> conversions,
+and a <a class="reference external" href="http://docs.scala-lang.org/overviews/macros/overview.html">macro</a>, which will be described in the appropriate subsequent sections
+below.</p>
+<p>In addition, it recommends importing <a class="reference internal" href="basictype.html#sec-basictype"><em>basic types</em></a>
+or <a class="reference internal" href="feature.html#sec-feature-requirement"><em>features</em></a> defined in
 different packages; note that Scala allows import declarations to appear in many
 places, including inside class declarations and expression blocks among others.</p>
 <p>One can alternatively choose to not import any package elements and always use
@@ -177,7 +176,7 @@ prints out the model and the model&#8217;s declarations. The <a class="reference
 methods are helper methods that when given either a variable or an
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Iterable.html">Iterable</a> number of objects, they create an
 (immutable) list containing the provided objects.</p>
-<p>Notice that at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModel.java#L8">Line 8</a>, we need to use
+<p>Notice that at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModel.java#L8">line 8</a>, we need to use
 <tt class="docutils literal"><span class="pre">Ast.&lt;Declaration&gt;</span> <span class="pre">list()</span></tt> instead of just <tt class="docutils literal"><span class="pre">list()</span></tt>. That is because
 <tt class="docutils literal"><span class="pre">list()</span></tt> without a parameter type supplied for its element type returns
 <tt class="docutils literal"><span class="pre">List&lt;Object&gt;</span></tt>, which is incompatible with <tt class="docutils literal"><span class="pre">model</span></tt>&#8216;s parameter that expects
@@ -216,7 +215,7 @@ Below is an <a class="reference external" href="https://github.com/mdcf/devicemo
 </td></tr></table></div>
 <p>Below is a similar <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala">example</a> written in Scala;
 thanks to Scala&#8217;s type inference, <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> API work
-without a problem as can be seen at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala#L13">Line 13</a>
+without a problem as can be seen at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala#L13">line 13</a>
 (of course <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> would work as well):</p>
 <div class="highlight-scala"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -270,25 +269,25 @@ without a problem as can be seen at <a class="reference external" href="https://
 <p>We mentioned previously in the <a class="reference internal" href="overview.html#sec-string-representation"><em>String Representation</em></a> Section that
 the AST <tt class="docutils literal"><span class="pre">toString</span></tt> method produces a code that construct structurally
 equivalent AST. This is illustrated at
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala#L17-21">Lines 17-21</a> where
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala#L17-21">lines 17-21</a> where
 <tt class="docutils literal"><span class="pre">m</span></tt>&#8216;s <tt class="docutils literal"><span class="pre">toString</span></tt> is used to construct a Scala code
-as <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> at Line 19 (<tt class="docutils literal"><span class="pre">s&quot;</span></tt> ... <tt class="docutils literal"><span class="pre">&quot;</span></tt> is a
-<a class="reference external" href="http://docs.scala-lang.org//overviews/core/string-interpolation.html">Scala string interpolator</a>)
-along with the import declaration at Line 18;
+as <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> at line 19 (<tt class="docutils literal"><span class="pre">s&quot;</span></tt> ... <tt class="docutils literal"><span class="pre">&quot;</span></tt> is a <a class="reference external" href="http://docs.scala-lang.org//overviews/core/string-interpolation.html">Scala string interpolator</a>)
+along with the import declaration at line 18;
 <a class="reference external" href="https://sireum.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/src/main/scala/org/sireum/util/Reflection.scala">Reflection</a>&#8216;s <tt class="docutils literal"><span class="pre">eval</span></tt> method takes the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>
 code, compiles it (at runtime), and then invokes the compiled code to produce a
-structurally equivalent model <tt class="docutils literal"><span class="pre">m2</span></tt> with respect to <tt class="docutils literal"><span class="pre">m</span></tt> as shown in at Line 21.</p>
+structurally equivalent model <tt class="docutils literal"><span class="pre">m2</span></tt> with respect to <tt class="docutils literal"><span class="pre">m</span></tt> as shown in at line 21.</p>
 </div>
 <div class="section" id="extraction">
 <h2>Extraction<a class="headerlink" href="#extraction" title="Permalink to this headline">¶</a></h2>
 <p>Instead of constructing AST manually by hand, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> provides
-<tt class="docutils literal"><span class="pre">extractModel</span></tt> methods that extract DML AST from <em>compiled</em> DMS model Java
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala#L74-87">extractModel</a> &#8220;static&#8221; methods
+that extract DML AST from <em>compiled</em> DMS model Java
 class files (see the <a class="reference internal" href="#extractor-note"><em>note below</em></a>).
 Given an array of package <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> names, they return the DML AST model that is
 represented in the packages and their sub-packages.</p>
 <p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelExtractor.java">example</a> illustrating the use of
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> API to extract DMS models from the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/">dms.example</a> package and
-its sub-packages:</p>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> API to extract DMS models from the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/">dms.example</a> package
+and its sub-packages:</p>
 <div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -314,7 +313,9 @@ its sub-packages:</p>
 </td></tr></table></div>
 <p>Variants of the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> <tt class="docutils literal"><span class="pre">extractModel</span></tt> methods are provided to extract
 a model using a specific <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassLoader.html">ClassLoader</a> and
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> <tt class="docutils literal"><span class="pre">Reporter</span></tt> for custimizing warning and error notifications during
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala#L28-32">Reporter</a>
+for custimizing warning and error notifications during
 the extraction process. By default, the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassLoader.html">ClassLoader</a> that loads the
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> is used, and warning and errors are printed to the console (output
 and error streams, respectively).</p>
@@ -344,10 +345,10 @@ Sireum&#8217;s <a class="reference external" href="https://sireum.assembla.com/c
 <p>Given a set of models, the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a>
 <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#of(edu.ksu.cis.santos.mdcf.dml.ast.Model...)">of</a>
 method creates an instance of <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> that provides various methods to
-retrieve DML entities such as <a class="reference external" href="#grammar-token-basicType">basic types</a>,
-<a class="reference external" href="#grammar-token-feature">features</a>,
-<a class="reference external" href="#grammar-token-attribute">attributes</a>, and
-<a class="reference external" href="#grammar-token-invariant">invariants</a>
+retrieve DML entities such as <a class="reference internal" href="basictype.html#sec-basictype"><em>basic types</em></a>,
+<a class="reference internal" href="feature.html#sec-feature-requirement"><em>features</em></a>,
+<a class="reference internal" href="feature.html#sec-feature-requirement"><em>attributes</em></a>, and
+<a class="reference internal" href="feature.html#sec-feature-requirement"><em>invariants</em></a>
 in the models or by their fully-qualified name.</p>
 <p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelSymbolTable.java">example</a> to illustate the
 construction of <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> and its <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation:</p>
@@ -376,9 +377,9 @@ construction of <a class="reference external" href="http://mdcf.github.io/doc/dm
 <span class="o">}</span>
 </pre></div>
 </td></tr></table></div>
-<p>The reader is referred to the SymbolTable
-<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">Javadoc</a>
-to see what queries are available through the API.</p>
+<p>The reader is referred to the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> Javadoc
+to see what queries are available through the API.
+We will illustrate some of the API in the relevant subsequent sections.</p>
 </div>
 <div class="section" id="de-serialization">
 <h2>De/serialization<a class="headerlink" href="#de-serialization" title="Permalink to this headline">¶</a></h2>
@@ -568,30 +569,29 @@ traverse DML AST using the provided visitor API.</p>
 <span class="o">}</span>
 </pre></div>
 </td></tr></table></div>
-<p>The example creates a model with one basic type (explained
-<a class="reference external" href="#grammar-token-basicType">below</a>). The first visitor at
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L12-18">Lines 12-18</a> prints out
+<p>The example creates a model with one <a class="reference internal" href="basictype.html#sec-basictype"><em>basic type</em></a>.
+The first visitor at
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L12-18">lines 12-18</a> prints out
 the name of any basic type it encounters at
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L15">Line 15</a>, which in this case prints
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L15">line 15</a>, which in this case prints
 out <tt class="docutils literal"><span class="pre">Reached</span> <span class="pre">foo</span></tt>.
 The second visitor at
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L20-30">Lines 20-30</a> throws an exception
-at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L28">Line 28</a> whenever it encounters
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L20-30">lines 20-30</a> throws an exception
+at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L28">line 28</a> whenever it encounters
 a basic type; however, because its
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L22-24">visitModel</a> method returns false, the
 visitor skips all model&#8217;s children, hence skipping visiting the basic type
 declaration (more precisely, all declarations).
 The third visitor at
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L32-39">Lines 32-39</a> prints out AST node in
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L32-39">lines 32-39</a> prints out AST node in
 its <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelVisitor.java#L34-38">defaultCase</a> method; hence, it
 prints out the model and the basic type.</p>
 </div>
 <div class="section" id="well-formedness">
 <h2>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h2>
 <p>A set of models is well-formed if all user-defined
-<a class="reference external" href="#grammar-token-basicType">basic types</a>,
-<a class="reference external" href="#grammar-token-feature">features</a>, and
-<a class="reference external" href="#grammar-token-requirement">requirements</a> are well-formed.</p>
+<a class="reference internal" href="basictype.html#sec-basictype"><em>basic types</em></a>,
+<a class="reference internal" href="feature.html#sec-feature-requirement"><em>features, and requirements</em></a> are well-formed.</p>
 </div>
 </div>
 
