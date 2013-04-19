@@ -84,12 +84,9 @@
 <li><p class="first">Download and install Sireum by following the instructions at:
 <a class="reference external" href="http://www.sireum.org/download">http://www.sireum.org/download</a>.</p>
 </li>
-<li><p class="first">Download the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/dms.psf">DML in Scala (DMS) project set file</a>.
-If you are a MDCF team member at GitHub with SSH key installed, you can use the
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/dms.psf">project set file with write access</a> instead.</p>
-</li>
 <li><p class="first">Launch <a class="reference external" href="http://www.sireum.org/features">Sireum Development Environment (DE)</a>
-(add <tt class="docutils literal"><span class="pre">-h</span></tt> for help):</p>
+(add <tt class="docutils literal"><span class="pre">-h</span></tt> for help to supply custom Eclipse command-line arguments such
+as configuring memory):</p>
 <div class="highlight-python"><pre>sireum launch sireumdev</pre>
 </div>
 <p>Pick a directory for your workspace when asked. Moreover, agree when asked to run Scala diagnostics;
@@ -103,11 +100,16 @@ it means that you do not have native SVN installed; click Ok to close the
 dialog box. You can correct this issue by setting SVN Interface Client to
 &#8220;SVNKit&#8221; in the  Eclipse&#8217;s Team-&gt;SVN preference page.)</p>
 </li>
-<li><p class="first"><a class="reference external" href="http://wiki.eclipse.org/PSF">Import the project set file</a> downloaded in Step 2.
+<li><p class="first">Download the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/dms.psf">DML in Scala (DMS) project set file</a>.
+If you are a MDCF team member at GitHub with SSH key installed, you can use
+the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/dms.psf">project set file with write access</a>
+instead.</p>
+<p><a class="reference external" href="http://wiki.eclipse.org/PSF">Import the project set file</a> .
 This should import some projects into your workspace such as <a class="reference external" href="https://www.assembla.com/code/sireum-core/git-3/nodes/master/sireum-lib">sireum-lib</a>
 and <a class="reference external" href="https://github.com/mdcf/devicemodel/tree/master/mdcf-dms-test">mdcf-dms-test</a>.
-There should not be any compile error. If errors persist, try cleaning all
-projects. If it still fails, exit Eclipse and relaunch Sireum DE as follows:</p>
+There should not be any compile error.</p>
+<p>If errors persist somehow, try cleaning all projects. If it still fails,
+exit Eclipse and relaunch Sireum DE as follows:</p>
 <div class="highlight-python"><pre>sireum launch sireumdev --args -clean</pre>
 </div>
 <p>(Please contact the project owners if still unsuccessful.)</p>
