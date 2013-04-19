@@ -127,14 +127,18 @@ extends <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Member.htm
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;edu.ksu.cis.santos.mdcf.dml.ast.AttributeAnnotation&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Attribute.html#annotations">annotations</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code><a href="http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/base/Optional.html?is-external=true" title="class or interface in com.google.common.base">Optional</a>&lt;<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Initialization.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Initialization</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Attribute.html#init">init</a></strong></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/AttributeModifier.html" title="enum in edu.ksu.cis.santos.mdcf.dml.ast">AttributeModifier</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Attribute.html#modifier">modifier</a></strong></code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Type.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Type</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Attribute.html#type">type</a></strong></code>&nbsp;</td>
 </tr>
@@ -160,7 +164,8 @@ extends <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Member.htm
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Attribute.html#Attribute(edu.ksu.cis.santos.mdcf.dml.ast.AttributeModifier, edu.ksu.cis.santos.mdcf.dml.ast.Type, java.lang.String, com.google.common.base.Optional)">Attribute</a></strong>(<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/AttributeModifier.html" title="enum in edu.ksu.cis.santos.mdcf.dml.ast">AttributeModifier</a>&nbsp;modifier,
+<td class="colOne"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Attribute.html#Attribute(edu.ksu.cis.santos.mdcf.dml.ast.AttributeModifier, java.lang.Iterable, edu.ksu.cis.santos.mdcf.dml.ast.Type, java.lang.String, com.google.common.base.Optional)">Attribute</a></strong>(<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/AttributeModifier.html" title="enum in edu.ksu.cis.santos.mdcf.dml.ast">AttributeModifier</a>&nbsp;modifier,
+         <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;edu.ksu.cis.santos.mdcf.dml.ast.AttributeAnnotation&gt;&nbsp;annotations,
          <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Type.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Type</a>&nbsp;type,
          <a href="http://download.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name,
          <a href="http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/base/Optional.html?is-external=true" title="class or interface in com.google.common.base">Optional</a>&lt;<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Initialization.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Initialization</a>&gt;&nbsp;init)</code>&nbsp;</td>
@@ -211,6 +216,15 @@ extends <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Member.htm
 <pre>public final&nbsp;<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/AttributeModifier.html" title="enum in edu.ksu.cis.santos.mdcf.dml.ast">AttributeModifier</a> modifier</pre>
 </li>
 </ul>
+<a name="annotations">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>annotations</h4>
+<pre>public final&nbsp;<a href="http://download.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;edu.ksu.cis.santos.mdcf.dml.ast.AttributeAnnotation&gt; annotations</pre>
+</li>
+</ul>
 <a name="type">
 <!--   -->
 </a>
@@ -237,13 +251,14 @@ extends <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Member.htm
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="Attribute(edu.ksu.cis.santos.mdcf.dml.ast.AttributeModifier, edu.ksu.cis.santos.mdcf.dml.ast.Type, java.lang.String, com.google.common.base.Optional)">
+<a name="Attribute(edu.ksu.cis.santos.mdcf.dml.ast.AttributeModifier, java.lang.Iterable, edu.ksu.cis.santos.mdcf.dml.ast.Type, java.lang.String, com.google.common.base.Optional)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Attribute</h4>
 <pre>public&nbsp;Attribute(<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/AttributeModifier.html" title="enum in edu.ksu.cis.santos.mdcf.dml.ast">AttributeModifier</a>&nbsp;modifier,
+         <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;edu.ksu.cis.santos.mdcf.dml.ast.AttributeAnnotation&gt;&nbsp;annotations,
          <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Type.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Type</a>&nbsp;type,
          <a href="http://download.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name,
          <a href="http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/base/Optional.html?is-external=true" title="class or interface in com.google.common.base">Optional</a>&lt;<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Initialization.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Initialization</a>&gt;&nbsp;init)</pre>
