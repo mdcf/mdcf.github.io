@@ -116,7 +116,8 @@ projects. If it still fails, exit Eclipse and relaunch Sireum DE as follows:</p>
 select &#8220;Run As&#8221; and then &#8220;JUnit Test&#8221;; all tests should pass.</p>
 </li>
 <li><p class="first">If you plan to commit code to the repository, import the following in the
-respective Eclipse preference pages:</p>
+respective Eclipse preference pages
+(the files should already in your workspace after following Step 5):</p>
 <ul class="simple">
 <li>In <a class="reference external" href="http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Freference%2Fpreferences%2Fjava%2Fcodestyle%2Fref-preferences-cleanup.htm">Java -&gt; Code Style -&gt; Clean Up preference page</a>:
 <a class="reference external" href="https://www.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/codestyle/java-clean-up.xml">sireum-util/codestyle/java-clean-up.xml</a></li>
@@ -125,8 +126,12 @@ respective Eclipse preference pages:</p>
 <li>In <a class="reference external" href="http://scala-ide.org/docs/current-user-doc/features/typingviewing/formatting/index.html">Scala -&gt; Formatter preference page</a>:
 <a class="reference external" href="https://www.assembla.com/code/sireum-core/git-3/nodes/master/sireum-util/codestyle/scala-formatterPreferences.properties">sireum-util/codestyle/scala-formatterPreferences.properties</a></li>
 </ul>
-<p>Make sure to run Java source clean up before committing Java code.
-Similarly, make sure to run Scala formatter before committing Scala code.</p>
+<p>Make sure to run <em>Java source clean up</em> before committing Java code.
+Similarly, make sure to run <em>Scala source formatter</em> before committing Scala
+code. You can run the clean up and formatter on all source in a project wide
+by right clicking the project and then selecting <tt class="docutils literal"><span class="pre">Source</span> <span class="pre">-&gt;</span> <span class="pre">Clean</span> <span class="pre">up...</span></tt>
+and <tt class="docutils literal"><span class="pre">Source</span> <span class="pre">-&gt;</span> <span class="pre">Format</span></tt>, respectively. This also works at source folders and
+packages.</p>
 </li>
 </ol>
 </div>

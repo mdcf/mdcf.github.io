@@ -140,7 +140,7 @@ a <a class="reference external" href="http://stackoverflow.com/questions/609744/
 Regardless, the declared basic type should inherit from either <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a>
 directly or other basic types. As a <a class="reference external" href="http://www.scala-lang.org/node/132">class</a>, the basic type is required to
 implement (or inherit implementation of) &#8220;abstract&#8221; methods declared in
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a> such as <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L43">value</a>, which can hold any Scala type
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a> such as <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L46">value</a>, which can hold any Scala type
 internally.
 In the grammar, this is satisfied by declaring a <a class="reference external" href="http://stackoverflow.com/questions/1791408/what-is-the-difference-between-a-var-and-val-definition-in-scala">val</a> named <tt class="docutils literal"><span class="pre">value</span></tt> in a
 <a class="reference external" href="http://www.scala-lang.org/node/132">class</a>&#8216; constructor. Thus, a basic declaration can be viewed as simply a
@@ -148,15 +148,15 @@ wrapper type for existing type (<tt class="docutils literal"><span class="pre">&
 that is exported to the modeling type universe.</p>
 <p>In addition, a basic type declaration can override <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a> methods such as:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L46">asString</a>, which produces a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L49">asString</a>, which produces a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation
 (<tt class="docutils literal"><span class="pre">&lt;scalaExp:</span> <span class="pre">java.lang.String&gt;</span></tt>) of the &#8220;wrapped&#8221; internal <tt class="docutils literal"><span class="pre">value</span></tt> of the
 basic type instance. By default, it is implemented as simply
 calling the <tt class="docutils literal"><span class="pre">toString</span></tt> method of the internal <tt class="docutils literal"><span class="pre">value</span></tt>. One can override
 this method if the <tt class="docutils literal"><span class="pre">value</span></tt>&#8216;s <tt class="docutils literal"><span class="pre">toString</span></tt> method does not give the
 expected behavior such as the case for <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L65">dms.example.Int</a>.</li>
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L47">toString</a>, which produces a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation for, for example,
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L50">toString</a>, which produces a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation for, for example,
 debugging purposes. By default, it gives a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> consisting of
-the basic type name appended with the result of its <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L46">asString</a> wrapped
+the basic type name appended with the result of its <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L49">asString</a> wrapped
 in a parenthesis (e.g., <tt class="docutils literal"><span class="pre">...Int(0)</span></tt>).</li>
 </ul>
 <p>Furthermore, one can additionally declare <em>pure</em> operations on basic types as
@@ -266,7 +266,7 @@ type is represented using the
 basic type internal <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> value in
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/BasicInit.java">dml.ast.BasicInit</a>
 <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/BasicInit.html#value">value</a>
-(the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> value is retrieved from <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L46">asString</a> discussed
+(the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> value is retrieved from <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L49">asString</a> discussed
 previously).</p>
 </div>
 <div class="section" id="symbol-table">

@@ -138,7 +138,7 @@ in the subsequent sections.</p>
 <div class="section" id="implementation-classes-and-construction">
 <h2>Implementation Classes and Construction<a class="headerlink" href="#implementation-classes-and-construction" title="Permalink to this headline">¶</a></h2>
 <p>A model is represented using the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Model.java">dml.ast.Model</a> AST class which
-has an <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Iterable.html">Iterable</a>
+has an <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Iterable.html">Iterable</a>
 of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Declaration.java">dml.ast.Declarations</a>, which can be either
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/BasicType.java">dml.ast.BasicType</a>, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Feature.java">dml.ast.Feature</a>, or
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Requirement.java">dml.ast.Requirement</a>.</p>
@@ -252,9 +252,9 @@ without a problem as can be seen at <a class="reference external" href="https://
 
   <span class="n">test</span><span class="o">(</span><span class="s">&quot;Empty model construction&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-<span class="hll">    <span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">())</span>    <span class="c1">// create a model with empty declarations</span>
+<span class="hll">    <span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">())</span> <span class="c1">// create a model with empty declarations</span>
 </span>    <span class="n">println</span><span class="o">(</span><span class="n">m</span><span class="o">)</span> <span class="c1">//               output: model(list())</span>
-    <span class="n">println</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="n">declarations</span><span class="o">)</span>  <span class="c1">// output: []</span>
+    <span class="n">println</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="n">declarations</span><span class="o">)</span> <span class="c1">// output: []</span>
 
 <span class="hll">    <span class="k">val</span> <span class="n">m2</span> <span class="k">=</span> <span class="n">org</span><span class="o">.</span><span class="n">sireum</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="nc">Reflection</span><span class="o">.</span><span class="n">eval</span><span class="o">[</span><span class="kt">Model</span><span class="o">](</span><span class="n">s</span><span class="s">&quot;&quot;&quot; </span>
 </span><span class="hll"><span class="s">      import edu.ksu.cis.santos.mdcf.dml.ast.Ast._</span>
