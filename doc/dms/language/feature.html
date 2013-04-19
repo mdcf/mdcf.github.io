@@ -124,7 +124,11 @@
 <strong id="grammar-token-featureLevel">featureLevel       </strong> ::=  &quot;&#64;Schema&quot; | &quot;&#64;Class&quot; | &quot;&#64;Product&quot;| &quot;&#64;Device&quot; | &quot;&#64;Instance&quot;
 <strong id="grammar-token-featureType">featureType        </strong> ::=  ID_feature ( &quot;with&quot; ID_feature )*
 <strong id="grammar-token-attribute">attribute          </strong> ::=  <a class="reference internal" href="#grammar-token-attributeAnnotation"><tt class="xref docutils literal"><span class="pre">attributeAnnotation</span></tt></a>* &quot;val&quot; ID_attribute &quot;:&quot; <a class="reference internal" href="type.html#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a>
-<strong id="grammar-token-attributeAnnotation">attributeAnnotation</strong> ::=  &quot;&#64;Data&quot; | &quot;&#64;Settable&quot; | &quot;&#64;Const&quot; [ &quot;(&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a> &quot;)&quot; ]
+<strong id="grammar-token-attributeAnnotation">attributeAnnotation</strong> ::=  &quot;&#64;Data&quot; | &quot;&#64;Settable&quot;
+                         | &quot;&#64;Const&quot;
+                             [ &quot;(&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a>
+                                   | &quot;value&quot; &quot;=&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a> &quot;,&quot;
+                                     &quot;qualifier&quot; &quot;=&quot; &lt;scalaExp : java.lang.String(S)&gt; &quot;)&quot; ]
                          | &quot;&#64;Multiplicity&quot; &quot;(&quot; &quot;lo&quot; &quot;=&quot; &lt;scalaExp : scala.Int(N)&gt; &quot;,&quot;
                                                &quot;hi&quot; &quot;=&quot; ( &lt;scalaExp : scala.Int(N)&gt; | &quot;*&quot; )
                                                [ &quot;,&quot; &quot;clas&quot; &quot;=&quot; &quot;classOf&quot; &quot;[&quot; &lt;typeName&gt; &quot;]&quot; ] &quot;)&quot;
