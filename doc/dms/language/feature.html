@@ -48,6 +48,38 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Feature and Requirement</a><ul>
+<li><a class="reference internal" href="#feature">Feature</a><ul>
+<li><a class="reference internal" href="#hierarchy">Hierarchy</a></li>
+<li><a class="reference internal" href="#annotation">Annotation</a><ul>
+<li><a class="reference internal" href="#level">Level</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#settable">Settable</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#attribute">Attribute</a><ul>
+<li><a class="reference internal" href="#id1">Annotation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#invariant">Invariant</a></li>
+<li><a class="reference internal" href="#representation-classes">Representation Classes</a></li>
+<li><a class="reference internal" href="#symbol-table">Symbol Table</a></li>
+<li><a class="reference internal" href="#well-formedness">Well-Formedness</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#requirement">Requirement</a><ul>
+<li><a class="reference internal" href="#id2">Invariant</a></li>
+<li><a class="reference internal" href="#id3">Representation Classes</a></li>
+<li><a class="reference internal" href="#id4">Symbol Table</a></li>
+<li><a class="reference internal" href="#id5">Well-Formedness</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="basictype.html"
                         title="previous chapter">Basic Type</a></p>
@@ -83,18 +115,20 @@
   <div class="section" id="feature-and-requirement">
 <span id="sec-feature-requirement"></span><h1>Feature and Requirement<a class="headerlink" href="#feature-and-requirement" title="Permalink to this headline">¶</a></h1>
 <pre>
-<strong id="grammar-token-feature">feature            </strong> ::=  [ featureModifier ] ( &quot;trait&quot; | &quot;final&quot; &quot;class&quot; ) ID_feature
+<strong id="grammar-token-feature">feature            </strong> ::=  <a class="reference internal" href="#grammar-token-featureAnnotation"><tt class="xref docutils literal"><span class="pre">featureAnnotation</span></tt></a>* ( &quot;trait&quot; | &quot;final&quot; &quot;class&quot; ) ID_feature
                            &quot;extends&quot; ( &quot;Feature&quot; | <a class="reference internal" href="#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> )
                          &quot;{&quot; ( <a class="reference internal" href="#grammar-token-attribute"><tt class="xref docutils literal"><span class="pre">attribute</span></tt></a> [ <a class="reference internal" href="type.html#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> ] )* &quot;}&quot;
                          [ <a class="reference internal" href="#grammar-token-invariantObject"><tt class="xref docutils literal"><span class="pre">invariantObject</span></tt></a> ]
-<strong id="grammar-token-featureModifier">featureModifier    </strong> ::=  &quot;&#64;Schema&quot; | &quot;&#64;Class&quot; | &quot;&#64;Product&quot;| &quot;&#64;Device&quot; | &quot;&#64;Instance&quot; | &quot;&#64;Data&quot; | &quot;&#64;Settable&quot;
+<strong id="grammar-token-featureAnnotation">featureAnnotation  </strong> ::=  <a class="reference internal" href="#grammar-token-featureLevel"><tt class="xref docutils literal"><span class="pre">featureLevel</span></tt></a> [ &quot;(&quot; &lt;scalaExp : java.lang.String(S)&gt; &quot;)&quot; ]
+                         | &quot;&#64;Data&quot; | &quot;&#64;Settable&quot;
+<strong id="grammar-token-featureLevel">featureLevel       </strong> ::=  &quot;&#64;Schema&quot; | &quot;&#64;Class&quot; | &quot;&#64;Product&quot;| &quot;&#64;Device&quot; | &quot;&#64;Instance&quot;
 <strong id="grammar-token-featureType">featureType        </strong> ::=  ID_feature ( &quot;with&quot; ID_feature )*
-<strong id="grammar-token-attribute">attribute          </strong> ::=  [ <a class="reference internal" href="#grammar-token-attributeModifier"><tt class="xref docutils literal"><span class="pre">attributeModifier</span></tt></a> ] <a class="reference internal" href="#grammar-token-attributeAnnotation"><tt class="xref docutils literal"><span class="pre">attributeAnnotation</span></tt></a>* &quot;val&quot; ID_attribute &quot;:&quot; <a class="reference internal" href="type.html#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a>
-<strong id="grammar-token-attributeModifier">attributeModifier  </strong> ::=  &quot;&#64;Data&quot; | &quot;&#64;Settable&quot; | &quot;&#64;Const&quot; [ &quot;(&quot; <a class="reference internal" href="#grammar-token-constMode"><tt class="xref docutils literal"><span class="pre">constMode</span></tt></a> &quot;)&quot; ]
-<strong id="grammar-token-attributeAnnotation">attributeAnnotation</strong> ::=  &quot;&#64;Multiplicity&quot; &quot;(&quot; &quot;lo&quot; &quot;=&quot; &lt;scalaExp : scala.Int(N)&gt; &quot;,&quot;
-                                             &quot;hi&quot; &quot;=&quot; ( &lt;scalaExp : scala.Int(N)&gt; | &quot;*&quot; )
-                                             [ &quot;,&quot; &quot;clas&quot; &quot;=&quot; &quot;classOf&quot; &quot;[&quot; &lt;typeName&gt; &quot;]&quot; ] &quot;)&quot;
-<strong id="grammar-token-constMode">constMode          </strong> ::=  &quot;SCHEMA&quot; | &quot;CLASS&quot; | &quot;PRODUCT&quot; | &quot;INSTANCE&quot; | &quot;UNSPECIFIED&quot;
+<strong id="grammar-token-attribute">attribute          </strong> ::=  <a class="reference internal" href="#grammar-token-attributeAnnotation"><tt class="xref docutils literal"><span class="pre">attributeAnnotation</span></tt></a>* &quot;val&quot; ID_attribute &quot;:&quot; <a class="reference internal" href="type.html#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a>
+<strong id="grammar-token-attributeAnnotation">attributeAnnotation</strong> ::=  &quot;&#64;Data&quot; | &quot;&#64;Settable&quot; | &quot;&#64;Const&quot; [ &quot;(&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a> &quot;)&quot; ]
+                         | &quot;&#64;Multiplicity&quot; &quot;(&quot; &quot;lo&quot; &quot;=&quot; &lt;scalaExp : scala.Int(N)&gt; &quot;,&quot;
+                                               &quot;hi&quot; &quot;=&quot; ( &lt;scalaExp : scala.Int(N)&gt; | &quot;*&quot; )
+                                               [ &quot;,&quot; &quot;clas&quot; &quot;=&quot; &quot;classOf&quot; &quot;[&quot; &lt;typeName&gt; &quot;]&quot; ] &quot;)&quot;
+<strong id="grammar-token-constLevel">constLevel         </strong> ::=  &quot;SCHEMA&quot; | &quot;CLASS&quot; | &quot;PRODUCT&quot; | &quot;INSTANCE&quot; | &quot;UNSPECIFIED&quot;
 <strong id="grammar-token-invariantObject">invariantObject    </strong> ::=  &quot;object&quot; ID_feature &quot;{&quot; <a class="reference internal" href="#grammar-token-invariant"><tt class="xref docutils literal"><span class="pre">invariant</span></tt></a>* &quot;}&quot;
 <strong id="grammar-token-invariant">invariant          </strong> ::=  &quot;&#64;Inv&quot; &quot;val&quot; ID_invariant &quot;:&quot; &quot;Predicate&quot; &quot;[&quot; <a class="reference internal" href="#grammar-token-predicateType"><tt class="xref docutils literal"><span class="pre">predicateType</span></tt></a> &quot;]&quot; &quot;=&quot;
                            &quot;pred&quot; &quot;{&quot; ID &quot;:&quot; <a class="reference internal" href="#grammar-token-predicateType"><tt class="xref docutils literal"><span class="pre">predicateType</span></tt></a> &quot;=&gt;&quot; &lt;scalaExp : Boolean&gt; &quot;}&quot;
@@ -102,6 +136,103 @@
                          | &quot;(&quot; <a class="reference internal" href="#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> )+ &quot;)&quot;
 <strong id="grammar-token-requirement">requirement        </strong> ::=  &quot;&#64;Req&quot; &quot;object&quot; ID_requirement &quot;{&quot; <a class="reference internal" href="#grammar-token-invariant"><tt class="xref docutils literal"><span class="pre">invariant</span></tt></a>* &quot;}&quot;
 </pre>
+<p>Feature declarations are used to introduce compound types consisting of
+a set of named attributes for modeling parts or complete medical device
+features. Attributes are used to model information that may or must present in
+devices at design-time, assembly-time, configuration-time,
+coordination initialization-time, and at runtime. Moreover, features can declare
+invariants over attribute values that express information consistency
+constraints.</p>
+<p>Requirement declarations are used to introduce constraints for features that
+depend on other features, which are useful for medical device coordination.</p>
+<div class="section" id="feature">
+<h2>Feature<a class="headerlink" href="#feature" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hierarchy">
+<h3>Hierarchy<a class="headerlink" href="#hierarchy" title="Permalink to this headline">¶</a></h3>
+<p>Similar to basic types, feature sub-type hierarchy forms a lattice with
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L65">dms.Feature</a> at the top. By allowing multiple feature inheritance, one can mix-in
+different features to put together complete device features. As stated in
+the <a class="reference internal" href="#sec-feature-wf"><em>Well-Formedness</em></a> Section below,
+we avoid the dreaded <a class="reference external" href="http://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond problem</a>
+associated with multiple inheritance over feature attributes by disallowing it
+completely instead of allowing mitigations or workarounds.</p>
+</div>
+<div class="section" id="annotation">
+<h3>Annotation<a class="headerlink" href="#annotation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="level">
+<h4>Level<a class="headerlink" href="#level" title="Permalink to this headline">¶</a></h4>
+<p>DML (DMS) recognize four levels of features for staging when constant attribute
+values have to be provided:</p>
+<ul class="simple">
+<li>Schema (<tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>). In DMS, schema features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>.</li>
+<li>Class (<tt class="docutils literal"><span class="pre">&#64;Class</span></tt>). In DMS, class features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>.</li>
+<li>Product/Device (<tt class="docutils literal"><span class="pre">&#64;Product</span></tt>/<tt class="docutils literal"><span class="pre">&#64;Device</span></tt>). Product and Device are
+differentiate device parts and complete devices, respectively.
+In DMS, product features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>, while device features
+are declared using <tt class="docutils literal"><span class="pre">final</span></tt> <a class="reference external" href="http://www.scala-lang.org/node/132">class</a>.</li>
+<li>Instance (<tt class="docutils literal"><span class="pre">&#64;Instance</span></tt>). In DMS, instances are not represented as they belong
+to a running <a class="reference external" href="http://mdcf.santos.cis.ksu.edu">MDCF</a> instance.</li>
+</ul>
+<p>At each level, one can add a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> qualifier that indicates custom sub-levels
+within the provided four levels.</p>
+<p>In addition to specifying feature level per feature declaration, one can
+dedicate a Scala/Java package for the level and annotate the package with
+<tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Class</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Product</span></tt>, and <tt class="docutils literal"><span class="pre">&#64;Device</span></tt> instead.</p>
+<p>Unfortunately,
+<a class="reference external" href="https://issues.scala-lang.org/browse/SI-3600">Scala does not support annotating packages</a>,
+thus, this should be done using Java&#8217;s
+<a class="reference external" href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-7.html">package-info.java</a>
+facility. For examples, see the following package infos:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/example/schema/package-info.java">dms.example.schema package-info.java</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/example/clas/package-info.java">dms.example.class package-info.java</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/example/device/package-info.java">dms.example.device package-info.java</a></li>
+</ul>
+<p>The package annotation scheme sets the default level for any feature declared in
+the package; this default can still be be overriden by specifying the level in a
+feature declaration.</p>
+</div>
+<div class="section" id="data">
+<h4>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="settable">
+<h4>Settable<a class="headerlink" href="#settable" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="attribute">
+<h3>Attribute<a class="headerlink" href="#attribute" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h4>Annotation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="invariant">
+<h3>Invariant<a class="headerlink" href="#invariant" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="representation-classes">
+<h3>Representation Classes<a class="headerlink" href="#representation-classes" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="symbol-table">
+<h3>Symbol Table<a class="headerlink" href="#symbol-table" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="well-formedness">
+<span id="sec-feature-wf"></span><h3>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="requirement">
+<h2>Requirement<a class="headerlink" href="#requirement" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Invariant<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id3">
+<h3>Representation Classes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id4">
+<h3>Symbol Table<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id5">
+<h3>Well-Formedness<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
 </div>
 
 

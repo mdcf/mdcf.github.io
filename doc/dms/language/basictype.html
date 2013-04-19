@@ -51,7 +51,12 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Basic Type</a><ul>
-<li><a class="reference internal" href="#implementation-classes">Implementation Classes</a></li>
+<li><a class="reference internal" href="#built-in-type">Built-in Type</a></li>
+<li><a class="reference internal" href="#hierarchy">Hierarchy</a></li>
+<li><a class="reference internal" href="#declaration">Declaration</a></li>
+<li><a class="reference internal" href="#operations">Operations</a></li>
+<li><a class="reference internal" href="#factory-and-implicit-conversion">Factory and Implicit Conversion</a></li>
+<li><a class="reference internal" href="#representation-classes">Representation Classes</a></li>
 <li><a class="reference internal" href="#symbol-table">Symbol Table</a></li>
 <li><a class="reference internal" href="#well-formedness">Well-Formedness</a></li>
 </ul>
@@ -114,6 +119,8 @@ can refer to it. In DMS, explicit declaration basic types
 separate the types in the modeling type universe with that of Scala&#8217;s;
 in other words, they draw the boundaries of Scala types available that are
 imported as primitive types for modeling.</p>
+<div class="section" id="built-in-type">
+<h2>Built-in Type<a class="headerlink" href="#built-in-type" title="Permalink to this headline">¶</a></h2>
 <p>DML (DMS) provides only one built-in basic type and that is <tt class="docutils literal"><span class="pre">Boolean</span></tt>
 (<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a>) &#8211; representing the typical true and false values; this is provided
 because <a class="reference internal" href="feature.html#sec-feature-requirement"><em>invariant</em></a> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L103">dms.Predicate</a> uses it.
@@ -127,12 +134,18 @@ made all references to <tt class="docutils literal"><span class="pre">Boolean</s
 Similarly, this default overriding is recommended for <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L36">dms.example.Number</a> (overriding
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Number.html">java.lang.Number</a>) and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L65">dms.example.Int</a> (overriding
 <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Int">scala.Int</a>).</p>
+</div>
+<div class="section" id="hierarchy">
+<h2>Hierarchy<a class="headerlink" href="#hierarchy" title="Permalink to this headline">¶</a></h2>
 <p>Basic types can be organized in a sub-type (<tt class="docutils literal"><span class="pre">&lt;:</span></tt>) hierarchy such as
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L123">dms.example.Nat</a> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L65">dms.example.Int</a> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L58">dms.example.IntegralType</a> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L36">dms.example.Number</a>
 <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a>.
 In general, basic types can be organized to form a sub-type hierarchy lattice
 instead of just a tree rooted at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a>.
 That is, user-defined basic types can inherit from one or more basic types.</p>
+</div>
+<div class="section" id="declaration">
+<h2>Declaration<a class="headerlink" href="#declaration" title="Permalink to this headline">¶</a></h2>
 <p>In DMS, a basic type can be declared as a Scala <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>
 (e.g., <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L36">dms.example.Number</a>) or <a class="reference external" href="http://www.scala-lang.org/node/132">class</a> (e.g., <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L65">dms.example.Int</a>), and optionally, accompanied by
 a <a class="reference external" href="http://stackoverflow.com/questions/609744/what-is-the-rationale-behind-having-companion-objects-in-scala">companion object</a>. (One can optionally use an <tt class="docutils literal"><span class="pre">abstract</span></tt> <a class="reference external" href="http://www.scala-lang.org/node/132">class</a> instead of
@@ -146,6 +159,9 @@ In the grammar, this is satisfied by declaring a <a class="reference external" h
 <a class="reference external" href="http://www.scala-lang.org/node/132">class</a>&#8216; constructor. Thus, a basic declaration can be viewed as simply a
 wrapper type for existing type (<tt class="docutils literal"><span class="pre">&lt;basicInternalType&gt;</span></tt>)
 that is exported to the modeling type universe.</p>
+</div>
+<div class="section" id="operations">
+<h2>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h2>
 <p>In addition, a basic type declaration can override <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a> methods such as:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L49">asString</a>, which produces a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> representation
@@ -167,6 +183,9 @@ The <em>pure</em> qualifier means that they are non-side-effecting value operati
 (recall that DML basic type values are immutable).
 The reader is referred to <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a>, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L36">dms.example.Number</a>, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L65">dms.example.Int</a>, and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala#L123">dms.example.Nat</a> for
 examples of <tt class="docutils literal"><span class="pre">&lt;basicOpMethod&gt;</span></tt>.</p>
+</div>
+<div class="section" id="factory-and-implicit-conversion">
+<h2>Factory and Implicit Conversion<a class="headerlink" href="#factory-and-implicit-conversion" title="Permalink to this headline">¶</a></h2>
 <p>In the companion object for a basic type, one can provide <a class="reference external" href="http://www.scala-lang.org/node/130">implicit</a> factory
 methods as <a class="reference external" href="http://stackoverflow.com/questions/9737352/what-is-the-apply-function-in-scala">apply</a> methods to ease attribute
 <a class="reference internal" href="type.html#sec-type-initialization"><em>initialization</em></a>
@@ -249,8 +268,9 @@ optionally leave out to explicitly give a type of an attribute <tt class="docuti
 </span><span class="o">}</span>
 </pre></div>
 </td></tr></table></div>
-<div class="section" id="implementation-classes">
-<h2>Implementation Classes<a class="headerlink" href="#implementation-classes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="representation-classes">
+<h2>Representation Classes<a class="headerlink" href="#representation-classes" title="Permalink to this headline">¶</a></h2>
 <p>Basic type declarations are represented using the
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/BasicType.java">dml.ast.BasicType</a> AST class. A basic type can be
 referred by its fully qualified named stored in
