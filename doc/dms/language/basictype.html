@@ -109,7 +109,7 @@
 <strong id="grammar-token-basicAsStringMethod">basicAsStringMethod</strong> ::=  &quot;override&quot; &quot;def&quot; &quot;asString&quot; &quot;=&quot; &lt;scalaExp : java.lang.String&gt;
 <strong id="grammar-token-basicToStringMethod">basicToStringMethod</strong> ::=  &quot;override&quot; &quot;def&quot; &quot;toString&quot; &quot;=&quot; &lt;scalaExp : java.lang.String&gt;
 <strong id="grammar-token-basicTypeObject">basicTypeObject    </strong> ::=  &quot;object&quot; ID_basic &quot;{&quot; <a class="reference internal" href="#grammar-token-basicTypeApply"><tt class="xref docutils literal"><span class="pre">basicTypeApply</span></tt></a> &lt;basicTypeApplyOther&gt;* &quot;}&quot;
-<strong id="grammar-token-basicTypeApply">basicTypeApply     </strong> ::=  &quot;implicit&quot; &quot;def&quot; &quot;apply&quot; &quot;(&quot; ID_apply &quot;:&quot; (basicInternalType&gt; &quot;)&quot; &quot;=&quot;
+<strong id="grammar-token-basicTypeApply">basicTypeApply     </strong> ::=  &quot;implicit&quot; &quot;def&quot; &quot;apply&quot; &quot;(&quot; ID_apply &quot;:&quot; &lt;basicInternalType&gt; &quot;)&quot; &quot;=&quot;
                            &quot;new&quot; ID_basic &quot;(&quot; ID_apply &quot;)&quot;
 </pre>
 <p>Basic types are primitive types for model device attributes whose values are
