@@ -131,12 +131,13 @@
 <strong id="grammar-token-attribute">attribute          </strong> ::=  <a class="reference internal" href="#grammar-token-attributeAnnotation"><tt class="xref docutils literal"><span class="pre">attributeAnnotation</span></tt></a>* [ &quot;final&quot; ] &quot;val&quot; ID_attribute &quot;:&quot; <a class="reference internal" href="type.html#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a>
 <strong id="grammar-token-attributeAnnotation">attributeAnnotation</strong> ::=  &quot;override&quot; | &quot;&#64;Data&quot; | &quot;&#64;Settable&quot;
                          | &quot;&#64;Const&quot;
-                             [ &quot;(&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a>
-                                   | &quot;value&quot; &quot;=&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a> &quot;,&quot;
-                                     &quot;qualifier&quot; &quot;=&quot; &lt;scalaExp : java.lang.String(S)&gt; &quot;)&quot; ]
-                         | &quot;&#64;Multiplicity&quot; &quot;(&quot; &quot;lo&quot; &quot;=&quot; &lt;scalaExp : scala.Int(N)&gt; &quot;,&quot;
-                                               &quot;hi&quot; &quot;=&quot; ( &lt;scalaExp : scala.Int(N)&gt; | &quot;*&quot; )
-                                               [ &quot;,&quot; &quot;clas&quot; &quot;=&quot; &quot;classOf&quot; &quot;[&quot; &lt;typeName&gt; &quot;]&quot; ] &quot;)&quot;
+                              [ &quot;(&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a>
+                                | &quot;value&quot; &quot;=&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a> &quot;,&quot;
+                                  &quot;qualifier&quot; &quot;=&quot; &lt;scalaExp : java.lang.String(S)&gt; &quot;)&quot; ]
+                         | &quot;&#64;Multiplicity&quot; &quot;(&quot;
+                              &quot;lo&quot; &quot;=&quot; &lt;scalaExp : scala.Int(N)&gt;
+                              [ &quot;,&quot; &quot;hi&quot; &quot;=&quot; ( &lt;scalaExp : scala.Int(N)&gt; | &quot;*&quot; ) ]
+                              [ &quot;,&quot; &quot;clas&quot; &quot;=&quot; &quot;classOf&quot; &quot;[&quot; &lt;typeName&gt; &quot;]&quot; ] &quot;)&quot;
 <strong id="grammar-token-constLevel">constLevel         </strong> ::=  &quot;SCHEMA&quot; | &quot;CLASS&quot; | &quot;PRODUCT&quot; | &quot;INSTANCE&quot; | &quot;UNSPECIFIED&quot;
 <strong id="grammar-token-invariantObject">invariantObject    </strong> ::=  &quot;object&quot; ID_feature &quot;{&quot; <a class="reference internal" href="#grammar-token-invariant"><tt class="xref docutils literal"><span class="pre">invariant</span></tt></a>* &quot;}&quot;
 <strong id="grammar-token-invariant">invariant          </strong> ::=  &quot;&#64;Inv&quot; &quot;val&quot; ID_invariant &quot;:&quot; &quot;Predicate&quot; &quot;[&quot; <a class="reference internal" href="#grammar-token-predicateType"><tt class="xref docutils literal"><span class="pre">predicateType</span></tt></a> &quot;]&quot; &quot;=&quot;
@@ -196,7 +197,7 @@ within the provided four levels.</p>
 dedicate a Scala/Java package for a particular level and annotate the package
 with <tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Class</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Product</span></tt>, or <tt class="docutils literal"><span class="pre">&#64;Device</span></tt> instead.</p>
 <p>Unfortunately,
-<a class="reference external" href="https://issues.scala-lang.org/browse/SI-3600">Scala does not support annotating packages</a>,
+<a class="reference external" href="https://issues.scala-lang.org/browse/SI-3600">Scala does not support annotation on packages</a>,
 thus, this should be done using Java&#8217;s
 <a class="reference external" href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-7.html">package-info.java</a>
 facility. For example, see the following package infos:</p>
@@ -279,6 +280,32 @@ declared as <tt class="docutils literal"><span class="pre">final</span></tt>.</p
 </div>
 <div class="section" id="multiplicity">
 <h5>Multiplicity<a class="headerlink" href="#multiplicity" title="Permalink to this headline">¶</a></h5>
+<p>For attribute whose type is a sequence or a set (collection), it may
+contain zero or more elements.
+DML (DMS) provide a specialized, lightweight construct useful for
+constraining the size of sequence/set. For example, see
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L18-20">dms.example.clas.ICEPulseOx.physioParams</a>.
+Each multiplicity constraint can specify the low and high bounds (inclusive)
+for the number of elements in the sequence/set (as usual, the low bound
+should be equal or less than the high bound); by default, the low bound
+is <tt class="docutils literal"><span class="pre">0</span></tt>, and the high bound is unbounded (<tt class="docutils literal"><span class="pre">*</span></tt>).
+In addition, one can specify the element type that is applicable for the
+multiplicity constraint.
+If specified, it means that the low and high bounds are on the
+number of elements whose type is a sub-type of the specified type.
+For example, the multiplicity constraint
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L18">dms.example.clas.ICEPulseOx.physioParams</a>
+specifies that <tt class="docutils literal"><span class="pre">dms.example.clas.ICEPulseOx.physioParams</span></tt> should at
+least have one <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L39">dms.example.clas.ICEPulseOx</a>.
+If the type is unspecified, then by default, it is
+<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html">Object</a>, which match any element type.</p>
+<p>The multiplicity constraint can be expressed using a general invariant
+construct (described below) such as the general invariants for
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L26-36">dms.example.clas.ICEPulseOx</a>.
+However, using the annotation eases
+the development of some tool support, for example, a tool that generates
+UML class diagrams. Thus, multiplicity constraints should be used
+first whenever possible instead of expressing them as general constraints.</p>
 </div>
 </div>
 </div>
