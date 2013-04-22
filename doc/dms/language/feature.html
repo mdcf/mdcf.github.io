@@ -60,7 +60,12 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#attribute">Attribute</a><ul>
-<li><a class="reference internal" href="#id1">Annotation</a></li>
+<li><a class="reference internal" href="#id1">Annotation</a><ul>
+<li><a class="reference internal" href="#override">Override</a></li>
+<li><a class="reference internal" href="#const">Const</a></li>
+<li><a class="reference internal" href="#multiplicity">Multiplicity</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#invariant">Invariant</a></li>
@@ -123,8 +128,8 @@
                          | &quot;&#64;Data&quot; | &quot;&#64;Settable&quot;
 <strong id="grammar-token-featureLevel">featureLevel       </strong> ::=  &quot;&#64;Schema&quot; | &quot;&#64;Class&quot; | &quot;&#64;Product&quot;| &quot;&#64;Device&quot; | &quot;&#64;Instance&quot;
 <strong id="grammar-token-featureType">featureType        </strong> ::=  ID_feature ( &quot;with&quot; ID_feature )*
-<strong id="grammar-token-attribute">attribute          </strong> ::=  <a class="reference internal" href="#grammar-token-attributeAnnotation"><tt class="xref docutils literal"><span class="pre">attributeAnnotation</span></tt></a>* &quot;val&quot; ID_attribute &quot;:&quot; <a class="reference internal" href="type.html#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a>
-<strong id="grammar-token-attributeAnnotation">attributeAnnotation</strong> ::=  &quot;&#64;Data&quot; | &quot;&#64;Settable&quot;
+<strong id="grammar-token-attribute">attribute          </strong> ::=  <a class="reference internal" href="#grammar-token-attributeAnnotation"><tt class="xref docutils literal"><span class="pre">attributeAnnotation</span></tt></a>* [ &quot;final&quot; ] &quot;val&quot; ID_attribute &quot;:&quot; <a class="reference internal" href="type.html#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a>
+<strong id="grammar-token-attributeAnnotation">attributeAnnotation</strong> ::=  &quot;override&quot; | &quot;&#64;Data&quot; | &quot;&#64;Settable&quot;
                          | &quot;&#64;Const&quot;
                              [ &quot;(&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a>
                                    | &quot;value&quot; &quot;=&quot; <a class="reference internal" href="#grammar-token-constLevel"><tt class="xref docutils literal"><span class="pre">constLevel</span></tt></a> &quot;,&quot;
@@ -143,20 +148,28 @@
 <p>Feature declarations are used to introduce compound types consisting of
 a set of named attributes for modeling parts or complete medical device
 features. Attributes are used to model information that may or must present in
-devices at design-time, assembly-time, configuration-time,
-coordination initialization-time, and at runtime. Moreover, features can declare
-invariants over attribute values that express information consistency
-constraints.</p>
+devices. Moreover, features can declare invariants over attribute values that
+express information consistency constraints.
+For example, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L14-28">dms.example.schema.Range</a>
+feature is used to model a number range information between <tt class="docutils literal"><span class="pre">min</span></tt>
+and <tt class="docutils literal"><span class="pre">max</span></tt> (inclusive), and an invariant that states that <tt class="docutils literal"><span class="pre">min</span></tt> is less than
+or equal to <tt class="docutils literal"><span class="pre">max</span></tt>. (Note that in Scala, backticks can delimit
+<a class="reference external" href="http://stackoverflow.com/questions/6576594/need-clarification-on-scala-literal-identifiers-backticks">unconventional identifiers</a>).</p>
 <p>Requirement declarations are used to introduce constraints for features that
-depend on other features, which are useful for medical device coordination.</p>
+depend on other features, which are useful for medical device coordination.
+For example, the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L15-38">dms.example.requirement.MyReqPulseOx</a>
+states a requirement for a pulse oximeter that has the specific SpO2
+and pulse rate ranges.</p>
 <div class="section" id="feature">
 <h2>Feature<a class="headerlink" href="#feature" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hierarchy">
 <h3>Hierarchy<a class="headerlink" href="#hierarchy" title="Permalink to this headline">¶</a></h3>
 <p>Similar to basic types, feature sub-type hierarchy forms a lattice with
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L65">dms.Feature</a> at the top. By allowing multiple feature inheritance, one can mix-in
-different features to put together complete device features. As stated in
-the <a class="reference internal" href="#sec-feature-wf"><em>Well-Formedness</em></a> Section below,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L65">dms.Feature</a> at the top. By allowing multiple feature inheritance
+(<a class="reference external" href="#grammar-token-featureType">featureType</a>), one can mix-in
+different features to put together larger device parts or complete device
+features. As stated in the <a class="reference internal" href="#sec-feature-wf"><em>Well-Formedness</em></a> Section below,
 we avoid the dreaded <a class="reference external" href="http://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond problem</a>
 associated with multiple inheritance over feature attributes by disallowing it
 completely instead of allowing mitigations or workarounds.</p>
@@ -165,48 +178,108 @@ completely instead of allowing mitigations or workarounds.</p>
 <h3>Annotation<a class="headerlink" href="#annotation" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="level">
 <h4>Level<a class="headerlink" href="#level" title="Permalink to this headline">¶</a></h4>
-<p>DML (DMS) recognize four levels of features for staging when constant attribute
-values have to be provided:</p>
+<p>DML (DMS) recognize four main levels of features for staging device type
+refinement and when constant attribute values should be provided:</p>
 <ul class="simple">
-<li>Schema (<tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>). In DMS, schema features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>.</li>
-<li>Class (<tt class="docutils literal"><span class="pre">&#64;Class</span></tt>). In DMS, class features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>.</li>
-<li>Product/Device (<tt class="docutils literal"><span class="pre">&#64;Product</span></tt>/<tt class="docutils literal"><span class="pre">&#64;Device</span></tt>). Product and Device are
+<li><tt class="docutils literal"><span class="pre">Schema</span></tt> (<tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>). In DMS, schema features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>.</li>
+<li><tt class="docutils literal"><span class="pre">Class</span></tt> (<tt class="docutils literal"><span class="pre">&#64;Class</span></tt>). In DMS, class features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>.</li>
+<li><tt class="docutils literal"><span class="pre">Product</span></tt>/<tt class="docutils literal"><span class="pre">Device</span></tt> (<tt class="docutils literal"><span class="pre">&#64;Product</span></tt>/<tt class="docutils literal"><span class="pre">&#64;Device</span></tt>). <tt class="docutils literal"><span class="pre">Product</span></tt> and <tt class="docutils literal"><span class="pre">Device</span></tt>
 differentiate device parts and complete devices, respectively.
 In DMS, product features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>, while device features
 are declared using <tt class="docutils literal"><span class="pre">final</span></tt> <a class="reference external" href="http://www.scala-lang.org/node/132">class</a>.</li>
-<li>Instance (<tt class="docutils literal"><span class="pre">&#64;Instance</span></tt>). In DMS, instances are not represented as they belong
-to a running <a class="reference external" href="http://mdcf.santos.cis.ksu.edu">MDCF</a> instance.</li>
+<li><tt class="docutils literal"><span class="pre">Instance</span></tt> (<tt class="docutils literal"><span class="pre">&#64;Instance</span></tt>). In DML (DMS), instances are not represented as
+they belong to a running <a class="reference external" href="http://mdcf.santos.cis.ksu.edu">MDCF</a> instance.</li>
 </ul>
 <p>At each level, one can add a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> qualifier that indicates custom sub-levels
 within the provided four levels.</p>
-<p>In addition to specifying feature level per feature declaration, one can
-dedicate a Scala/Java package for the level and annotate the package with
-<tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Class</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Product</span></tt>, and <tt class="docutils literal"><span class="pre">&#64;Device</span></tt> instead.</p>
+<p>In addition to specifying feature level at each feature declaration, one can
+dedicate a Scala/Java package for a particular level and annotate the package
+with <tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Class</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Product</span></tt>, or <tt class="docutils literal"><span class="pre">&#64;Device</span></tt> instead.</p>
 <p>Unfortunately,
 <a class="reference external" href="https://issues.scala-lang.org/browse/SI-3600">Scala does not support annotating packages</a>,
 thus, this should be done using Java&#8217;s
 <a class="reference external" href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-7.html">package-info.java</a>
-facility. For examples, see the following package infos:</p>
+facility. For example, see the following package infos:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/example/schema/package-info.java">dms.example.schema package-info.java</a></li>
 <li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/example/clas/package-info.java">dms.example.class package-info.java</a></li>
 <li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/example/device/package-info.java">dms.example.device package-info.java</a></li>
 </ul>
 <p>The package annotation scheme sets the default level for any feature declared in
-the package; this default can still be be overriden by specifying the level in a
+the package; this default can still be overriden by specifying the level in a
 feature declaration.</p>
+<p>If the feature or package level are not provided, the level is considered
+as <tt class="docutils literal"><span class="pre">Unspecified</span></tt>.</p>
 </div>
 <div class="section" id="data">
 <h4>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h4>
+<p>The <tt class="docutils literal"><span class="pre">&#64;Data</span></tt> annotation indicates that the declared feature&#8217;s attributes
+form inter-device communication structures. Data features should not contain
+<tt class="docutils literal"><span class="pre">&#64;Settable</span></tt> attributes or attributes whose type contains a <tt class="docutils literal"><span class="pre">&#64;Settable</span></tt>
+feature. For example, see the various features in
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L114-115">dms.example.schema.Schema.scala starting with the MetricAttribute feature</a>.</p>
 </div>
 <div class="section" id="settable">
 <h4>Settable<a class="headerlink" href="#settable" title="Permalink to this headline">¶</a></h4>
+<p>The <tt class="docutils literal"><span class="pre">&#64;Settable</span></tt> annotation indicates that the feature attribute values can
+be assigned; by default, attribute values are read-only. Settable features
+should not contain <tt class="docutils literal"><span class="pre">&#64;Data</span></tt> or <tt class="docutils literal"><span class="pre">&#64;Const</span></tt> attributes or attributes whose type
+contains <tt class="docutils literal"><span class="pre">&#64;Data</span></tt> or <tt class="docutils literal"><span class="pre">&#64;Const</span></tt>.
+For example, see the various features in
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L206-212">dms.example.schema.Schema.scala starting with the RangeSetting feature</a>.</p>
 </div>
 </div>
 <div class="section" id="attribute">
 <h3>Attribute<a class="headerlink" href="#attribute" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned previously, attributes are used to model information stored in
+devices. Attribute types can be either basic type, feature, or other compound
+types such as a sequence or a set as described in the
+<a class="reference internal" href="type.html#sec-type-initialization"><em>Type and Initialization</em></a> Section. Moreover, an attribute declaration can
+be accompanied with an initial attribute value.</p>
 <div class="section" id="id1">
 <h4>Annotation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>In addition to <tt class="docutils literal"><span class="pre">&#64;Data</span></tt> and <tt class="docutils literal"><span class="pre">&#64;Settable</span></tt> similar to feature, attributes can
+be annotated as overriding previously declared attribute (<tt class="docutils literal"><span class="pre">override</span></tt>),
+constants (<tt class="docutils literal"><span class="pre">&#64;Const</span></tt>), or multiplity constraints (<tt class="docutils literal"><span class="pre">&#64;Multiplicity</span></tt>) for
+attributes whose type is a set and or a sequence.</p>
+<div class="section" id="override">
+<h5>Override<a class="headerlink" href="#override" title="Permalink to this headline">¶</a></h5>
+<p>The override annotation expressed as a Scala modifier is used to indicate
+that the declared attribute is a refinement of attributes that have been
+declared by one of the feature&#8217;s super-types. The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> auto-detects
+overriding attributes, however, it is strongly recommended that <tt class="docutils literal"><span class="pre">override</span></tt> is
+explicitly specified for documentation purpose and to prevent specification
+mistakes (e.g., typos) that inadvertently lead to introductions of new
+attributes instead of refining existing ones.</p>
+<p>There are three reasons why one wants to override an attribute:</p>
+<ol class="arabic simple">
+<li>To <a class="reference internal" href="type.html#sec-type-refinement"><em>refine the attribute type</em></a> to be more
+specific; for example, see
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L31-32">dms.example.schema.IntRange</a>.</li>
+<li>To assign an initial (or the constant) value; for example, see
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L16">dms.example.clas.ICEPulseOx.type</a></li>
+<li>To add multiplicity constraints; for example, see
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L18-20">dms.example.clas.ICEPulseOx.physioParams</a></li>
+</ol>
+</div>
+<div class="section" id="const">
+<h5>Const<a class="headerlink" href="#const" title="Permalink to this headline">¶</a></h5>
+<p>The constant annotation indicates that the attributes hold
+non-changing information after they are initialized. The initialization
+level (and sub-level qualifier) can be specified to enforce that the constant
+value is assigned at a specific level (and sub-level, if provided).
+For example, see the <tt class="docutils literal"><span class="pre">type</span></tt> attribute of
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L50-51">dms.example.schema.ICEDevice</a> that specifies
+its constant value has to be provided at the <tt class="docutils literal"><span class="pre">Class</span></tt> level
+(without qualifier, which means at any sub-level before it is used in the
+<tt class="docutils literal"><span class="pre">Product</span></tt>/<tt class="docutils literal"><span class="pre">Device</span></tt> level). This is satisfied, for example, by the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L16">dms.example.clas.ICEPulseOx</a> feature.
+A declaration of a constant attribute with initialization should be
+declared as <tt class="docutils literal"><span class="pre">final</span></tt>.</p>
+</div>
+<div class="section" id="multiplicity">
+<h5>Multiplicity<a class="headerlink" href="#multiplicity" title="Permalink to this headline">¶</a></h5>
+</div>
 </div>
 </div>
 <div class="section" id="invariant">

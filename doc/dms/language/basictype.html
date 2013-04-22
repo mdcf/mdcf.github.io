@@ -319,7 +319,7 @@ basic type or <a class="reference external" href="https://github.com/mdcf/device
 </ol>
 <p>In DMS, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> enforces the first rule; more precisely,
 it only recoqnizes a Scala type as a basic type if it is a descendant of
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a>.
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a> (and not a descendant of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L65">dms.Feature</a>).
 The second rule is enforced by the Scala compiler.</p>
 </div>
 </div>
