@@ -196,7 +196,8 @@ they belong to a running <a class="reference external" href="http://mdcf.santos.
 </ul>
 <p>At each level, one can add a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> qualifier
 (<tt class="docutils literal"><span class="pre">[</span> <span class="pre">&quot;(&quot;</span> <span class="pre">&lt;scalaExp</span> <span class="pre">:</span> <span class="pre">java.lang.String(S)&gt;</span> <span class="pre">&quot;)&quot;</span> <span class="pre">]</span></tt>)
-that indicates custom sub-levels within the provided four levels.</p>
+that indicates custom sub-levels within the provided four levels; by
+default, the qualifier is an empty string (<tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>).</p>
 <p>In addition to specifying feature level at each feature declaration, one
 can dedicate a Scala/Java package for a particular level and annotate the
 package with <tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Class</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Product</span></tt>, or <tt class="docutils literal"><span class="pre">&#64;Device</span></tt>
@@ -369,9 +370,96 @@ The fully-resolved Scala AST is then retrieved by the
 </div>
 <div class="section" id="representation-classes">
 <h3>Representation Classes<a class="headerlink" href="#representation-classes" title="Permalink to this headline">¶</a></h3>
+<p>Below is a table that maps grammar productions related to feature and
+its DML AST representation classes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Grammar Non-Terminals</th>
+<th class="head">DML AST Classes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="#grammar-token-feature">feature</a></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Feature.java">dml.ast.Feature</a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="#grammar-token-featureAnnotation">featureAnnotation</a></td>
+<td><p class="first"><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/FeatureAnnotation.java">dml.ast.FeatureAnnotation</a></p>
+<ul class="last simple">
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/FeatureLevelAnnotation.java">dml.ast.FeatureLevelAnnotation</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/DataAnnotation.java">dml.ast.DataAnnotation</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/SettableAnnotation.java">dml.ast.SettableAnnotation</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="#grammar-token-featureLevel">featureLevel</a></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/FeatureLevel.java">dml.ast.FeatureLevel</a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="#grammar-token-featureType">featureType</a></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/NamedType.java">dml.ast.NamedType</a> (list of)</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="#grammar-token-attribute">attribute</a></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Attribute.java">dml.ast.Attribute</a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="#grammar-token-attributeAnnotation">attributeAnnotation</a></td>
+<td><p class="first"><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AttributeAnnotation.java">dml.ast.AttributeAnnotation</a></p>
+<ul class="last simple">
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/OverrideAnnotation.java">dml.ast.OverrideAnnotation</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/DataAnnotation.java">dml.ast.DataAnnotation</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/SettableAnnotation.java">dml.ast.SettableAnnotation</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/ConstAnnotation.java">dml.ast.ConstAnnotation</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/MultiplicityAnnotation.java">dml.ast.MultiplicityAnnotation</a></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="#grammar-token-constLevel">constLevel</a></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/FeatureLevel.java">dml.ast.FeatureLevel</a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="#grammar-token-invariantObject">invariantObject</a></td>
+<td><em>not represented</em>; invariants stored directly in
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Feature.java">dml.ast.Feature</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Feature.html#members">members</a></td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="#grammar-token-invariant">invariant</a></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Invariant.java">dml.ast.Invariant</a></td>
+</tr>
+</tbody>
+</table>
+<p>Currently, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Invariant.java">dml.ast.Invariant</a>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Invariant.html#predicate">predicates</a>
+are not represented using custom DML AST classes
+(the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Invariant.html#predicate">predicate</a> type is
+<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html">java.lang.Object</a>);
+the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Invariant.html#predicate">predicate</a> is currently
+represented using
+<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.reflect.api.Trees">Scala scala.reflect.api.Trees types</a>.
+As DML (DMS) expression language is evolved, we will introduce custom
+AST classes for representing predicates.</p>
 </div>
 <div class="section" id="symbol-table">
 <h3>Symbol Table<a class="headerlink" href="#symbol-table" title="Permalink to this headline">¶</a></h3>
+<p>There are several methods provided by the symbol table API related to
+features. Below is the list of relevant methods (please see the documentation
+in the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> that describes the methods):</p>
+<ul class="simple">
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#features()">features</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#feature(java.lang.String)">feature</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#featureOpt(java.lang.String)">featureOpt</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#allAttributeMap(java.lang.Iterable)">all...</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#declarationMap()">declarationMap</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#declarationNames()">declarationNames</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#declaredAttributeMap(java.lang.String)">declared...</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#isFeature(java.lang.String)">isFeature</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#isSubTypeOf(java.lang.String,%20java.lang.String)">isSubTypeOf</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#isSuperTypeOf(java.lang.String,%20java.lang.String)">isSuperTypeOf</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#kind(java.lang.String)">kind</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#kindOpt(java.lang.String)">kindOpt</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#subTransitiveMap()">subTransitiveMap</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#superTransitiveMap()">superTransitiveMap</a></li>
+</ul>
 </div>
 <div class="section" id="well-formedness">
 <span id="sec-feature-wf"></span><h3>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h3>
