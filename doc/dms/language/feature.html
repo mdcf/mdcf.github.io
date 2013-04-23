@@ -141,27 +141,29 @@
 <strong id="grammar-token-constLevel">constLevel         </strong> ::=  &quot;SCHEMA&quot; | &quot;CLASS&quot; | &quot;PRODUCT&quot; | &quot;INSTANCE&quot; | &quot;UNSPECIFIED&quot;
 <strong id="grammar-token-invariantObject">invariantObject    </strong> ::=  &quot;object&quot; ID_feature &quot;{&quot; <a class="reference internal" href="#grammar-token-invariant"><tt class="xref docutils literal"><span class="pre">invariant</span></tt></a>* &quot;}&quot;
 <strong id="grammar-token-invariant">invariant          </strong> ::=  &quot;&#64;Inv&quot; &quot;val&quot; ID_invariant &quot;:&quot; &quot;Predicate&quot; &quot;[&quot; <a class="reference internal" href="#grammar-token-predicateType"><tt class="xref docutils literal"><span class="pre">predicateType</span></tt></a> &quot;]&quot; &quot;=&quot;
-                           &quot;pred&quot; &quot;{&quot; ID &quot;:&quot; <a class="reference internal" href="#grammar-token-predicateType"><tt class="xref docutils literal"><span class="pre">predicateType</span></tt></a> &quot;=&gt;&quot; &lt;scalaExp : Boolean&gt; &quot;}&quot;
+                           &quot;pred&quot; &quot;{&quot; ID &quot;:&quot; <a class="reference internal" href="#grammar-token-predicateType"><tt class="xref docutils literal"><span class="pre">predicateType</span></tt></a> &quot;=&gt;&quot; &lt;scalaExp : dms.Boolean&gt; &quot;}&quot;
 <strong id="grammar-token-predicateType">predicateType      </strong> ::=  <a class="reference internal" href="#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a>
                          | &quot;(&quot; <a class="reference internal" href="#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> )+ &quot;)&quot;
 <strong id="grammar-token-requirement">requirement        </strong> ::=  &quot;&#64;Req&quot; &quot;object&quot; ID_requirement &quot;{&quot; <a class="reference internal" href="#grammar-token-invariant"><tt class="xref docutils literal"><span class="pre">invariant</span></tt></a>* &quot;}&quot;
 </pre>
-<p>Feature declarations are used to introduce compound types consisting of
+<p><a class="reference external" href="#grammar-token-feature">Feature declarations</a>
+are used to introduce compound types consisting of
 a set of named attributes for modeling parts or complete medical device
-features. Attributes are used to model information that may or must present in
-devices. Moreover, features can declare invariants over attribute values that
+features. <a class="reference external" href="#grammar-token-attribute">Attributes</a>
+are used to model information that may or must present in
+devices. Moreover, features can declare
+<a class="reference external" href="#grammar-token-invariant">invariants</a> over attribute values that
 express information consistency constraints.
-For example, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L14-28">dms.example.schema.Range</a>
-feature is used to model a number range information between <tt class="docutils literal"><span class="pre">min</span></tt>
-and <tt class="docutils literal"><span class="pre">max</span></tt> (inclusive), and an invariant that states that <tt class="docutils literal"><span class="pre">min</span></tt> is less than
-or equal to <tt class="docutils literal"><span class="pre">max</span></tt>. (Note that in Scala, backticks can delimit
+For example, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L14-28">dms.example.schema.Range</a> feature is used to model a number range
+information between <tt class="docutils literal"><span class="pre">min</span></tt> and <tt class="docutils literal"><span class="pre">max</span></tt> (inclusive), and an invariant that
+states that <tt class="docutils literal"><span class="pre">min</span></tt> is less than or equal to <tt class="docutils literal"><span class="pre">max</span></tt>. (Note that in Scala,
+backticks can delimit
 <a class="reference external" href="http://stackoverflow.com/questions/6576594/need-clarification-on-scala-literal-identifiers-backticks">unconventional identifiers</a>).</p>
-<p>Requirement declarations are used to introduce constraints for features that
+<p><a class="reference external" href="#grammar-token-requirement">Requirement declarations</a>
+are used to introduce constraints for features that
 depend on other features, which are useful for medical device coordination.
-For example, the
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L15-38">dms.example.requirement.MyReqPulseOx</a>
-states a requirement for a pulse oximeter that has the specific SpO2
-and pulse rate ranges.</p>
+For example, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L15-38">dms.example.requirement.MyReqPulseOx</a> states a requirement for a pulse oximeter
+that has the specific SpO2 and pulse rate ranges.</p>
 <div class="section" id="feature">
 <h2>Feature<a class="headerlink" href="#feature" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hierarchy">
@@ -179,8 +181,9 @@ completely instead of allowing mitigations or workarounds.</p>
 <h3>Annotation<a class="headerlink" href="#annotation" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="level">
 <h4>Level<a class="headerlink" href="#level" title="Permalink to this headline">¶</a></h4>
-<p>DML (DMS) recognize four main levels of features for staging device type
-refinement and when constant attribute values should be provided:</p>
+<p>DML (DMS) recognize <a class="reference external" href="#grammar-token-featureLevel">four main levels of features</a>
+for staging device type refinement and when constant attribute values
+should be provided:</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">Schema</span></tt> (<tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>). In DMS, schema features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>.</li>
 <li><tt class="docutils literal"><span class="pre">Class</span></tt> (<tt class="docutils literal"><span class="pre">&#64;Class</span></tt>). In DMS, class features are declared using <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a>.</li>
@@ -191,11 +194,13 @@ are declared using <tt class="docutils literal"><span class="pre">final</span></
 <li><tt class="docutils literal"><span class="pre">Instance</span></tt> (<tt class="docutils literal"><span class="pre">&#64;Instance</span></tt>). In DML (DMS), instances are not represented as
 they belong to a running <a class="reference external" href="http://mdcf.santos.cis.ksu.edu">MDCF</a> instance.</li>
 </ul>
-<p>At each level, one can add a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> qualifier that indicates custom sub-levels
-within the provided four levels.</p>
-<p>In addition to specifying feature level at each feature declaration, one can
-dedicate a Scala/Java package for a particular level and annotate the package
-with <tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Class</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Product</span></tt>, or <tt class="docutils literal"><span class="pre">&#64;Device</span></tt> instead.</p>
+<p>At each level, one can add a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> qualifier
+(<tt class="docutils literal"><span class="pre">[</span> <span class="pre">&quot;(&quot;</span> <span class="pre">&lt;scalaExp</span> <span class="pre">:</span> <span class="pre">java.lang.String(S)&gt;</span> <span class="pre">&quot;)&quot;</span> <span class="pre">]</span></tt>)
+that indicates custom sub-levels within the provided four levels.</p>
+<p>In addition to specifying feature level at each feature declaration, one
+can dedicate a Scala/Java package for a particular level and annotate the
+package with <tt class="docutils literal"><span class="pre">&#64;Schema</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Class</span></tt>, <tt class="docutils literal"><span class="pre">&#64;Product</span></tt>, or <tt class="docutils literal"><span class="pre">&#64;Device</span></tt>
+instead.</p>
 <p>Unfortunately,
 <a class="reference external" href="https://issues.scala-lang.org/browse/SI-3600">Scala does not support annotation on packages</a>,
 thus, this should be done using Java&#8217;s
@@ -232,7 +237,8 @@ For example, see the various features in
 </div>
 <div class="section" id="attribute">
 <h3>Attribute<a class="headerlink" href="#attribute" title="Permalink to this headline">¶</a></h3>
-<p>As mentioned previously, attributes are used to model information stored in
+<p>As mentioned previously, <a class="reference external" href="#grammar-token-attribute">attributes</a>
+are used to model information stored in
 devices. Attribute types can be either basic type, feature, or other compound
 types such as a sequence or a set as described in the
 <a class="reference internal" href="type.html#sec-type-initialization"><em>Type and Initialization</em></a> Section. Moreover, an attribute declaration can
@@ -240,9 +246,11 @@ be accompanied with an initial attribute value.</p>
 <div class="section" id="id1">
 <h4>Annotation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <p>In addition to <tt class="docutils literal"><span class="pre">&#64;Data</span></tt> and <tt class="docutils literal"><span class="pre">&#64;Settable</span></tt> similar to feature, attributes can
-be annotated as overriding previously declared attribute (<tt class="docutils literal"><span class="pre">override</span></tt>),
+be <a class="reference external" href="#grammar-token-featureAnnotation">annotated</a>
+as overriding previously declared attribute (<tt class="docutils literal"><span class="pre">override</span></tt>),
 constants (<tt class="docutils literal"><span class="pre">&#64;Const</span></tt>), or multiplity constraints (<tt class="docutils literal"><span class="pre">&#64;Multiplicity</span></tt>) for
-attributes whose type is a set and or a sequence.</p>
+attributes whose type is a set and or a sequence. Note that <tt class="docutils literal"><span class="pre">override</span></tt>
+should be listed last to adhere to Scala&#8217;s grammar.</p>
 <div class="section" id="override">
 <h5>Override<a class="headerlink" href="#override" title="Permalink to this headline">¶</a></h5>
 <p>The override annotation expressed as a Scala modifier is used to indicate
@@ -256,7 +264,7 @@ attributes instead of refining existing ones.</p>
 <ol class="arabic simple">
 <li>To <a class="reference internal" href="type.html#sec-type-refinement"><em>refine the attribute type</em></a> to be more
 specific; for example, see
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L31-32">dms.example.schema.IntRange</a>.</li>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L31-32">dms.example.schema.IntRange min and max</a>.</li>
 <li>To assign an initial (or the constant) value; for example, see
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L16">dms.example.clas.ICEPulseOx.type</a></li>
 <li>To add multiplicity constraints; for example, see
@@ -311,6 +319,53 @@ first whenever possible instead of expressing them as general constraints.</p>
 </div>
 <div class="section" id="invariant">
 <h3>Invariant<a class="headerlink" href="#invariant" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="#grammar-token-invariant">Invariant declarations</a>
+are used to state feature consistency constraints.
+Instead of declaring them in the feature <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a> or <a class="reference external" href="http://www.scala-lang.org/node/132">class</a>, invariants
+are declared in the feature <a class="reference external" href="http://stackoverflow.com/questions/609744/what-is-the-rationale-behind-having-companion-objects-in-scala">companion object</a>
+(<a class="reference external" href="#grammar-token-invariantObject">invariantObject</a>).</p>
+<p>In DMS, each invariant declaration is represented using a <a class="reference external" href="http://stackoverflow.com/questions/1791408/what-is-the-difference-between-a-var-and-val-definition-in-scala">val</a> that is
+annotated with <tt class="docutils literal"><span class="pre">&#64;Inv</span></tt> and whose type
+(<a class="reference external" href="#grammar-token-predicateType">predicateType</a>) is a
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L103">dms.Predicate</a> over the type of the feature (<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L103">dms.Predicate</a> returns <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a>, i.e.,
+not to be confused with <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Boolean">scala.Boolean</a>).
+For example,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L23-27">dms.example.schema.Range&#8217;s invariant</a> should have the type of a <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L103">dms.Predicate</a> over <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L14-28">dms.example.schema.Range</a>,
+i.e., <tt class="docutils literal"><span class="pre">dms.Predicate[dms.example.schema.Range]</span></tt>.</p>
+<p>The invariant <a class="reference external" href="http://stackoverflow.com/questions/1791408/what-is-the-difference-between-a-var-and-val-definition-in-scala">val</a> should be initialized by calling the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L105">dms.pred</a> <a class="reference external" href="http://docs.scala-lang.org/overviews/macros/overview.html">macro</a>
+that accepts a
+<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Function1">scala.Function1</a> (that in turn, accepts
+a feature type object and returns a <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a> object).
+While any Scala expression returning a function
+from the feature type to <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a> would be accepted, one should use
+the <a class="reference external" href="http://www.scala-lang.org/node/133">Scala anonymous function syntax</a> variant as
+described in the <a class="reference external" href="#grammar-token-invariant">invariant grammar</a>.</p>
+<p>The body of the function (<tt class="docutils literal"><span class="pre">&lt;scalaExp</span> <span class="pre">:</span> <span class="pre">dms.Boolean&gt;</span></tt>) should only depend
+on the function argument (i.e., no free variables are allowed), and the
+exact expression language subset is not specified at this point in time.
+Currently, we are considering the following subset:</p>
+<ol class="arabic simple">
+<li>Function application, where the function is a basic type
+<tt class="docutils literal"><span class="pre">&lt;basicOpMethod&gt;</span></tt> or methods from compound types (e.g., set or
+sequence methods).</li>
+<li>Assigment of the form <tt class="docutils literal"><span class="pre">val</span> <span class="pre">ID</span> <span class="pre">=</span> <span class="pre">exp</span></tt>, where expression is also in the
+expression language subset.</li>
+<li><a class="reference external" href="http://www.scala-lang.org/node/120">Pattern matching</a>, where the matching is over type, e.g.,
+<tt class="docutils literal"><span class="pre">case</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">PulseOx</span> <span class="pre">=&gt;</span> <span class="pre">exp</span></tt>.</li>
+<li>Field navigation, i.e., <tt class="docutils literal"><span class="pre">exp.f</span></tt>.</li>
+</ol>
+<p>As DML (DMS) are evolved, we will settle on the invariant expression
+language.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L105">dms.pred</a> <a class="reference external" href="http://docs.scala-lang.org/overviews/macros/overview.html">macro</a> is used to retrieve the fully-resolved Scala
+AST of the invariant function expression that works similarly to
+<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.reflect.api.Universe">scala.reflect.api.Universe</a>&#8216;s
+<tt class="docutils literal"><span class="pre">reify</span></tt>; the difference is that <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L105">dms.pred</a> enforces the
+expression&#8217;s type to be a function type returning <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a>.
+The fully-resolved Scala AST is then retrieved by the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> during model extraction process.</p>
+</div>
 </div>
 <div class="section" id="representation-classes">
 <h3>Representation Classes<a class="headerlink" href="#representation-classes" title="Permalink to this headline">¶</a></h3>
