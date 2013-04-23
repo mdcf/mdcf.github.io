@@ -340,19 +340,19 @@ While any Scala expression returning a function
 from the feature type to <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a> would be accepted, one should use
 the <a class="reference external" href="http://www.scala-lang.org/node/133">Scala anonymous function syntax</a> variant as
 described in the <a class="reference external" href="#grammar-token-invariant">invariant grammar</a>.</p>
-<p>The body of the function (<tt class="docutils literal"><span class="pre">&lt;scalaExp</span> <span class="pre">:</span> <span class="pre">dms.Boolean&gt;</span></tt>) should only depend
-on the function argument (i.e., no free variables are allowed), and the
-exact expression language subset is not specified at this point in time.
-Currently, we are considering the following subset:</p>
+<p>The body of the function (<tt class="docutils literal"><span class="pre">&lt;scalaExp</span> <span class="pre">:</span> <span class="pre">dms.Boolean&gt;</span></tt>) cannot depend
+on variables declared outside the function (i.e., no free variables are
+allowed). The exact expression language subset is not specified at this
+point in time. Currently, we are considering the following subset:</p>
 <ol class="arabic simple">
+<li>Attribute/field navigation, i.e., <tt class="docutils literal"><span class="pre">&lt;scalaExp&gt;.ID_attribute</span></tt>.</li>
+<li>Assigment of the form <tt class="docutils literal"><span class="pre">val</span> <span class="pre">ID</span> <span class="pre">=</span> <span class="pre">&lt;scalaExp&gt;</span></tt>.</li>
 <li>Function application, where the function is a basic type
 <tt class="docutils literal"><span class="pre">&lt;basicOpMethod&gt;</span></tt> or methods from compound types (e.g., set or
 sequence methods).</li>
-<li>Assigment of the form <tt class="docutils literal"><span class="pre">val</span> <span class="pre">ID</span> <span class="pre">=</span> <span class="pre">exp</span></tt>, where expression is also in the
-expression language subset.</li>
 <li><a class="reference external" href="http://www.scala-lang.org/node/120">Pattern matching</a>, where the matching is over type, e.g.,
-<tt class="docutils literal"><span class="pre">case</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">PulseOx</span> <span class="pre">=&gt;</span> <span class="pre">exp</span></tt>.</li>
-<li>Field navigation, i.e., <tt class="docutils literal"><span class="pre">exp.f</span></tt>.</li>
+<tt class="docutils literal"><span class="pre">case</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">PulseOx</span> <span class="pre">=&gt;</span> <span class="pre">&lt;scalaExp&gt;</span></tt>.</li>
+<li><a class="reference external" href="http://www.tutorialspoint.com/scala/scala_closures.htm">Closure</a>.</li>
 </ol>
 <p>As DML (DMS) are evolved, we will settle on the invariant expression
 language.</p>
