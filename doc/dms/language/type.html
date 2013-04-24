@@ -47,7 +47,9 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Type and Initialization</a><ul>
+<li><a class="reference internal" href="#representation-classes">Representation Classes</a></li>
 <li><a class="reference internal" href="#type-refinement">Type Refinement</a></li>
+<li><a class="reference internal" href="#well-formedness">Well-Formedness</a></li>
 </ul>
 </li>
 </ul>
@@ -87,25 +89,192 @@
 <strong id="grammar-token-type">type          </strong> ::=  &quot;Any&quot;
                     | &quot;Boolean&quot;
                     | ID_basic
+                    | <a class="reference internal" href="feature.html#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a>
                     | &quot;Option&quot; &quot;[&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> &quot;]&quot;
                     | &quot;Either&quot; &quot;[&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> &quot;,&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> &quot;]&quot;
                     | &quot;(&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> )+ &quot;)&quot;
                     | &quot;Seq&quot; &quot;[&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> &quot;]&quot;
                     | &quot;Set&quot; &quot;[&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> &quot;]&quot;
-                    | <a class="reference internal" href="feature.html#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> [ &quot;{&quot; <a class="reference internal" href="feature.html#grammar-token-attribute"><tt class="xref docutils literal"><span class="pre">attribute</span></tt></a>* &quot;}&quot; ]
 <strong id="grammar-token-initialization">initialization</strong> ::=  &quot;true&quot; | &quot;false&quot;
-                    | &lt;scalaExp : Int(N)&gt;
-                    | &lt;scalaExp : java.lang.String(S)&gt;
+                    | &lt;scalaExp : basic type value creation&gt;
+                    | &quot;new&quot; <a class="reference internal" href="feature.html#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> [ &quot;{&quot; <a class="reference internal" href="#grammar-token-attributeInit"><tt class="xref docutils literal"><span class="pre">attributeInit</span></tt></a> &quot;}&quot; ]
                     | &quot;None&quot; | &quot;Some&quot; &quot;(&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> &quot;)&quot;
                     | &quot;Left&quot; &quot;(&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> &quot;)&quot; | &quot;Right&quot; &quot;(&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> &quot;)&quot;
                     | &quot;(&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> )+ &quot;)&quot;
                     | &quot;Seq&quot; &quot;(&quot; [ <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> )* ] &quot;)&quot;
                     | &quot;Set&quot; &quot;(&quot; [ <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> )* ] &quot;)&quot;
-                    | &quot;new&quot; <a class="reference internal" href="feature.html#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> [ &quot;{&quot; <a class="reference internal" href="#grammar-token-attributeInit"><tt class="xref docutils literal"><span class="pre">attributeInit</span></tt></a> &quot;}&quot; ]
-<strong id="grammar-token-attributeInit">attributeInit </strong> ::=  [ ( <tt class="xref docutils literal"><span class="pre">attributeModifier</span></tt> | &quot;override&quot; ) ] &quot;val&quot; ID_attribute &quot;:&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> &quot;=&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a>
+<strong id="grammar-token-attributeInit">attributeInit </strong> ::=  <a class="reference internal" href="feature.html#grammar-token-attributeAnnotation"><tt class="xref docutils literal"><span class="pre">attributeAnnotation</span></tt></a>* &quot;val&quot; ID_attribute &quot;:&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> &quot;=&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a>
 </pre>
+<p>A <a class="reference external" href="#grammar-token-type">type</a> can refer to <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Any">scala.Any</a>,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a>, a declared
+<a class="reference internal" href="basictype.html#sec-basictype"><em>basic type</em></a>, or a declared
+<a class="reference internal" href="feature.html#sec-feature-requirement"><em>feature</em></a> (or a compound of
+declared features). In addition, DML (DMS) supports optional type
+(<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Option">scala.Option</a>),
+either (choice) type (<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.util.Either">scala.util.Either</a>),
+tuple type (<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Tuple2">scala.Tuple2</a>, <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Tuple3">scala.Tuple3</a>, ...,
+<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Tuple22">scala.Tuple22</a>), sequence type
+(<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Seq">scala.collection.immutable.Seq</a>), and set type
+(<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set">scala.collection.immutable.Set</a>).
+The <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.util.Either">scala.util.Either</a> type only supports a choice between
+two types. In the future, DMS will provide choice types for more than two
+types; however, for type safety guarantee, similar tricks to Scala tuple
+types need to provided (e.g., <tt class="docutils literal"><span class="pre">Either3</span></tt>, <tt class="docutils literal"><span class="pre">Either4</span></tt>, ...) and
+handled by the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a>.</p>
+<p>The <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Any">scala.Any</a> type can only be used as a placeholder for
+further attribute <a class="reference internal" href="#sec-type-refinement"><em>type refinement</em></a> and cannot
+be directly initialized; that is, the attribute type should be refined
+before initializing it.</p>
+<p>Attribute whose type is <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a> can be initialized directly by using
+Scala&#8217;s <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt> literal; the literal will be
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L95">implicitly converted</a> to <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a>. For example:</p>
+<div class="highlight-scala"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dms._</span>
+
+<span class="k">trait</span> <span class="nc">ExsBooleanInit</span> <span class="k">extends</span> <span class="nc">Feature</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">foo</span> <span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Note that an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L98">implicit conversion</a> is also
+provided from <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a> to <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Boolean">scala.Boolean</a> for convenience;
+for example, it is (implicitly) used in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L15-38">dms.example.requirement.MyReqPulseOx</a> at
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L22">line 22</a> and
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L33">line 33</a> because
+<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set">scala.collection.immutable.Set</a>
+<tt class="docutils literal"><span class="pre">exists</span></tt>
+accepts a function that returns a <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Boolean">scala.Boolean</a> value.</p>
+<p>Attribute whose type is a basic type can be initialized using a Scala
+expression (<tt class="docutils literal"><span class="pre">&lt;scalaExp:</span> <span class="pre">basic</span> <span class="pre">type</span> <span class="pre">value</span> <span class="pre">creation&gt;</span></tt>)
+as described in the <a class="reference internal" href="basictype.html#sec-basictype"><em>Basic Type</em></a> Section
+such as by using its implicit factory method (if defined). For example:</p>
+<div class="highlight-scala"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dms._</span>
+<span class="k">import</span> <span class="nn">edu.ksu.cis.santos.mdcf.dms.example._</span>
+
+<span class="k">trait</span> <span class="nc">ExsBasicType</span> <span class="k">extends</span> <span class="nc">Feature</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">foo</span> <span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Attribute whose type is a feature (or a compound of features) can be
+initialized by creating (<tt class="docutils literal"><span class="pre">new</span></tt>) the feature with
+attribute initializations. For example, see
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/NoninPulseOx.scala#L19-23">NoninPulseOx.manufacturerModel</a>.</p>
+<p>Initializations for the other types use the typical Scala factory
+methods associated with the types, whose usage syntax are specified above.
+One thing worth mentioning is that, by default, <tt class="docutils literal"><span class="pre">Seq(...)</span></tt> creates
+a <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.Seq">scala.collection.Seq</a> instead of
+<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Seq">scala.collection.immutable.Seq</a>
+that is used in DMS;
+DMS provides an
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/package.scala#L99">implicit conversion</a> from
+<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.Seq">scala.collection.Seq</a>
+to <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Seq">scala.collection.immutable.Seq</a>
+for convenience.
+On the other hand <tt class="docutils literal"><span class="pre">Set(...)</span></tt> creates
+<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set">scala.collection.immutable.Set</a>,
+hence, no conversion is necessary.</p>
+<div class="section" id="representation-classes">
+<h2>Representation Classes<a class="headerlink" href="#representation-classes" title="Permalink to this headline">¶</a></h2>
+<p>Below is a table that maps type and initialization grammar rules to
+DML AST classes that represent them.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Grammar Rules</th>
+<th class="head">DML AST Classes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">Any</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/NamedType.java">dml.ast.NamedType</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/NamedType.html#name">name</a> = <tt class="docutils literal"><span class="pre">&quot;Any&quot;</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">Boolean</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/NamedType.java">dml.ast.NamedType</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/NamedType.html#name">name</a> = <tt class="docutils literal"><span class="pre">&quot;Boolean&quot;</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ID_basic</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/NamedType.java">dml.ast.NamedType</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/NamedType.html#name">name</a> = fully-qualified name of the basic type</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ID_feature</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/NamedType.java">dml.ast.NamedType</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/NamedType.html#name">name</a> = fully-qualified name of the feature</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ID_feature</span> <span class="pre">(</span> <span class="pre">&quot;with&quot;</span> <span class="pre">ID_feature</span> <span class="pre">)+</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/RefinedType.java">dml.ast.RefinedType</a> (with empty <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/RefinedType.html#attributes">attributes</a>)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;Option&quot;</span> <span class="pre">&quot;[&quot;</span></tt> <a class="reference external" href="#grammar-token-type">type</a> <tt class="docutils literal"><span class="pre">&quot;]&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/OptionType.java">dml.ast.OptionType</a></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;Either&quot;</span> <span class="pre">&quot;[&quot;</span></tt> <a class="reference external" href="#grammar-token-type">type</a> &#8221;,&#8221; <a class="reference external" href="#grammar-token-type">type</a> <tt class="docutils literal"><span class="pre">&quot;]&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/EitherType.java">dml.ast.EitherType</a></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;(&quot;</span></tt> <cite>type</cite> <tt class="docutils literal"><span class="pre">(</span> <span class="pre">&quot;,&quot;</span></tt> <cite>type</cite> <tt class="docutils literal"><span class="pre">)+</span> <span class="pre">&quot;)&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/TupleType.java">dml.ast.TupleType</a></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;Set&quot;</span> <span class="pre">&quot;[&quot;</span></tt> <a class="reference external" href="#grammar-token-type">type</a> <tt class="docutils literal"><span class="pre">&quot;]&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/SetType.java">dml.ast.SetType</a></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;Seq&quot;</span> <span class="pre">&quot;[&quot;</span></tt> <a class="reference external" href="#grammar-token-type">type</a> <tt class="docutils literal"><span class="pre">&quot;]&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/SeqType.java">dml.ast.SeqType</a></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;true&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/BasicInit.java">dml.ast.BasicInit</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/BasicInit.html#value">value</a> = <tt class="docutils literal"><span class="pre">&quot;true&quot;</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;false&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/BasicInit.java">dml.ast.BasicInit</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/BasicInit.html#value">value</a> = <tt class="docutils literal"><span class="pre">&quot;false&quot;</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&lt;scalaExp</span> <span class="pre">:</span> <span class="pre">basic</span> <span class="pre">type</span> <span class="pre">value</span> <span class="pre">creation&gt;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/BasicInit.java">dml.ast.BasicInit</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/BasicInit.html#value">value</a> = the result of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L45">dms.BasicType</a> <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L49">asString</a></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;new&quot;</span></tt> <a class="reference external" href="#grammar-token-featureType">featureType</a> <tt class="docutils literal"><span class="pre">[</span> <span class="pre">&quot;{&quot;</span></tt> <a class="reference external" href="#grammar-token-attributeInit">attributeInit</a> <tt class="docutils literal"><span class="pre">&quot;}&quot;</span> <span class="pre">]</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/FeatureInit.java">dml.ast.FeatureInit</a></td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="#grammar-token-attributeInit">attributeInit</a></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Attribute.java">dml.ast.Attribute</a></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;None&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/NoneInit.java">dml.ast.NoneInit</a></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;Some&quot;</span> <span class="pre">&quot;(&quot;</span></tt> <a class="reference external" href="#grammar-token-initialization">initialization</a> <tt class="docutils literal"><span class="pre">&quot;)&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/SomeInit.java">dml.ast.SomeInit</a></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;Left&quot;</span> <span class="pre">&quot;(&quot;</span></tt> <a class="reference external" href="#grammar-token-initialization">initialization</a> <tt class="docutils literal"><span class="pre">&quot;)&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/EitherInit.java">dml.ast.EitherInit</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/EitherInit.html#index">index</a> = <tt class="docutils literal"><span class="pre">0</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;Right&quot;</span> <span class="pre">&quot;(&quot;</span></tt> <a class="reference external" href="#grammar-token-initialization">initialization</a> <tt class="docutils literal"><span class="pre">&quot;)&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/EitherInit.java">dml.ast.EitherInit</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/EitherInit.html#index">index</a> = <tt class="docutils literal"><span class="pre">1</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">&quot;Seq&quot;</span> <span class="pre">&quot;(&quot;</span> <span class="pre">[</span></tt> <a class="reference external" href="#grammar-token-initialization">initialization</a> <tt class="docutils literal"><span class="pre">(</span> <span class="pre">&quot;,&quot;</span></tt> <a class="reference external" href="#grammar-token-initialization">initialization</a> <tt class="docutils literal"><span class="pre">)*</span> <span class="pre">]</span> <span class="pre">&quot;)&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/SetInit.java">dml.ast.SetInit</a></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">&quot;Set&quot;</span> <span class="pre">&quot;(&quot;</span> <span class="pre">[</span></tt> <a class="reference external" href="#grammar-token-initialization">initialization</a> <tt class="docutils literal"><span class="pre">(</span> <span class="pre">&quot;,&quot;</span></tt> <a class="reference external" href="#grammar-token-initialization">initialization</a> <tt class="docutils literal"><span class="pre">)*</span> <span class="pre">]</span> <span class="pre">&quot;)&quot;</span></tt></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/SeqInit.java">dml.ast.SeqInit</a></td>
+</tr>
+</tbody>
+</table>
+<p>As can be observed <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/EitherType.java">dml.ast.EitherType</a>
+and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/EitherInit.java">dml.ast.EitherInit</a> are designed to
+support more than two choice types.
+Moreover, <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/RefinedType.java">dml.ast.RefinedType</a> supports
+declaring attributes or attribute refinements; however, we currently
+reserve this for future needs (hence, we do not describe it here
+at this point).</p>
+</div>
 <div class="section" id="type-refinement">
 <span id="sec-type-refinement"></span><h2>Type Refinement<a class="headerlink" href="#type-refinement" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="well-formedness">
+<h2>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

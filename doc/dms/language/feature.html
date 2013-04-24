@@ -385,8 +385,8 @@ The fully-resolved Scala AST is then retrieved by the
 its DML AST representation classes:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col width="38%" />
+<col width="62%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Grammar Non-Terminals</th>
@@ -395,7 +395,7 @@ its DML AST representation classes:</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td><a class="reference external" href="#grammar-token-feature">feature</a></td>
-<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Feature.java">dml.ast.Feature</a></td>
+<td><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Feature.java">dml.ast.Feature</a> with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Feature.html#name">name</a> = fully-qualified name of the feature</td>
 </tr>
 <tr class="row-odd"><td><a class="reference external" href="#grammar-token-featureAnnotation">featureAnnotation</a></td>
 <td><p class="first"><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/FeatureAnnotation.java">dml.ast.FeatureAnnotation</a></p>
@@ -489,8 +489,9 @@ a tuple of feature types
 <div class="section" id="id2">
 <h3>Representation Classes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Requirements are represented using the
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Requirement.java">dml.ast.Requirement</a> AST class and
-requirement invariant is represented using
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Requirement.java">dml.ast.Requirement</a> AST class
+(with <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Requirement.html#name">name</a> = fully-qualified
+name of the requirement) and requirement invariant is represented using
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Invariant.java">dml.ast.Invariant</a> similar to a feature
 invariant.</p>
 </div>
