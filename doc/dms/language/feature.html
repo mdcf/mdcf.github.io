@@ -71,16 +71,14 @@
 <li><a class="reference internal" href="#invariant">Invariant</a></li>
 <li><a class="reference internal" href="#representation-classes">Representation Classes</a></li>
 <li><a class="reference internal" href="#symbol-table">Symbol Table</a></li>
-<li><a class="reference internal" href="#well-formedness">Well-Formedness</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#requirement">Requirement</a><ul>
-<li><a class="reference internal" href="#id2">Invariant</a></li>
-<li><a class="reference internal" href="#id3">Representation Classes</a></li>
-<li><a class="reference internal" href="#id4">Symbol Table</a></li>
-<li><a class="reference internal" href="#id5">Well-Formedness</a></li>
+<li><a class="reference internal" href="#id2">Representation Classes</a></li>
+<li><a class="reference internal" href="#id3">Symbol Table</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#well-formedness">Well-Formedness</a></li>
 </ul>
 </li>
 </ul>
@@ -172,8 +170,10 @@ that has the specific SpO2 and pulse rate ranges.</p>
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L65">dms.Feature</a> at the top. By allowing multiple feature inheritance
 (<a class="reference external" href="#grammar-token-featureType">featureType</a>), one can mix-in
 different features to put together larger device parts or complete device
-features. As stated in the <a class="reference internal" href="#sec-feature-wf"><em>Well-Formedness</em></a> Section below,
-we avoid the dreaded <a class="reference external" href="http://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond problem</a>
+features. As stated in the
+<a class="reference internal" href="#sec-feature-requirement-wf"><em>Well-Formedness</em></a> Section below,
+we avoid the dreaded
+<a class="reference external" href="http://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond problem</a>
 associated with multiple inheritance over feature attributes by disallowing it
 completely instead of allowing mitigations or workarounds.</p>
 </div>
@@ -244,6 +244,11 @@ devices. Attribute types can be either basic type, feature, or other compound
 types such as a sequence or a set as described in the
 <a class="reference internal" href="type.html#sec-type-initialization"><em>Type and Initialization</em></a> Section. Moreover, an attribute declaration can
 be accompanied with an initial attribute value.</p>
+<p>Attributes are inherited from super-types to their sub-types.
+A sub-type can <a class="reference internal" href="type.html#sec-type-refinement"><em>refine</em></a> the attribute type
+inherited from its super-type. However, no two or more attributes with the
+same name whose declaring features are different can be inherited
+(attribute refinements are considered as declarations).</p>
 <div class="section" id="id1">
 <h4>Annotation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <p>In addition to <tt class="docutils literal"><span class="pre">&#64;Data</span></tt> and <tt class="docutils literal"><span class="pre">&#64;Settable</span></tt> similar to feature, attributes can
@@ -319,12 +324,18 @@ first whenever possible instead of expressing them as general constraints.</p>
 </div>
 </div>
 <div class="section" id="invariant">
-<h3>Invariant<a class="headerlink" href="#invariant" title="Permalink to this headline">¶</a></h3>
+<span id="sec-feature-invariant"></span><h3>Invariant<a class="headerlink" href="#invariant" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="#grammar-token-invariant">Invariant declarations</a>
 are used to state feature consistency constraints.
 Instead of declaring them in the feature <a class="reference external" href="http://www.scala-lang.org/node/126">trait</a> or <a class="reference external" href="http://www.scala-lang.org/node/132">class</a>, invariants
 are declared in the feature <a class="reference external" href="http://stackoverflow.com/questions/609744/what-is-the-rationale-behind-having-companion-objects-in-scala">companion object</a>
 (<a class="reference external" href="#grammar-token-invariantObject">invariantObject</a>).</p>
+<p>Invariants are inherited from super types to their sub-types. However,
+they are not allowed to be overriden. That is, a sub-type cannot
+declare an invariant with the same name as with any of its super types&#8217;
+invariants. The <em>effective</em> invariant of a feature is a conjunction of all
+the invariants declared by the feature and all invariants inherited from
+its super types.</p>
 <p>In DMS, each invariant declaration is represented using a <a class="reference external" href="http://stackoverflow.com/questions/1791408/what-is-the-difference-between-a-var-and-val-definition-in-scala">val</a> that is
 annotated with <tt class="docutils literal"><span class="pre">&#64;Inv</span></tt> and whose type
 (<a class="reference external" href="#grammar-token-predicateType">predicateType</a>) is a
@@ -461,24 +472,47 @@ in the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu
 <li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#superTransitiveMap()">superTransitiveMap</a></li>
 </ul>
 </div>
-<div class="section" id="well-formedness">
-<span id="sec-feature-wf"></span><h3>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h3>
-</div>
 </div>
 <div class="section" id="requirement">
 <h2>Requirement<a class="headerlink" href="#requirement" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="#grammar-token-requirement">Requirements</a> are used to express
+dependency constraints for medical device coordinations. That is, if a
+device requires some features from other devices with some specific
+properties, the device can advertise the properties as requirements.</p>
+<p>A <a class="reference external" href="#grammar-token-requirement">requirement</a> consists of invariants that
+state the required feature properties. The form of a requirement invariant
+is similar to <a class="reference internal" href="#sec-feature-invariant"><em>feature`s invariant</em></a>, except
+that a requirement invariant predicate function is allowed to work over
+a tuple of feature types
+(<a class="reference external" href="#grammar-token-predicateType">predicateType</a>:
+<tt class="docutils literal"><span class="pre">&quot;(&quot;</span> <span class="pre">`featureType`</span> <span class="pre">(</span> <span class="pre">&quot;,&quot;</span> <span class="pre">`featureType`</span> <span class="pre">)+</span> <span class="pre">&quot;)&quot;</span></tt>).</p>
 <div class="section" id="id2">
-<h3>Invariant<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3>Representation Classes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Requirements are represented using the
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Requirement.java">dml.ast.Requirement</a> AST class and
+requirement invariant is represented using
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Invariant.java">dml.ast.Invariant</a> similar to a feature
+invariant.</p>
 </div>
 <div class="section" id="id3">
-<h3>Representation Classes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3>Symbol Table<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>There are several methods provided by the symbol table API related to
+requirements. Below is the list of relevant methods (please see the
+documentation in the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> that describes the methods):</p>
+<ul class="simple">
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#requirements()">requirements</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#requirement(java.lang.String)">requirement</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#requirementOpt(java.lang.String)">requirementOpt</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#declarationMap()">declarationMap</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#declarationNames()">declarationNames</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#isRequirement(java.lang.String)">isRequirement</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#kind(java.lang.String)">kind</a></li>
+<li><a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html#kindOpt(java.lang.String)">kindOpt</a></li>
+</ul>
 </div>
-<div class="section" id="id4">
-<h3>Symbol Table<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="id5">
-<h3>Well-Formedness<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-</div>
+<div class="section" id="well-formedness">
+<span id="sec-feature-requirement-wf"></span><h2>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
