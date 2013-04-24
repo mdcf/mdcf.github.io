@@ -272,6 +272,70 @@ at this point).</p>
 </div>
 <div class="section" id="type-refinement">
 <span id="sec-type-refinement"></span><h2>Type Refinement<a class="headerlink" href="#type-refinement" title="Permalink to this headline">¶</a></h2>
+<p>In general, type refinement is determined based on sub-typing
+(<tt class="docutils literal"><span class="pre">&lt;:</span></tt>). More specifically:</p>
+<ol class="arabic">
+<li><p class="first">For all type <em>T</em>, <tt class="docutils literal"><span class="pre">Any</span></tt> (<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Any">scala.Any</a>) can
+be refined by <em>T</em>.</p>
+</li>
+<li><p class="first">A basic type <em>T</em><sub>1</sub> can be refined by another basic type
+<em>T</em><sub>2</sub> if,</p>
+<p><em>T</em><sub>2</sub> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <em>T</em><sub>1</sub>.</p>
+</li>
+<li><p class="first">A feature <em>F</em><sub>1</sub> can be refined by another feature
+<em>F</em><sub>2</sub> if,</p>
+<p><em>F</em><sub>2</sub> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <em>F</em><sub>1</sub>.</p>
+</li>
+<li><p class="first">A compound feature type <em>CF</em> = <em>F</em><sub>1</sub> <tt class="docutils literal"><span class="pre">with</span></tt> ... <tt class="docutils literal"><span class="pre">with</span></tt>
+<em>F</em><sub>N</sub> can be refined by a feature <em>F</em> if,</p>
+<p>for all i where 1 &lt;= i &lt;= N, <em>F</em> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <em>F</em><sub>i</sub>.</p>
+</li>
+<li><p class="first">For a set of features <em>FS</em> = { <em>F</em><sub>1</sub>, ..., <em>F</em><sub>N</sub> },
+let <em>With</em>(<em>FS</em>) = <em>F</em><sub>1</sub> <tt class="docutils literal"><span class="pre">with</span></tt> ... <tt class="docutils literal"><span class="pre">with</span></tt>
+<em>F</em><sub>N</sub>. A compound feature type <em>CF</em><sub>1</sub> =
+<em>F1</em><sub>1</sub> <tt class="docutils literal"><span class="pre">with</span></tt> ... <tt class="docutils literal"><span class="pre">with</span></tt> <em>F1</em><sub>N</sub>
+can be refined by another compound feature type <em>CF</em><sub>2</sub> =
+<em>F2</em><sub>1</sub> <tt class="docutils literal"><span class="pre">with</span></tt> ... <tt class="docutils literal"><span class="pre">with</span></tt> <em>F2</em><sub>M</sub> if,</p>
+<p>for all i where 1 &lt;= i &lt;= N, there exists <em>subCF</em><sub>2</sub> in
+<em>PowerSet</em>({ <em>F2</em><sub>1</sub>, ..., <em>F2</em><sub>M</sub> }) such that
+<em>With</em>(<em>subCF</em><sub>2</sub>) refines <em>F1</em><sub>i</sub>.</p>
+<p>To put it simply, a compound feature type <em>CF</em><sub>1</sub>
+can be refined by another compound feature type <em>CF</em><sub>2</sub> if,</p>
+<p>{ <em>F1</em> | <em>F1</em><sub>i</sub> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <em>F1</em>, 1 &lt;= i &lt;= N }
+is a subset of
+{ <em>F2</em> | <em>F2</em><sub>j</sub> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <em>F2</em>, 1 &lt;= j &lt;= M }.</p>
+</li>
+<li><p class="first">An option type <tt class="docutils literal"><span class="pre">Option[</span></tt> <em>T</em><sub>1</sub> <tt class="docutils literal"><span class="pre">]</span></tt> can be refined by
+<tt class="docutils literal"><span class="pre">Option[</span></tt> <em>T</em><sub>2</sub> <tt class="docutils literal"><span class="pre">]</span></tt> if,</p>
+<p><em>T</em><sub>1</sub> can be refined by <em>T</em><sub>2</sub>.</p>
+</li>
+<li><p class="first">An either type <tt class="docutils literal"><span class="pre">Either[</span></tt> <em>T</em><sub>1</sub> <tt class="docutils literal"><span class="pre">,</span></tt> <em>T</em><sub>2</sub> <tt class="docutils literal"><span class="pre">]</span></tt>
+can be refined by <tt class="docutils literal"><span class="pre">Either[</span></tt> <em>T</em><sub>3</sub> <tt class="docutils literal"><span class="pre">,</span></tt> <em>T</em><sub>4</sub> <tt class="docutils literal"><span class="pre">]</span></tt>
+if,</p>
+<p><em>T</em><sub>1</sub> can be refined by <em>T</em><sub>3</sub> and
+<em>T</em><sub>2</sub> can be refined by <em>T</em><sub>4</sub>.</p>
+</li>
+<li><p class="first">A tuple type
+<tt class="docutils literal"><span class="pre">(</span></tt> <em>T1</em><sub>1</sub> <tt class="docutils literal"><span class="pre">,</span></tt> ... <tt class="docutils literal"><span class="pre">,</span></tt> <em>T1</em><sub>N</sub> <tt class="docutils literal"><span class="pre">)</span></tt>
+can be refined by another tuple type
+<tt class="docutils literal"><span class="pre">(</span></tt> <em>T2</em><sub>1</sub> <tt class="docutils literal"><span class="pre">,</span></tt> ... <tt class="docutils literal"><span class="pre">,</span></tt> <em>T2</em><sub>N</sub> <tt class="docutils literal"><span class="pre">)</span></tt> if,</p>
+<p>for all i where 1 &lt;= i &lt;= N, <em>T1</em><sub>i</sub> can be refined by
+<em>T2</em><sub>i</sub>.</p>
+</li>
+<li><p class="first">A sequence type <tt class="docutils literal"><span class="pre">Seq[</span></tt> <em>T</em><sub>1</sub> <tt class="docutils literal"><span class="pre">]</span></tt> can be refined by
+<tt class="docutils literal"><span class="pre">Seq[</span></tt> <em>T</em><sub>2</sub> <tt class="docutils literal"><span class="pre">]</span></tt> if,</p>
+<p><em>T</em><sub>1</sub> can be refined by <em>T</em><sub>2</sub>.</p>
+</li>
+<li><p class="first">A set type <tt class="docutils literal"><span class="pre">Set[</span></tt> <em>T</em><sub>1</sub> <tt class="docutils literal"><span class="pre">]</span></tt> can be refined by
+<tt class="docutils literal"><span class="pre">Set[</span></tt> <em>T</em><sub>2</sub> <tt class="docutils literal"><span class="pre">]</span></tt> if,</p>
+<p><em>T</em><sub>1</sub> can be refined by <em>T</em><sub>2</sub>.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">&lt;:</span></tt> relation is reflexive. That is, for all type
+<em>T</em>, <em>T</em> <tt class="docutils literal"><span class="pre">&lt;:</span></tt> <em>T</em>.</p>
+</div>
 </div>
 <div class="section" id="well-formedness">
 <h2>Well-Formedness<a class="headerlink" href="#well-formedness" title="Permalink to this headline">¶</a></h2>
