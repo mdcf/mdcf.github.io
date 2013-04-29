@@ -97,39 +97,53 @@
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="specification-form">
 <h2>Specification Form<a class="headerlink" href="#specification-form" title="Permalink to this headline">¶</a></h2>
-<p>We will specify the context free grammar of the subset of Scala that is part of
-DMS using Extended Backus-Naur Form (EBNF). Specifically:</p>
+<p>We will specify the context free grammar of DMS using Extended Backus-Naur
+Form (EBNF). Specifically:</p>
 <ul class="simple">
 <li>Double quotes (<tt class="docutils literal"><span class="pre">&quot;</span></tt> ... <tt class="docutils literal"><span class="pre">&quot;</span></tt>)  delimit tokens</li>
-<li>Midbar (<tt class="docutils literal"><span class="pre">|</span></tt>) separates production alternatives</li>
-<li>Parenthesis <tt class="docutils literal"><span class="pre">(</span></tt> ... <tt class="docutils literal"><span class="pre">)</span></tt> groups rules</li>
+<li>Midbar (<tt class="docutils literal"><span class="pre">|</span></tt>) separates production rule alternatives</li>
+<li>Parenthesis ( <tt class="docutils literal"><span class="pre">(</span></tt> ... <tt class="docutils literal"><span class="pre">)</span></tt>  ) groups rules</li>
 <li>Star character (<tt class="docutils literal"><span class="pre">*</span></tt>) denotes zero or more repetition of rules</li>
 <li>Plus character (<tt class="docutils literal"><span class="pre">+</span></tt>) denotes one or more repetition of rules</li>
 <li>Square brackets (<tt class="docutils literal"><span class="pre">[</span></tt> ... <tt class="docutils literal"><span class="pre">]</span></tt>) delimit optional rules</li>
-<li><tt class="docutils literal"><span class="pre">ID</span></tt> denotes Java-like identifiers; a hint that starts with an underscore
-(<tt class="docutils literal"><span class="pre">_</span></tt>) may be given to qualify what the identifier should refer to.
-For example, <tt class="docutils literal"><span class="pre">ID_basic</span></tt> indicates that it is an identifier of a basic type.</li>
-<li>Angle brackets (<tt class="docutils literal"><span class="pre">&lt;</span></tt> ... <tt class="docutils literal"><span class="pre">&gt;</span></tt>) denotes Scala entities whose specifications
-are not formally specified in the grammar. For example,
-<tt class="docutils literal"><span class="pre">&lt;scalaExp</span> <span class="pre">:</span> <span class="pre">java.lang.String(S)&gt;</span></tt> denotes a Scala expression whose type
-resolves to some <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> constant <tt class="docutils literal"><span class="pre">S</span></tt> such as <tt class="docutils literal"><span class="pre">&quot;abc&quot;</span></tt>, which
-is equivalent to <tt class="docutils literal"><span class="pre">&quot;a&quot;</span> <span class="pre">+</span> <span class="pre">&quot;bc&quot;</span></tt> because the Scala compiler optimizes such
-static expression to a constant at compile time, hence, it not only knows that
-its type is <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>, but also that its value is <tt class="docutils literal"><span class="pre">&quot;abc&quot;</span></tt> at  runtime.
-The design intentions behind angle bracket&#8217;d rules are explained as
-the production rules using the angle brackets are discussed.</li>
+<li><tt class="docutils literal"><span class="pre">ID</span></tt> denotes Java-like identifiers; a hint that starts with an
+underscore (<tt class="docutils literal"><span class="pre">_</span></tt>) may be given to qualify what the identifier should
+refer to. For example, <tt class="docutils literal"><span class="pre">ID_basic</span></tt> indicates that it is an identifier
+of a basic type.</li>
+<li>Angle brackets (<tt class="docutils literal"><span class="pre">&lt;</span></tt> ... <tt class="docutils literal"><span class="pre">&gt;</span></tt>) denote DMS entities whose
+specifications are not formally specified in the grammar. For example,
+<tt class="docutils literal"><span class="pre">&lt;scalaExp</span> <span class="pre">:</span> <span class="pre">java.lang.String(</span></tt> <em>S</em> <tt class="docutils literal"><span class="pre">)&gt;</span></tt> denotes a Scala expression
+whose type resolves to some <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> constant <em>S</em> such as <tt class="docutils literal"><span class="pre">&quot;abc&quot;</span></tt>,
+which is equivalent to <tt class="docutils literal"><span class="pre">&quot;a&quot;</span> <span class="pre">+</span> <span class="pre">&quot;bc&quot;</span></tt> because the Scala compiler
+optimizes such static expression to a constant at compile time, hence,
+it not only knows that its type is <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>, but also that its value is
+<tt class="docutils literal"><span class="pre">&quot;abc&quot;</span></tt> at  runtime. The design intentions behind angle bracket&#8217;d
+rules are explained as the production rules using the angle brackets are
+discussed.</li>
 </ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because there are multiple ways to express the device models in
+Scala, the specification described here should not be treated as
+prescriptive. Instead, the specification is provided as a
+guideline for people that are not familiar with Scala (but
+familiar with Java) in order for the model to be accepted by the
+DMS Model Extractor; some possible variations are described on
+how one can express a model differently.</p>
+</div>
 </div>
 <div class="section" id="representation-and-api">
 <h2>Representation and API<a class="headerlink" href="#representation-and-api" title="Permalink to this headline">¶</a></h2>
-<p>In addition, for the grammar productions, we describe DML implementation classes
-and API; when referring to such classes, we use
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">dml</a> as a shorthand for the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">edu.ksu.cis.santos.mdcf.dml</a> package.
+<p>In addition, for the grammar productions, we describe DML implementation
+classes and API; when referring to such classes/packages, we use
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">dml</a> as a shorthand for the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/">edu.ksu.cis.santos.mdcf.dml</a>
+package.
 Similarly, we use <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/">dms</a> as a shorthand for the
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/">edu.ksu.cis.santos.mdcf.dms</a> package.
 The DML Abstract Syntax Tree (AST) Java classes are defined in the
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast">dml.ast</a> package with associated AST constructor methods
-in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a>, symbol table API in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a>,
+in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> (and its weak version <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">dml.ast.Ast.Weak</a>),
+symbol table API in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a>,
 visitor API in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/IVisitor.java">dml.ast.IVisitor</a> and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/AbstractVisitor.java">dml.ast.AbstractVisitor</a>,
 and XML de/serialization API in <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/serialization/XStreamer.html">dml.serialization.XStreamer</a>.
 The <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a>
@@ -168,8 +182,9 @@ the AST node.</p>
 <div class="section" id="string-representation">
 <span id="sec-string-representation"></span><h3>String Representation<a class="headerlink" href="#string-representation" title="Permalink to this headline">¶</a></h3>
 <p>Calling the <tt class="docutils literal"><span class="pre">toString</span></tt> method on an AST object or a <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/symbol/SymbolTable.html">dml.symbol.SymbolTable</a> object
-produces a valid Java and Scala code (under the appropriate import context) as a
-<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> that builds a structurally and behaviorally equivalent object.</p>
+produces a Java and Scala code as a
+<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> that, when compiled under the appropriate import context
+and executed, builds a structurally and behaviorally equivalent object.</p>
 </div>
 </div>
 </div>

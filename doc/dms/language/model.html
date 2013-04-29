@@ -104,19 +104,20 @@
 <strong id="grammar-token-declaration">declaration</strong> ::=  <a class="reference internal" href="basictype.html#grammar-token-basicType"><tt class="xref docutils literal"><span class="pre">basicType</span></tt></a> | <a class="reference internal" href="feature.html#grammar-token-feature"><tt class="xref docutils literal"><span class="pre">feature</span></tt></a> | <a class="reference internal" href="feature.html#grammar-token-requirement"><tt class="xref docutils literal"><span class="pre">requirement</span></tt></a>
 </pre>
 <p>A model may be specified in multiple Scala source files.
-For each file, a model starts with a <a class="reference external" href="#grammar-token-package">package</a>
-declaration, followed by <a class="reference external" href="#grammar-token-import">import</a> declarations and
+For each file, a model source starts with a
+<a class="reference external" href="#grammar-token-package">package</a> declaration, followed by
+<a class="reference external" href="#grammar-token-import">import</a> declarations and
 declarations of <a class="reference internal" href="basictype.html#sec-basictype"><em>basic types</em></a>,
-<a class="reference internal" href="feature.html#sec-feature-requirement"><em>features, and requirements</em></a>.
+<a class="reference internal" href="feature.html#sec-feature-requirement"><em>features, or requirements</em></a>.
 That is, it is assumed that models are
 specified in a package other than the Scala or Java &#8220;default&#8221; package.
-The grammar recommends importing all elements (specified using <tt class="docutils literal"><span class="pre">_</span></tt> instead of
-<tt class="docutils literal"><span class="pre">*</span></tt>  like in Java) defined in the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/">dms</a>
+The grammar recommends importing all elements (specified using <tt class="docutils literal"><span class="pre">_</span></tt>
+instead of <tt class="docutils literal"><span class="pre">*</span></tt>  like in Java) defined in the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/">dms</a>
 <a class="reference external" href="http://www.scala-lang.org/node/119">Scala package</a> and <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala">dms.package</a>
 <a class="reference external" href="http://www.artima.com/scalazine/articles/package_objects.html">package object</a>,
-which defines DML primordial types, <a class="reference external" href="http://www.scala-lang.org/node/130">implicit</a> conversions,
-and a <a class="reference external" href="http://docs.scala-lang.org/overviews/macros/overview.html">macro</a>, which will be described in the appropriate subsequent sections
-below.</p>
+which defines DMS primordial types, <a class="reference external" href="http://www.scala-lang.org/node/130">implicit</a> conversions,
+and a <a class="reference external" href="http://docs.scala-lang.org/overviews/macros/overview.html">macro</a>, which will be described in the appropriate subsequent
+sections below.</p>
 <p>In addition, it recommends importing <a class="reference internal" href="basictype.html#sec-basictype"><em>basic types</em></a>
 or <a class="reference internal" href="feature.html#sec-feature-requirement"><em>features</em></a> defined in
 different packages; note that Scala allows import declarations to appear in many
@@ -181,13 +182,13 @@ methods are helper methods that when given either a variable or an
 <tt class="docutils literal"><span class="pre">list()</span></tt> without a parameter type supplied for its element type returns
 <tt class="docutils literal"><span class="pre">List&lt;Object&gt;</span></tt>, which is incompatible with <tt class="docutils literal"><span class="pre">model</span></tt>&#8216;s parameter that expects
 a list of <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dml-ast/src/main/java/edu/ksu/cis/santos/mdcf/dml/ast/Declaration.java">dml.ast.Declaration</a>. To address this issue,
-one can use <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> API that have the same set
+one can use <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">dml.ast.Ast.Weak</a> API that have the same set
 of AST construction methods, but with weaker compile-time parameter types that
 are checked at runtime;
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html">IllegalArgumentException</a>
 will be thrown if the runtime types are not what expected.
 Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelWeak.java">example</a> that illustrates the use of
-<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> API:</p>
+<a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">dml.ast.Ast.Weak</a> API:</p>
 <div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -216,7 +217,7 @@ Below is an <a class="reference external" href="https://github.com/mdcf/devicemo
 <p>Below is a similar <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala">example</a> written in Scala;
 thanks to Scala&#8217;s type inference, <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> API work
 without a problem as can be seen at <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/scala/ExsModel.scala#L13">line 13</a>
-(of course <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.html">dml.ast.Ast</a> <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">.Weak</a> would work as well):</p>
+(of course <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html">dml.ast.Ast.Weak</a> would work as well):</p>
 <div class="highlight-scala"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -252,9 +253,9 @@ without a problem as can be seen at <a class="reference external" href="https://
 
   <span class="n">test</span><span class="o">(</span><span class="s">&quot;Empty model construction&quot;</span><span class="o">)</span> <span class="o">{</span>
 
-<span class="hll">    <span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">())</span> <span class="c1">// create a model with empty declarations</span>
+<span class="hll">    <span class="k">val</span> <span class="n">m</span> <span class="k">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">())</span> <span class="c1">//    create a model with empty declarations</span>
 </span>    <span class="n">println</span><span class="o">(</span><span class="n">m</span><span class="o">)</span> <span class="c1">//               output: model(list())</span>
-    <span class="n">println</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="n">declarations</span><span class="o">)</span> <span class="c1">// output: []</span>
+    <span class="n">println</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="n">declarations</span><span class="o">)</span> <span class="c1">//  output: []</span>
 
 <span class="hll">    <span class="k">val</span> <span class="n">m2</span> <span class="k">=</span> <span class="n">org</span><span class="o">.</span><span class="n">sireum</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="nc">Reflection</span><span class="o">.</span><span class="n">eval</span><span class="o">[</span><span class="kt">Model</span><span class="o">](</span><span class="n">s</span><span class="s">&quot;&quot;&quot; </span>
 </span><span class="hll"><span class="s">      import edu.ksu.cis.santos.mdcf.dml.ast.Ast._</span>
@@ -434,7 +435,7 @@ converting to/from <a class="reference external" href="http://docs.oracle.com/ja
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExModelXml</span> <span class="o">{</span>
   <span class="nd">@Test</span>
   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">de_serialization</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">Model</span> <span class="n">m</span> <span class="o">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">());</span> <span class="c1">// create a model with empty declarations</span>
+    <span class="n">Model</span> <span class="n">m</span> <span class="o">=</span> <span class="n">model</span><span class="o">(</span><span class="n">list</span><span class="o">());</span> <span class="c1">//             create a model with empty declarations</span>
     <span class="n">String</span> <span class="n">mXml</span> <span class="o">=</span> <span class="n">toXml</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">mXml</span><span class="o">);</span> <span class="c1">//            output: &lt;model&gt;</span>
     <span class="c1">//                                                &lt;declarations class=&quot;ilist&quot;&gt;&lt;/declarations&gt;</span>
