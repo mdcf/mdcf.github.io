@@ -126,13 +126,13 @@ places, including inside class declarations and expression blocks among others.<
 the fully qualified name of package elements.</p>
 <p>Some examples of Scala model files can be found at:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/BasicType.scala">BasicType</a></li>
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala">Schema</a></li>
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala">Class</a></li>
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/NoninPulseOx.scala">NoninPulseOx</a></li>
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/NellcorPulseOx.scala">NellcorPulseOx</a></li>
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/MultiMonitor.scala">MultiMonitor</a></li>
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala">App</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/BasicType.scala">BasicType</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/schema/Schema.scala">Schema</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/clas/Class.scala">Class</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/device/NoninPulseOx.scala">NoninPulseOx</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/device/NellcorPulseOx.scala">NellcorPulseOx</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/device/MultiMonitor.scala">MultiMonitor</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/requirement/App.scala">App</a></li>
 </ul>
 <p>We will use portions of the above examples to illustrate various DMS elements
 in the subsequent sections.</p>
@@ -292,7 +292,7 @@ class files (see the <a class="reference internal" href="#extractor-note"><em>no
 Given an array of package <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a> names, they return the DML AST model that is
 represented in the packages and their sub-packages.</p>
 <p>Below is an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dm-doc/src/main/java/ExModelExtractor.java">example</a> illustrating the use of
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> API to extract DMS models from the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/">dms.example</a> package
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/ModelExtractor.scala">dms.ModelExtractor</a> API to extract DMS models from the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/">dms.example</a> package
 and its sub-packages:</p>
 <div class="highlight-java"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2

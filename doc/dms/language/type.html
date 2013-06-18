@@ -142,9 +142,9 @@ Scala&#8217;s <tt class="docutils literal"><span class="pre">true</span></tt> or
 </td></tr></table></div>
 <p>Note that an <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L98">implicit conversion</a> is also
 provided from <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a> to <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Boolean">scala.Boolean</a> for convenience;
-for example, it is (implicitly) used in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L15-38">dms.example.requirement.MyReqPulseOx</a> at
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L22">line 22</a> and
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L33">line 33</a> because
+for example, it is (implicitly) used in <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/requirement/App.scala#L15-38">dms.example.requirement.MyReqPulseOx</a> at
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/requirement/App.scala#L22">line 22</a> and
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/requirement/App.scala#L33">line 33</a> because
 <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set">scala.collection.immutable.Set</a>
 <tt class="docutils literal"><span class="pre">exists</span></tt>
 accepts a function that returns a <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Boolean">scala.Boolean</a> value.</p>
@@ -168,7 +168,7 @@ such as by using its implicit factory method (if defined). For example:</p>
 <p>Attribute whose type is a feature (or a compound of features) can be
 initialized by creating (<tt class="docutils literal"><span class="pre">new</span></tt>) the feature with
 attribute initializations. For example, see
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/device/NoninPulseOx.scala#L19-23">NoninPulseOx.manufacturerModel</a>.</p>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/device/NoninPulseOx.scala#L19-23">NoninPulseOx.manufacturerModel</a>.</p>
 <p>Initializations for the other types use the typical Scala factory
 methods associated with the types, whose usage syntax are specified above.
 One thing worth mentioning is that, by default, <tt class="docutils literal"><span class="pre">Seq(...)</span></tt> creates

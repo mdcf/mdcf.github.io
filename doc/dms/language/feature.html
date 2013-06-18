@@ -154,7 +154,7 @@ are used to model information that may or must present in
 devices. Moreover, features can declare
 <a class="reference external" href="#grammar-token-invariant">invariants</a> over attribute values that
 express information consistency constraints.
-For example, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L14-28">dms.example.schema.Range</a> feature is used to model a number range
+For example, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/schema/Schema.scala#L14-28">dms.example.schema.Range</a> feature is used to model a number range
 information between <tt class="docutils literal"><span class="pre">min</span></tt> and <tt class="docutils literal"><span class="pre">max</span></tt> (inclusive), and an invariant that
 states that <tt class="docutils literal"><span class="pre">min</span></tt> is less than or equal to <tt class="docutils literal"><span class="pre">max</span></tt>. (Note that in Scala,
 backticks can delimit
@@ -162,7 +162,7 @@ backticks can delimit
 <p><a class="reference external" href="#grammar-token-requirement">Requirement declarations</a>
 are used to introduce constraints for features that
 depend on other features, which are useful for medical device coordination.
-For example, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/requirement/App.scala#L15-38">dms.example.requirement.MyReqPulseOx</a> states a requirement for a pulse oximeter
+For example, the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/requirement/App.scala#L15-38">dms.example.requirement.MyReqPulseOx</a> states a requirement for a pulse oximeter
 that has the specific SpO2 and pulse rate ranges.</p>
 <div class="section" id="feature">
 <h2>Feature<a class="headerlink" href="#feature" title="Permalink to this headline">¶</a></h2>
@@ -210,9 +210,9 @@ thus, this should be done using Java&#8217;s
 <a class="reference external" href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-7.html">package-info.java</a>
 facility. For example, see the following package infos:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/example/schema/package-info.java">dms.example.schema package-info.java</a></li>
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/example/clas/package-info.java">dms.example.class package-info.java</a></li>
-<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/example/device/package-info.java">dms.example.device package-info.java</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/examplev2/schema/package-info.java">dms.example.schema package-info.java</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/examplev2/clas/package-info.java">dms.example.class package-info.java</a></li>
+<li><a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/java/edu/ksu/cis/santos/mdcf/dms/examplev2/device/package-info.java">dms.example.device package-info.java</a></li>
 </ul>
 <p>The package annotation scheme sets the default level for any feature declared in
 the package; this default can still be overriden by specifying the level in a
@@ -226,7 +226,7 @@ as <tt class="docutils literal"><span class="pre">Unspecified</span></tt>.</p>
 form inter-device communication structures. Data features should not contain
 <tt class="docutils literal"><span class="pre">&#64;Settable</span></tt> attributes or attributes whose type contains a <tt class="docutils literal"><span class="pre">&#64;Settable</span></tt>
 feature. For example, see the various features in
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L114-115">dms.example.schema.Schema.scala starting with the MetricAttribute feature</a>.</p>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/schema/Schema.scala#L114-115">dms.example.schema.Schema.scala starting with the MetricAttribute feature</a>.</p>
 </div>
 <div class="section" id="settable">
 <h4>Settable<a class="headerlink" href="#settable" title="Permalink to this headline">¶</a></h4>
@@ -235,7 +235,7 @@ be assigned; by default, attribute values are read-only. Settable features
 should not contain <tt class="docutils literal"><span class="pre">&#64;Data</span></tt> or <tt class="docutils literal"><span class="pre">&#64;Const</span></tt> attributes or attributes whose type
 contains <tt class="docutils literal"><span class="pre">&#64;Data</span></tt> or <tt class="docutils literal"><span class="pre">&#64;Const</span></tt>.
 For example, see the various features in
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L206-212">dms.example.schema.Schema.scala starting with the RangeSetting feature</a>.</p>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/schema/Schema.scala#L206-212">dms.example.schema.Schema.scala starting with the RangeSetting feature</a>.</p>
 </div>
 </div>
 <div class="section" id="attribute">
@@ -272,11 +272,11 @@ attributes instead of refining existing ones.</p>
 <ol class="arabic simple">
 <li>To <a class="reference internal" href="type.html#sec-type-refinement"><em>refine the attribute type</em></a> to be more
 specific; for example, see
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L31-32">dms.example.schema.IntRange min and max</a>.</li>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/schema/Schema.scala#L31-32">dms.example.schema.IntRange min and max</a>.</li>
 <li>To assign an initial (or the constant) value; for example, see
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L16">dms.example.clas.ICEPulseOx.type</a></li>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/clas/Class.scala#L16">dms.example.clas.ICEPulseOx.type</a></li>
 <li>To add multiplicity constraints; for example, see
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L18-20">dms.example.clas.ICEPulseOx.physioParams</a></li>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/clas/Class.scala#L18-20">dms.example.clas.ICEPulseOx.physioParams</a></li>
 </ol>
 </div>
 <div class="section" id="const">
@@ -286,11 +286,11 @@ non-changing information after they are initialized. The initialization
 level (and sub-level qualifier) can be specified to enforce that the constant
 value is assigned at a specific level (and sub-level, if provided).
 For example, see the <tt class="docutils literal"><span class="pre">type</span></tt> attribute of
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L50-51">dms.example.schema.ICEDevice</a> that specifies
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/schema/Schema.scala#L50-51">dms.example.schema.ICEDevice</a> that specifies
 its constant value has to be provided at the <tt class="docutils literal"><span class="pre">Class</span></tt> level
 (without qualifier, which means at any sub-level before it is used in the
 <tt class="docutils literal"><span class="pre">Product</span></tt>/<tt class="docutils literal"><span class="pre">Device</span></tt> level). This is satisfied, for example, by the
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L16">dms.example.clas.ICEPulseOx</a> feature.
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/clas/Class.scala#L16">dms.example.clas.ICEPulseOx</a> feature.
 A declaration of a constant attribute with initialization should be
 declared as <tt class="docutils literal"><span class="pre">final</span></tt>.</p>
 </div>
@@ -300,7 +300,7 @@ declared as <tt class="docutils literal"><span class="pre">final</span></tt>.</p
 contain zero or more elements.
 DML (DMS) provide a specialized, lightweight construct useful for
 constraining the size of sequence/set. For example, see
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L18-20">dms.example.clas.ICEPulseOx.physioParams</a>.
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/clas/Class.scala#L18-20">dms.example.clas.ICEPulseOx.physioParams</a>.
 Each multiplicity constraint can specify the low and high bounds (inclusive)
 for the number of elements in the sequence/set (as usual, the low bound
 should be equal or less than the high bound); by default, the low bound
@@ -310,14 +310,14 @@ multiplicity constraint.
 If specified, it means that the low and high bounds are on the
 number of elements whose type is a sub-type of the specified type.
 For example, the multiplicity constraint
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L18">dms.example.clas.ICEPulseOx.physioParams</a>
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/clas/Class.scala#L18">dms.example.clas.ICEPulseOx.physioParams</a>
 specifies that <tt class="docutils literal"><span class="pre">dms.example.clas.ICEPulseOx.physioParams</span></tt> should at
-least have one <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L39">dms.example.clas.ICEPulseOx</a>.
+least have one <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/clas/Class.scala#L39">dms.example.clas.ICEPulseOx</a>.
 If the type is unspecified, then by default, it is
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html">Object</a>, which match any element type.</p>
 <p>The multiplicity constraint can be expressed using a general invariant
 construct (described below) such as the general invariants for
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/clas/Class.scala#L26-36">dms.example.clas.ICEPulseOx</a>.
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/clas/Class.scala#L26-36">dms.example.clas.ICEPulseOx</a>.
 However, using the annotation eases
 the development of some tool support, for example, a tool that generates
 UML class diagrams. Thus, multiplicity constraints should be used
@@ -344,7 +344,7 @@ annotated with <tt class="docutils literal"><span class="pre">&#64;Inv</span></t
 <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L103">dms.Predicate</a> over the type of the feature (<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L103">dms.Predicate</a> returns <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L72">dms.Boolean</a>, i.e.,
 not to be confused with <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Boolean">scala.Boolean</a>).
 For example,
-<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L23-27">dms.example.schema.Range&#8217;s invariant</a> should have the type of a <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L103">dms.Predicate</a> over <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/example/schema/Schema.scala#L14-28">dms.example.schema.Range</a>,
+<a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/schema/Schema.scala#L23-27">dms.example.schema.Range&#8217;s invariant</a> should have the type of a <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L103">dms.Predicate</a> over <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-example/src/main/scala/edu/ksu/cis/santos/mdcf/dms/examplev2/schema/Schema.scala#L14-28">dms.example.schema.Range</a>,
 i.e., <tt class="docutils literal"><span class="pre">dms.Predicate[dms.example.schema.Range]</span></tt>.</p>
 <p>The invariant <a class="reference external" href="http://stackoverflow.com/questions/1791408/what-is-the-difference-between-a-var-and-val-definition-in-scala">val</a> should be initialized by calling the <a class="reference external" href="https://github.com/mdcf/devicemodel/blob/master/mdcf-dms-core/src/main/scala/edu/ksu/cis/santos/mdcf/dms/package.scala#L105">dms.pred</a> <a class="reference external" href="http://docs.scala-lang.org/overviews/macros/overview.html">macro</a>
 that accepts a
