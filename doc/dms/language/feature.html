@@ -142,7 +142,9 @@
                            &quot;pred&quot; &quot;{&quot; ID &quot;:&quot; <a class="reference internal" href="#grammar-token-predicateType"><tt class="xref docutils literal"><span class="pre">predicateType</span></tt></a> &quot;=&gt;&quot; &lt;scalaExp : dms.Boolean&gt; &quot;}&quot;
 <strong id="grammar-token-predicateType">predicateType      </strong> ::=  <a class="reference internal" href="#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a>
                          | &quot;(&quot; <a class="reference internal" href="#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-featureType"><tt class="xref docutils literal"><span class="pre">featureType</span></tt></a> )+ &quot;)&quot;
-<strong id="grammar-token-requirement">requirement        </strong> ::=  &quot;&#64;Req&quot; &quot;object&quot; ID_requirement &quot;{&quot; <a class="reference internal" href="#grammar-token-invariant"><tt class="xref docutils literal"><span class="pre">invariant</span></tt></a>* &quot;}&quot;
+<strong id="grammar-token-requirement">requirement        </strong> ::=  [ &quot;&#64;Req&quot; ]
+                         &quot;trait&quot; ID_requirement &quot;{&quot; <a class="reference internal" href="#grammar-token-attribute"><tt class="xref docutils literal"><span class="pre">attribute</span></tt></a>* &quot;}&quot;
+                         &quot;object&quot; ID_requirement &quot;{&quot; <a class="reference internal" href="#grammar-token-invariant"><tt class="xref docutils literal"><span class="pre">invariant</span></tt></a>* &quot;}&quot;
 </pre>
 <p><a class="reference external" href="#grammar-token-feature">Feature declarations</a>
 are used to introduce compound types consisting of
@@ -479,8 +481,9 @@ in the <a class="reference external" href="http://mdcf.github.io/doc/dml/edu/ksu
 dependency constraints for medical device coordinations. That is, if a
 device requires some features from other devices with some specific
 properties, the device can advertise the properties as requirements.</p>
-<p>A <a class="reference external" href="#grammar-token-requirement">requirement</a> consists of invariants that
-state the required feature properties. The form of a requirement invariant
+<p>A <a class="reference external" href="#grammar-token-requirement">requirement</a> consists of attributes and
+invariants that state the required feature properties.
+The form of a requirement invariant
 is similar to <a class="reference internal" href="#sec-feature-invariant"><em>feature`s invariant</em></a>, except
 that a requirement invariant predicate function is allowed to work over
 a tuple of feature types

@@ -103,6 +103,7 @@
                     | &quot;(&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> )+ &quot;)&quot;
                     | &quot;Seq&quot; &quot;(&quot; [ <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> )* ] &quot;)&quot;
                     | &quot;Set&quot; &quot;(&quot; [ <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> ( &quot;,&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a> )* ] &quot;)&quot;
+                    | &quot;DYN&quot;
 <strong id="grammar-token-attributeInit">attributeInit </strong> ::=  <a class="reference internal" href="feature.html#grammar-token-attributeAnnotation"><tt class="xref docutils literal"><span class="pre">attributeAnnotation</span></tt></a>* &quot;val&quot; ID_attribute &quot;:&quot; <a class="reference internal" href="#grammar-token-type"><tt class="xref docutils literal"><span class="pre">type</span></tt></a> &quot;=&quot; <a class="reference internal" href="#grammar-token-initialization"><tt class="xref docutils literal"><span class="pre">initialization</span></tt></a>
 </pre>
 <p>A <a class="reference external" href="#grammar-token-type">type</a> can refer to <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.Any">scala.Any</a>,
@@ -181,7 +182,9 @@ to <a class="reference external" href="http://www.scala-lang.org/api/current/ind
 for convenience.
 On the other hand <tt class="docutils literal"><span class="pre">Set(...)</span></tt> creates
 <a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Set">scala.collection.immutable.Set</a>,
-hence, no conversion is necessary.</p>
+hence, no conversion is necessary.
+The <tt class="docutils literal"><span class="pre">DYN</span></tt> initialization indicates an attributes whose value is dynamic
+and not part of the device model.</p>
 <div class="section" id="representation-classes">
 <h2>Representation Classes<a class="headerlink" href="#representation-classes" title="Permalink to this headline">¶</a></h2>
 <p>Below is a table that maps type and initialization grammar rules to
