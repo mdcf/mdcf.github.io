@@ -187,6 +187,16 @@ extends <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.h
 <td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html#list(T...)">list</a></strong>(T...&nbsp;ts)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>static edu.ksu.cis.santos.mdcf.dml.ast.MapInit</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html#mapInit(java.lang.Iterable, java.lang.Iterable)">mapInit</a></strong>(<a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;?&gt;&nbsp;keyInits,
+       <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;?&gt;&nbsp;valueInits)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static edu.ksu.cis.santos.mdcf.dml.ast.MapType</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html#mapType(edu.ksu.cis.santos.mdcf.dml.ast.Type, edu.ksu.cis.santos.mdcf.dml.ast.Type)">mapType</a></strong>(<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Type.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Type</a>&nbsp;keyType,
+       <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Type.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Type</a>&nbsp;valueType)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Model.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Model</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html#model(java.lang.Iterable)">model</a></strong>(<a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;?&gt;&nbsp;declarations)</code>&nbsp;</td>
 </tr>
@@ -224,7 +234,7 @@ extends <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.h
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Requirement.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Requirement</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Ast.Weak.html#requirement(java.lang.String, java.lang.Iterable)">requirement</a></strong>(<a href="http://download.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name,
-           <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;?&gt;&nbsp;invariants)</code>&nbsp;</td>
+           <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;?&gt;&nbsp;members)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/SeqInit.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">SeqInit</a></code></td>
@@ -417,6 +427,26 @@ extends <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.h
 public static&nbsp;&lt;T&gt;&nbsp;<a href="http://download.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;T&gt;&nbsp;list(T...&nbsp;ts)</pre>
 </li>
 </ul>
+<a name="mapInit(java.lang.Iterable, java.lang.Iterable)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>mapInit</h4>
+<pre>public static&nbsp;edu.ksu.cis.santos.mdcf.dml.ast.MapInit&nbsp;mapInit(<a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;?&gt;&nbsp;keyInits,
+                                              <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;?&gt;&nbsp;valueInits)</pre>
+</li>
+</ul>
+<a name="mapType(edu.ksu.cis.santos.mdcf.dml.ast.Type, edu.ksu.cis.santos.mdcf.dml.ast.Type)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>mapType</h4>
+<pre>public static&nbsp;edu.ksu.cis.santos.mdcf.dml.ast.MapType&nbsp;mapType(<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Type.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Type</a>&nbsp;keyType,
+                                              <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Type.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Type</a>&nbsp;valueType)</pre>
+</li>
+</ul>
 <a name="model(java.lang.Iterable)">
 <!--   -->
 </a>
@@ -499,7 +529,7 @@ public static&nbsp;&lt;T&gt;&nbsp;<a href="http://download.oracle.com/javase/7/d
 <li class="blockList">
 <h4>requirement</h4>
 <pre>public static&nbsp;<a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Requirement.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Requirement</a>&nbsp;requirement(<a href="http://download.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name,
-                      <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;?&gt;&nbsp;invariants)</pre>
+                      <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;?&gt;&nbsp;members)</pre>
 </li>
 </ul>
 <a name="seqInit(java.lang.Iterable)">
