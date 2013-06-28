@@ -93,13 +93,18 @@
 <ul class="blockList">
 <li class="blockList">
 <dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;</dd>
+</dl>
+<dl>
 <dt>Direct Known Subclasses:</dt>
 <dd><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/ConstAnnotation.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">ConstAnnotation</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/DataAnnotation.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">DataAnnotation</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Declaration.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Declaration</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/FeatureLevelAnnotation.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">FeatureLevelAnnotation</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Initialization.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Initialization</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Member.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Member</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Model.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Model</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/MultiplicityAnnotation.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">MultiplicityAnnotation</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/OverrideAnnotation.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">OverrideAnnotation</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/SettableAnnotation.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">SettableAnnotation</a>, <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/Type.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">Type</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public abstract class <span class="strong">AstNode</span>
-extends <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
+extends <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
+implements <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;</pre>
 <div class="block">Top-level AST class that all AST node inherits from.</div>
 <dl><dt><span class="strong">Author:</span></dt>
   <dd><a href="mailto:robby@k-state.edu">Robby</a></dd></dl>
@@ -145,13 +150,17 @@ extends <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.h
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code><a href="http://download.oracle.com/javase/7/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/AstNode.html#iterator()">iterator</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>&lt;T extends <a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/AstNode.html" title="class in edu.ksu.cis.santos.mdcf.dml.ast">AstNode</a>&gt;&nbsp;<br>T</code></td>
 <td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/AstNode.html#make(java.lang.Object[])">make</a></strong>(<a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>[]&nbsp;args)</code>
 <div class="block">Constructs an AST node whose type is equal to this node's type with the
  provided child nodes.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="http://download.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../../../../edu/ksu/cis/santos/mdcf/dml/ast/AstNode.html#toString()">toString</a></strong>()</code>
 <div class="block">Returns the <a href="http://download.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a> representation of this AST.</div>
@@ -206,6 +215,19 @@ extends <a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.h
 <div class="block">Retrieves the immediate children of this AST.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>a possibly empty array of this node's children. The returned array
          can be mutated but it does not affect the AST.</dd></dl>
+</li>
+</ul>
+<a name="iterator()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>iterator</h4>
+<pre>public final&nbsp;<a href="http://download.oracle.com/javase/7/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;<a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;&nbsp;iterator()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true#iterator()" title="class or interface in java.lang">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="http://download.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="http://download.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;</code></dd>
+</dl>
 </li>
 </ul>
 <a name="make(java.lang.Object[])">
